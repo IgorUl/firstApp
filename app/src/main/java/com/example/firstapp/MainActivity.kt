@@ -17,9 +17,8 @@ class MainActivity : AppCompatActivity() {
     fun addString(view: View) {
 
         val str = editText.text.toString()
-        strList.add(str + "\n")
-        textView.text = strList.toString()
+        strList.add(str)
+        textView.text = strList.joinToString("\n", "", "")
+        editText.setText("")
     }
-
-
 }
