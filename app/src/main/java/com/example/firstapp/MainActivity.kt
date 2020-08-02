@@ -3,22 +3,33 @@ package com.example.firstapp
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
+import android.widget.Button
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
 
+    private val stringList = mutableListOf<String>()
+
+    //delete
+    val logic = Logic()
+    //
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-    }
 
-    private val strList = mutableListOf<String>()
+    }
 
     fun addString(view: View) {
 
         val str = editText.text.toString()
-        strList.add(str)
-        textView.text = strList.joinToString("\n", "", "")
+        stringList.add(str)
+        textView.text = stringList.joinToString("\n", "", "")
         editText.setText("")
+    }
+
+    fun sort(view: View) {
+        val sortedList = logic.mergeSort(stringList)
+        textView.text = sortedList.joinToString("\n", "", "")
     }
 }
