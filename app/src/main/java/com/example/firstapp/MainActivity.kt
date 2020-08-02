@@ -11,7 +11,7 @@ class MainActivity : AppCompatActivity() {
     private val stringList = mutableListOf<String>()
 
     //delete
-    val logic = Logic()
+    val sort = Sort()
     //
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -29,7 +29,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     fun sort(view: View) {
-        val sortedList = logic.mergeSort(stringList)
+        val sortedList = sort.mergeSort(stringList)
         textView.text = sortedList.joinToString("\n", "", "")
     }
 }
