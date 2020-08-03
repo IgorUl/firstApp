@@ -17,7 +17,7 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
 
 
-        // почему если передавать it, то приложение крашиться
+        // почему если передавать it, то приложение крашится
         addButton.setOnClickListener {
             logic.addString(textView, editText)
             editText.setText("")
@@ -25,5 +25,8 @@ class MainActivity : AppCompatActivity() {
         sortButton.setOnClickListener {
             logic.sort(textView)
         }
+
     }
+
+
 }
