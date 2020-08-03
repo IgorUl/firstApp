@@ -21,7 +21,7 @@ class Sort {
         val newList: MutableList<String> = mutableListOf()
 
         while (indexLeft < left.count() && indexRight < right.count()) {
-            if (left[indexLeft] <= right[indexRight]) {
+            if (left[indexLeft].toLowerCase() <= right[indexRight].toLowerCase()) {
                 newList.add(left[indexLeft])
                 indexLeft++
             } else {
