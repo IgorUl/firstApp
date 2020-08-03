@@ -3,6 +3,8 @@ package com.example.firstapp
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
+import android.widget.RadioButton
+import android.widget.RadioGroup
 
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.activity_main.view.*
@@ -16,14 +18,14 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-
         // почему если передавать it, то приложение крашится
         addButton.setOnClickListener {
             logic.addString(textView, editText)
             editText.setText("")
         }
         sortButton.setOnClickListener {
-            logic.sort(textView)
+            val selectedRadioButton: RadioButton = findViewById(radioGroup.checkedRadioButtonId)
+                logic.sort(textView, selectedRadioButton)
         }
 
     }

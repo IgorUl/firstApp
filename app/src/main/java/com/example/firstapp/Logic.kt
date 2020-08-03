@@ -4,9 +4,8 @@ package com.example.firstapp
 import android.icu.text.DateFormat
 import android.icu.text.SimpleDateFormat
 import android.widget.EditText
+import android.widget.RadioButton
 import android.widget.TextView
-import java.time.LocalDate
-import java.time.Period
 import java.util.*
 
 
@@ -25,10 +24,15 @@ class Logic {
     }
 
     //вышло страшно, пока не знаю как упростить и убрать конкатенацию
-    fun sort(textView: TextView) {
+    fun sort(textView: TextView, radioButton: RadioButton) {
         val timeStart = getTime()
         var sortedListWithTime = "Start sorting: $timeStart"
-        val sortedList = sort.mergeSort(stringList)
+        val sortedList: List<String>
+        if (radioButton.id == R.id.bubbleSortRadioButton) {
+            sortedList = sort.bubbleSort(stringList)
+        } else {
+            sortedList = sort.mergeSort(stringList)
+        }
         sortedListWithTime += sortedList.joinToString("\n", "", "\n")
         val timeFinish = getTime()
         sortedListWithTime += "End sorting: $timeFinish"
@@ -37,14 +41,15 @@ class Logic {
     }
 
 
-
-    fun getTime() : String {
+    private fun getTime(): String {
         val currentDate = Date()
         val timeFormat: DateFormat = SimpleDateFormat("HH:mm:ss.SSS", Locale.getDefault())
         return timeFormat.format(currentDate) + "\n"
     }
 
 
-    fun dateDifference(date1: String, date2: String) : Long =
-        SimpleDateFormat("HH:mm:ss.SSS").parse(date1).time - SimpleDateFormat("HH:mm:ss.SSS").parse(date2).time
-    }
+    private fun dateDifference(date1: String, date2: String): Long =
+        SimpleDateFormat("HH:mm:ss.SSS").parse(date1).time - SimpleDateFormat("HH:mm:ss.SSS").parse(
+            date2
+        ).time
+}

@@ -5,6 +5,7 @@
     <string name="inputField" />
     <string name="storeField" />
     <string name="inputFieldHint">Введите строку</string>
-    <string name="radioButton">Сортировка пузырьком</string>
+    <string name="mergeSortRadioButton">Сортировка слиянием</string>
+    <string name="bubbleSortRadioButton">Сортировка пузырьком</string>
 
 </resources>
