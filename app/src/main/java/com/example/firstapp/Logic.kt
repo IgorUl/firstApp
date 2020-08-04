@@ -11,8 +11,11 @@ import java.util.*
 
 class Logic {
 
-    private val stringList = mutableListOf<String>()
+    val stringList = mutableListOf<String>()
     private val sort = Sort()
+    var isSort: Boolean = false
+    private set
+
 
 
     fun addString(textView: TextView, editText: EditText) {
@@ -20,19 +23,20 @@ class Logic {
         val str = editText.text.toString()
         stringList.add(str)
         textView.text = stringList.joinToString("\n", "", "")
-
+        editText.setText("")
+        isSort = false
     }
 
     //вышло страшно, пока не знаю как упростить и убрать конкатенацию
     fun sort(textView: TextView, radioButton: RadioButton) {
         val timeStart = getTime()
         var sortedListWithTime = "Start sorting: $timeStart"
-        val sortedList: List<String>
-        if (radioButton.id == R.id.bubbleSortRadioButton) {
-            sortedList = sort.bubbleSort(stringList)
+        val sortedList: List<String> = if (radioButton.id == R.id.bubbleSortRadioButton) {
+            sort.bubbleSort(stringList)
         } else {
-            sortedList = sort.mergeSort(stringList)
+            sort.mergeSort(stringList)
         }
+        isSort = true
         sortedListWithTime += sortedList.joinToString("\n", "", "\n")
         val timeFinish = getTime()
         sortedListWithTime += "End sorting: $timeFinish"

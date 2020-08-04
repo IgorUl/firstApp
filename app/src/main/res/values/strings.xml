@@ -7,5 +7,6 @@
     <string name="inputFieldHint">Введите строку</string>
     <string name="mergeSortRadioButton">Сортировка слиянием</string>
     <string name="bubbleSortRadioButton">Сортировка пузырьком</string>
+    <string name="clearButton">Кнопка очистки </string>
 
 </resources>

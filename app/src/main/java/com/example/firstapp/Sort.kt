@@ -1,5 +1,7 @@
 package com.example.firstapp
 
+import java.util.*
+
 class Sort {
 
 
@@ -21,7 +23,7 @@ class Sort {
         val newList: MutableList<String> = mutableListOf()
 
         while (indexLeft < left.count() && indexRight < right.count()) {
-            if (left[indexLeft].toLowerCase() <= right[indexRight].toLowerCase()) {
+            if (left[indexLeft].toLowerCase(Locale.ROOT) <= right[indexRight].toLowerCase(Locale.ROOT)) {
                 newList.add(left[indexLeft])
                 indexLeft++
             } else {
@@ -48,7 +50,7 @@ class Sort {
 
         while (true) {
             if (list[i] > list[i + 1]) {
-                var tmp = list[i]
+                val tmp = list[i]
                 list[i] = list[i + 1]
                 list[i + 1] = tmp
                 goodPairCounter = 0
