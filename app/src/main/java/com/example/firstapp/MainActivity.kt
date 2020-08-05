@@ -11,14 +11,13 @@ import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
 
-    private val stringWithTime = StringWithTime()
-   // private val data = Data()
+    private val stringHandler = StringHandler()
+//    private val data = Data()
     private val editTextWatcher: TextWatcher = object : TextWatcher {
         override fun afterTextChanged(p0: Editable?) {}
         override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {}
         override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
-            addButton.isEnabled = editText.text.isNotEmpty()
-            textView.isVisible = textView.text.isNotEmpty()
+            enabledAddButtonAndTextView()
         }
     }
 
@@ -27,59 +26,81 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
 
         addButton.setOnClickListener {
-            stringWithTime.addStringToList(editText.text.toString())
-            textView.text = stringWithTime.inputStringList.joinToString("\n", "", "")
-            editText.setText("")
-            if (stringWithTime.inputStringList.size > 0) {
+            showStringToTextView()
+            if (stringHandler.inputStringList.size > 0) {
                 textView.isVisible = true
                 clearButton.isVisible = true
             }
-            if (stringWithTime.inputStringList.size > 1 && !stringWithTime.isSorted) {
+            if (stringHandler.inputStringList.size > 1 && !stringHandler.isSorted) {
                 switchSortButtonAndRadioGroup(true)
             }
         }
 
         sortButton.setOnClickListener {
-            sortingBy(findViewById(radioGroup.checkedRadioButtonId))
+            sortBy(findViewById(radioGroup.checkedRadioButtonId))
             switchSortButtonAndRadioGroup(false)
+            sortButton.setBackgroundColor(getColor(R.color.inactiveAddButton))
+
         }
 
         clearButton.setOnClickListener {
             clearStringListAndTextView()
             switchSortButtonAndRadioGroup(false)
+            sortButton.setBackgroundColor(getColor(R.color.inactiveAddButton))
+
+
         }
         editText.addTextChangedListener(editTextWatcher)
     }
 
-    private fun sortingBy(radiobutton: RadioButton) {
-        textView.text = if (radiobutton.id == R.id.bubbleSortRadioButton) {
-            stringWithTime.getSortedStringWithTime("bubble")
+    private fun showStringToTextView() {
+        stringHandler.addStringToList(editText.text.toString())
+        textView.text = stringHandler.inputStringList.joinToString("\n", "", "")
+        editText.setText("")
+    }
+
+    private fun enabledAddButtonAndTextView() {
+        addButton.isEnabled = editText.text.isNotEmpty()
+        if (addButton.isEnabled) {
+            addButton.setBackgroundColor(getColor(R.color.activeAddButton))
         } else {
-            stringWithTime.getSortedStringWithTime("merge")
+            addButton.setBackgroundColor(getColor(R.color.inactiveAddButton))
+        }
+        textView.isVisible = textView.text.isNotEmpty()
+    }
+
+    private fun sortBy(radiobutton: RadioButton) {
+        textView.text = when (radiobutton.id) {
+            R.id.bubbleSortRadioButton -> stringHandler.getSortedStringWithTime(SortTypes.BUBBLE)
+            else -> stringHandler.getSortedStringWithTime(SortTypes.MERGE)
         }
     }
 
     private fun switchSortButtonAndRadioGroup(state: Boolean) {
         sortButton.isEnabled = state
+        if (sortButton.isEnabled) {
+            sortButton.setBackgroundColor(getColor(R.color.activeAddButton))
+        }
         radioGroup.isVisible = state
+
     }
 
     private fun clearStringListAndTextView() {
         textView.text = ""
-        stringWithTime.inputStringList.clear()
+        stringHandler.inputStringList.clear()
         clearButton.isVisible = false
         textView.isVisible = false
     }
 
     override fun onStart() {
         super.onStart()
-       // textView.text = data.readFile()
+//        textView.text = data.readFile()
         Log.i("MainActivity", "onStart() called")
     }
 
     override fun onRestart() {
         super.onRestart()
-       // textView.text = data.readFile()
+        //textView.text = data.readFile()
         Log.i("MainActivity", "onRestart() called")
     }
 
@@ -106,4 +127,5 @@ class MainActivity : AppCompatActivity() {
         super.onDestroy()
         Log.i("MainActivity", "onDestroy() called")
     }
+
 }
