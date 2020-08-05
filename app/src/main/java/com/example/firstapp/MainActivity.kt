@@ -12,7 +12,7 @@ import kotlinx.android.synthetic.main.activity_main.*
 class MainActivity : AppCompatActivity() {
 
     private val stringWithTime = StringWithTime()
-    private val data = Data()
+   // private val data = Data()
     private val editTextWatcher: TextWatcher = object : TextWatcher {
         override fun afterTextChanged(p0: Editable?) {}
         override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {}
@@ -73,19 +73,19 @@ class MainActivity : AppCompatActivity() {
 
     override fun onStart() {
         super.onStart()
-        textView.text = data.readFile()
+       // textView.text = data.readFile()
         Log.i("MainActivity", "onStart() called")
     }
 
     override fun onRestart() {
         super.onRestart()
-        textView.text = data.readFile()
+       // textView.text = data.readFile()
         Log.i("MainActivity", "onRestart() called")
     }
 
     override fun onResume() {
         super.onResume()
-        textView.text = data.readFile()
+       // textView.text = data.readFile()
         Log.i("MainActivity", "onResume() called")
     }
 
@@ -97,7 +97,7 @@ class MainActivity : AppCompatActivity() {
 
     override fun onStop() {
         super.onStop()
-        data.writeFile(stringWithTime.inputStringList.toString())
+       // data.writeFile(stringWithTime.inputStringList.toString())
         Log.i("MainActivity", "onStop() called")
     }
 
