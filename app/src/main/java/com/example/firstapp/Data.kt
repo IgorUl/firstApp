@@ -3,20 +3,27 @@ package com.example.firstapp
 import android.widget.TextView
 import java.io.*
 
+
 class Data {
 
 
     private val fileName: String = "inputString"
+    private val file = File("/sdcard/Download/kek.txt")
 
-
-
-    fun writeFile(textView: TextView) {
-        val writer = File(fileName).bufferedWriter()
-        writer.write(textView.text.toString())
-        writer.close()
+    fun writeFile(string: String) {
+        try {
+            file.createNewFile()
+            val writer = file.bufferedWriter()
+            writer.write(string)
+            writer.close()
+        } catch (e: FileNotFoundException) {
+            e.printStackTrace()
+        }
     }
 
-//    fun readFile() {
-//        File(fileName).readLines()
-//    }
+    fun readFile(): String {
+        return if (file.exists())
+            File(file.path).readLines().toString()
+        else ""
+    }
 }
