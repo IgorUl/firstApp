@@ -8,13 +8,13 @@ import java.util.*
 class StringWithTime {
 
     val inputStringList = mutableListOf<String>()
-    private val sort = Sort()
-    var isSort: Boolean = false
+    private val sortingTypes = SortingTypes()
+    var isSorted: Boolean = false
         private set
 
     fun addStringToList(inputString: String) {
         inputStringList.add(inputString)
-        isSort = false
+        isSorted = false
     }
 
     fun getSortedStringWithTime(string: String): String {
@@ -29,11 +29,11 @@ class StringWithTime {
 
     private fun getSortedString(string: String): String {
         val sortedList: List<String> = if (string == "bubble") {
-            sort.bubbleSort(inputStringList)
+            sortingTypes.getBubbleSortingList(inputStringList)
         } else {
-            sort.mergeSort(inputStringList)
+            sortingTypes.getMergeSortingList(inputStringList)
         }
-        isSort = true
+        isSorted = true
         return sortedList.joinToString("\n", "", "")
     }
 

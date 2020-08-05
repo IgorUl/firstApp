@@ -2,10 +2,10 @@ package com.example.firstapp
 
 import java.util.*
 
-class Sort {
+class SortingTypes {
 
 
-    fun mergeSort(list: List<String>): List<String> {
+    fun getMergeSortingList(list: List<String>): List<String> {
         if (list.size <= 1) {
             return list
         }
@@ -14,10 +14,10 @@ class Sort {
         val left = list.subList(0, middle)
         val right = list.subList(middle, list.size)
 
-        return merge(mergeSort(left), mergeSort(right))
+        return getMergeList(getMergeSortingList(left), getMergeSortingList(right))
     }
 
-    fun merge(left: List<String>, right: List<String>): List<String> {
+    private fun getMergeList(left: List<String>, right: List<String>): List<String> {
         var indexLeft = 0
         var indexRight = 0
         val newList: MutableList<String> = mutableListOf()
@@ -44,7 +44,7 @@ class Sort {
         return newList
     }
 
-    fun bubbleSort(list: MutableList<String>): List<String> {
+    fun getBubbleSortingList(list: MutableList<String>): List<String> {
         var goodPairCounter = 0
         var i = 0
 
