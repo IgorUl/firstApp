@@ -5,81 +5,93 @@ import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
 import android.util.Log
-import android.widget.RadioButton
 import androidx.core.view.isVisible
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
 
-    private val stringHandler = StringHandler()
-//    private val data = Data()
+    private val commentSorterWithTimeStamp = CommentSorterWithTimeStamp()
+
+    //private val data = Data()
     private val editTextWatcher: TextWatcher = object : TextWatcher {
-        override fun afterTextChanged(p0: Editable?) {}
-        override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {}
+        override fun afterTextChanged(p0: Editable?) {
+        }
+
+        override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
+        }
+
         override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
-            enabledAddButtonAndTextView()
+            toggleAddButtonAndTextView()
         }
     }
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
+        initClickListeners()
+    }
+
+
+    private fun initClickListeners() {
         addButton.setOnClickListener {
             showStringToTextView()
-            if (stringHandler.inputStringList.size > 0) {
+            if (commentSorterWithTimeStamp.result.isNotEmpty()) {
                 textView.isVisible = true
                 clearButton.isVisible = true
             }
-            if (stringHandler.inputStringList.size > 1 && !stringHandler.isSorted) {
-                switchSortButtonAndRadioGroup(true)
+            if (commentSorterWithTimeStamp.result.size > 1 && !commentSorterWithTimeStamp.isSorted) {
+                updateSortButtonAndRadioGroup(true)
             }
         }
 
         sortButton.setOnClickListener {
-            sortBy(findViewById(radioGroup.checkedRadioButtonId))
-            switchSortButtonAndRadioGroup(false)
-            sortButton.setBackgroundColor(getColor(R.color.inactiveAddButton))
 
+            sortingBy(
+                getSortTypeByButtonId(radioGroup.checkedRadioButtonId)
+            )
+            updateSortButtonAndRadioGroup(false)
+            sortButton.setBackgroundColor(getColor(R.color.inactiveAddButton))
         }
 
         clearButton.setOnClickListener {
             clearStringListAndTextView()
-            switchSortButtonAndRadioGroup(false)
+            updateSortButtonAndRadioGroup(false)
             sortButton.setBackgroundColor(getColor(R.color.inactiveAddButton))
-
-
         }
         editText.addTextChangedListener(editTextWatcher)
     }
 
+    private fun getSortTypeByButtonId(radioButtonId: Int): SortType = when(radioButtonId) {
+        R.id.bubbleSortRadioButton -> SortType.BUBBLE
+        else -> SortType.MERGE
+    }
+
     private fun showStringToTextView() {
-        stringHandler.addStringToList(editText.text.toString())
-        textView.text = stringHandler.inputStringList.joinToString("\n", "", "")
+        commentSorterWithTimeStamp.addStringToList(editText.text.toString())
+        textView.text = commentSorterWithTimeStamp.result.joinToString("\n", "", "")
         editText.setText("")
     }
 
-    private fun enabledAddButtonAndTextView() {
+    private fun toggleAddButtonAndTextView() {
         addButton.isEnabled = editText.text.isNotEmpty()
-        if (addButton.isEnabled) {
-            addButton.setBackgroundColor(getColor(R.color.activeAddButton))
-        } else {
-            addButton.setBackgroundColor(getColor(R.color.inactiveAddButton))
-        }
+        addButton.setBackgroundColor(
+            getColor(
+                if (addButton.isEnabled) R.color.activeAddButton else R.color.inactiveAddButton
+            )
+        )
         textView.isVisible = textView.text.isNotEmpty()
     }
 
-    private fun sortBy(radiobutton: RadioButton) {
-        textView.text = when (radiobutton.id) {
-            R.id.bubbleSortRadioButton -> stringHandler.getSortedStringWithTime(SortTypes.BUBBLE)
-            else -> stringHandler.getSortedStringWithTime(SortTypes.MERGE)
-        }
+    private fun sortingBy(sortType: SortType) {
+        textView.text = commentSorterWithTimeStamp.getSortedStringWithTime(sortType)
     }
 
-    private fun switchSortButtonAndRadioGroup(state: Boolean) {
+    private fun updateSortButtonAndRadioGroup(state: Boolean) {
         sortButton.isEnabled = state
         if (sortButton.isEnabled) {
-            sortButton.setBackgroundColor(getColor(R.color.activeAddButton))
+            sortButton.setBackgroundColor(getColor(R.color.activeAddButton)) // state -> color ColorStateList
         }
         radioGroup.isVisible = state
 
@@ -87,26 +99,25 @@ class MainActivity : AppCompatActivity() {
 
     private fun clearStringListAndTextView() {
         textView.text = ""
-        stringHandler.inputStringList.clear()
+        commentSorterWithTimeStamp.clearStringList()
         clearButton.isVisible = false
         textView.isVisible = false
     }
 
     override fun onStart() {
         super.onStart()
-//        textView.text = data.readFile()
+        //  textView.text = data.readFile()
         Log.i("MainActivity", "onStart() called")
     }
 
     override fun onRestart() {
         super.onRestart()
-        //textView.text = data.readFile()
         Log.i("MainActivity", "onRestart() called")
     }
 
     override fun onResume() {
         super.onResume()
-       // textView.text = data.readFile()
+        // textView.text = data.readFile()
         Log.i("MainActivity", "onResume() called")
     }
 
@@ -118,14 +129,17 @@ class MainActivity : AppCompatActivity() {
 
     override fun onStop() {
         super.onStop()
-       // data.writeFile(stringWithTime.inputStringList.toString())
+        // data.writeFile(stringHandler.inputStringList.joinToString("\n", "",""))
         Log.i("MainActivity", "onStop() called")
     }
 
-    //
     override fun onDestroy() {
         super.onDestroy()
         Log.i("MainActivity", "onDestroy() called")
     }
 
 }
+
+
+// 1) App: Application -> model
+// 2) MVP

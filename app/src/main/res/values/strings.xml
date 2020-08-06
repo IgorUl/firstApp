@@ -2,11 +2,9 @@
     <string name="app_name">MyFirstApp</string>
     <string name="addButton">Добавить</string>
     <string name="sortButton">Отсортировать</string>
-    <string name="inputField" />
-    <string name="storeField" />
     <string name="inputFieldHint">Введите строку</string>
     <string name="mergeSortRadioButton">Сортировка слиянием</string>
     <string name="bubbleSortRadioButton">Сортировка пузырьком</string>
-    <string name="clearButton">Кнопка очистки </string>
+    <string name="clearButton">Кнопка очистки</string>
 
 </resources>

@@ -23,7 +23,7 @@ class Data {
 
     fun readFile(): String {
         return if (file.exists())
-            File(file.path).readLines().toString()
+        File(file.path).readLines().toString()
         else ""
     }
 }

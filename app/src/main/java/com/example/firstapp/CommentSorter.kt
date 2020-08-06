@@ -2,7 +2,7 @@ package com.example.firstapp
 
 import java.util.*
 
-class StringSorter {
+class CommentSorter {
 
 
     fun getMergeSortedList(list: List<String>): List<String> {
@@ -10,9 +10,9 @@ class StringSorter {
             return list
         }
 
-        val middle = list.size / 2
-        val leftHalf = list.subList(0, middle)
-        val rightHalf = list.subList(middle, list.size)
+        val middle: Int = list.size / 2
+        val leftHalf: List<String> = list.subList(0, middle)
+        val rightHalf: List<String> = list.subList(middle, list.size)
 
         return getMergeList(getMergeSortedList(leftHalf), getMergeSortedList(rightHalf))
     }
@@ -26,9 +26,8 @@ class StringSorter {
             if (isAlphabetOrder(left, right, indexLeft, indexRight)) {
                 newList.add(left[indexLeft])
                 indexLeft++
-                addToNewList(left, newList, indexLeft)
             } else {
-                newList.add(right[indexRight]) //TODO вынести одинаковый код // я не знаю как это сделать
+                newList.add(right[indexRight])
                 indexRight++
 
             }
@@ -47,37 +46,41 @@ class StringSorter {
         left[indexLeft].toLowerCase(Locale.getDefault()) <= right[indexRight].toLowerCase(Locale.getDefault())
 
     private fun addToNewList(list: List<String>, newList: MutableList<String>, index: Int) {
-        var i = index
+        var i: Int = index
         while (i < list.size) {
             newList.add(list[i])
             i++
         }
     }
 
-    fun getBubbleSortedList(list: MutableList<String>): List<String> {
+
+    fun getBubbleSortedList(list: List<String>): List<String> { // fixme immutable
         var goodPairCounter = 0
         var i = 0
+        val newList:MutableList<String> = mutableListOf()
+        newList.addAll(list)
 
         while (true) {
-            if (list[i] > list[i + 1]) {
-                swapStrings(list, i)
+            if (newList[i] > newList[i + 1]) {
+                swapStrings(newList, i)
                 goodPairCounter = 0
             } else {
                 goodPairCounter++
             }
             i++
-            if (i == list.size - 1) {
+            if (i == newList.size - 1) {
                 i = 0
             }
-            if (goodPairCounter == list.size - 1) {
+            if (goodPairCounter == newList.size - 1) {
                 break
             }
         }
-        return list
+        return newList
     }
 
     private fun swapStrings(list: MutableList<String>, index: Int) {
-        val tmp = list[index]
+
+        val tmp: String = list[index]
         list[index] = list[index + 1]
         list[index + 1] = tmp
     }

@@ -1,6 +1,6 @@
 package com.example.firstapp
 
-enum class SortTypes {
+enum class SortType { //
 
     BUBBLE,
     MERGE
