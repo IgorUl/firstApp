@@ -9,6 +9,7 @@ class CommentSorterWithTimeStamp {
     val result: List<String>
         get() = inputStringList
 
+    //TODO git
     private val inputStringList = mutableListOf<String>()
 
     private val commentSorter = CommentSorter()
