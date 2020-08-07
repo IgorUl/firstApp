@@ -8,8 +8,8 @@ class CommentSorterWithTimeStamp {
 
     val result: List<String>
         get() = inputStringList
-// test
-    private val inputStringList = mutableListOf<String>()
+
+        private val inputStringList = mutableListOf<String>()
 
     private val commentSorter = CommentSorter()
 
@@ -29,7 +29,8 @@ class CommentSorterWithTimeStamp {
     fun getSortedStringWithTime(sortType: SortType): String {
         val startSortingTime: Date = getCurrentTime()
         val sortedString: String = getSortedString(sortType)
-        val endSortingTime: Date = getCurrentTime()
+        val endSortingTime: Date =
+            getCurrentTime() // сортировка за 1мс, думаю что есть ошибка но найти не могу
         return "Start sorting: ${parseDateToString(startSortingTime)}" + /// todo extract in res
                 "$sortedString\n" +
                 "End sorting: ${parseDateToString(endSortingTime)}" +
@@ -47,7 +48,7 @@ class CommentSorterWithTimeStamp {
         return sortedList.joinToString("\n", "", "")
     }
 
-    private fun getCurrentTime(): Date = Date(System.currentTimeMillis() + 25*24*60*60*1000L)
+    private fun getCurrentTime(): Date = Date(System.currentTimeMillis())
 
 
     private fun parseDateToString(date: Date): String {
@@ -55,7 +56,7 @@ class CommentSorterWithTimeStamp {
         return timeFormat.format(date) + "\n"
     }
 
-    private fun getDateDifference(startSortingTime: Date, endSortingTime: Date): Long =
-        startSortingTime.time - endSortingTime.time
+    private fun getDateDifference(endSortingTime: Date, startSortingTime: Date): Long =
+        endSortingTime.time - startSortingTime.time
 
 }

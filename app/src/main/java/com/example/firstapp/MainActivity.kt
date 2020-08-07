@@ -7,6 +7,7 @@ import android.text.TextWatcher
 import android.util.Log
 import androidx.core.view.isVisible
 import kotlinx.android.synthetic.main.activity_main.*
+import java.util.*
 
 class MainActivity : AppCompatActivity() {
 
@@ -62,6 +63,7 @@ class MainActivity : AppCompatActivity() {
         }
         editText.addTextChangedListener(editTextWatcher)
     }
+
 
     private fun getSortTypeByButtonId(radioButtonId: Int): SortType = when(radioButtonId) {
         R.id.bubbleSortRadioButton -> SortType.BUBBLE
