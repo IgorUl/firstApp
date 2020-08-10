@@ -1,19 +1,15 @@
 package com.example.firstapp
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
-import android.util.Log
+import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.isVisible
 import kotlinx.android.synthetic.main.activity_main.*
-import java.util.*
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : AppCompatActivity(), MainContract.MainView {
 
-    private val commentSorterWithTimeStamp = CommentSorterWithTimeStamp()
-
-    //private val data = Data()
+    private val presenter: Presenter = Presenter(this)
     private val editTextWatcher: TextWatcher = object : TextWatcher {
         override fun afterTextChanged(p0: Editable?) {
         }
@@ -26,7 +22,6 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
@@ -37,46 +32,24 @@ class MainActivity : AppCompatActivity() {
 
     private fun initClickListeners() {
         addButton.setOnClickListener {
-            showStringToTextView()
-            if (commentSorterWithTimeStamp.result.isNotEmpty()) {
-                textView.isVisible = true
-                clearButton.isVisible = true
-            }
-            if (commentSorterWithTimeStamp.result.size > 1 && !commentSorterWithTimeStamp.isSorted) {
-                updateSortButtonAndRadioGroup(true)
-            }
+            presenter.add()
         }
 
         sortButton.setOnClickListener {
-
-            sortingBy(
-                getSortTypeByButtonId(radioGroup.checkedRadioButtonId)
-            )
-            updateSortButtonAndRadioGroup(false)
-            sortButton.setBackgroundColor(getColor(R.color.inactiveAddButton))
+            presenter.sort()
         }
 
         clearButton.setOnClickListener {
-            clearStringListAndTextView()
-            updateSortButtonAndRadioGroup(false)
-            sortButton.setBackgroundColor(getColor(R.color.inactiveAddButton))
+            presenter.clear()
         }
         editText.addTextChangedListener(editTextWatcher)
     }
 
-
-    private fun getSortTypeByButtonId(radioButtonId: Int): SortType = when(radioButtonId) {
-        R.id.bubbleSortRadioButton -> SortType.BUBBLE
-        else -> SortType.MERGE
+    override fun changeButtonColor() {
+        sortButton.setBackgroundColor(getColor(R.color.inactiveAddButton))
     }
 
-    private fun showStringToTextView() {
-        commentSorterWithTimeStamp.addStringToList(editText.text.toString())
-        textView.text = commentSorterWithTimeStamp.result.joinToString("\n", "", "")
-        editText.setText("")
-    }
-
-    private fun toggleAddButtonAndTextView() {
+    override fun toggleAddButtonAndTextView() {
         addButton.isEnabled = editText.text.isNotEmpty()
         addButton.setBackgroundColor(
             getColor(
@@ -86,11 +59,8 @@ class MainActivity : AppCompatActivity() {
         textView.isVisible = textView.text.isNotEmpty()
     }
 
-    private fun sortingBy(sortType: SortType) {
-        textView.text = commentSorterWithTimeStamp.getSortedStringWithTime(sortType)
-    }
 
-    private fun updateSortButtonAndRadioGroup(state: Boolean) {
+    override fun updateSortButtonAndRadioGroup(state: Boolean) {
         sortButton.isEnabled = state
         if (sortButton.isEnabled) {
             sortButton.setBackgroundColor(getColor(R.color.activeAddButton)) // state -> color ColorStateList
@@ -99,49 +69,30 @@ class MainActivity : AppCompatActivity() {
 
     }
 
-    private fun clearStringListAndTextView() {
+    override fun getStringFromEditText(): String = editText.text.toString()
+
+    override fun showStringToTextView(string: String) {
+        textView.text = string
+    }
+
+    override fun enableTextViewAndClearButton() {
+        textView.isVisible = true
+        clearButton.isVisible = true
+    }
+
+    override fun getSortType(): SortType = when (radioGroup.checkedRadioButtonId) {
+        R.id.bubbleSortRadioButton -> SortType.BUBBLE
+        else -> SortType.MERGE
+    }
+
+    override fun clearTextView() {
         textView.text = ""
-        commentSorterWithTimeStamp.clearStringList()
         clearButton.isVisible = false
         textView.isVisible = false
     }
 
-    override fun onStart() {
-        super.onStart()
-        //  textView.text = data.readFile()
-        Log.i("MainActivity", "onStart() called")
-    }
-
-    override fun onRestart() {
-        super.onRestart()
-        Log.i("MainActivity", "onRestart() called")
-    }
-
-    override fun onResume() {
-        super.onResume()
-        // textView.text = data.readFile()
-        Log.i("MainActivity", "onResume() called")
-    }
-
-    override fun onPause() {
-        super.onPause()
-
-        Log.i("MainActivity", "onPause() called")
-    }
-
-    override fun onStop() {
-        super.onStop()
-        // data.writeFile(stringHandler.inputStringList.joinToString("\n", "",""))
-        Log.i("MainActivity", "onStop() called")
-    }
-
-    override fun onDestroy() {
-        super.onDestroy()
-        Log.i("MainActivity", "onDestroy() called")
+    override fun clearEditText() {
+        editText.setText("")
     }
 
 }
-
-
-// 1) App: Application -> model
-// 2) MVP

@@ -4,33 +4,35 @@ import android.icu.text.DateFormat
 import android.icu.text.SimpleDateFormat
 import java.util.*
 
-class CommentSorterWithTimeStamp {
+class Model {
 
-    val result: List<String>
-        get() = inputStringList
-
-        private val inputStringList = mutableListOf<String>()
-
+    private val stringHolder = StringHolder("")
     private val commentSorter = CommentSorter()
 
-    var isSorted: Boolean = false
-        private set
+    fun addToList(string: String) {
+        stringHolder.addStringToList(string)
+    }
+
+    fun isListEmpty(): Boolean =
+        stringHolder.getInputStringList.isEmpty()
+
+    fun isListSorted(): Boolean = !stringHolder.isSorted && stringHolder.getInputStringList.size > 1
+
+    fun getInputString(): String = stringHolder.getInputStringList.joinToString("\n", "", "")
+
+    fun getStringSortingBy(sortType: SortType): String =
+        getSortedStringWithTime(sortType)
 
     fun clearStringList() {
-        inputStringList.clear()
+        stringHolder.clearStringList()
     }
 
 
-    fun addStringToList(inputString: String) {
-        inputStringList.add(inputString)
-        isSorted = false
-    }
-
-    fun getSortedStringWithTime(sortType: SortType): String {
+    private fun getSortedStringWithTime(sortType: SortType): String {
         val startSortingTime: Date = getCurrentTime()
         val sortedString: String = getSortedString(sortType)
         val endSortingTime: Date =
-            getCurrentTime() // сортировка за 1мс, думаю что есть ошибка но найти не могу
+            getCurrentTime()
         return "Start sorting: ${parseDateToString(startSortingTime)}" + /// todo extract in res
                 "$sortedString\n" +
                 "End sorting: ${parseDateToString(endSortingTime)}" +
@@ -40,11 +42,11 @@ class CommentSorterWithTimeStamp {
     private fun getSortedString(sortType: SortType): String {
         val sortedList: List<String> = when (sortType) {
             SortType.BUBBLE ->
-                commentSorter.getBubbleSortedList(result)
+                commentSorter.getBubbleSortedList(stringHolder.getInputStringList)
             else ->
-                commentSorter.getMergeSortedList(result)
+                commentSorter.getMergeSortedList(stringHolder.getInputStringList)
         }
-        isSorted = true
+        stringHolder.isSorted = true
         return sortedList.joinToString("\n", "", "")
     }
 
