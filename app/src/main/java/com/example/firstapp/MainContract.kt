@@ -12,6 +12,7 @@ interface MainContract {
         fun clearTextView()
         fun changeButtonColor()
         fun clearEditText()
+        fun showSortedStringWithTimeStamps(startSortingTime: String, sortedString: String, endSortingTime: String, timeDifference: String)
     }
 
     interface MainPresenter {
@@ -19,4 +20,6 @@ interface MainContract {
         fun sort()
         fun clear()
     }
+
+
 }

@@ -6,5 +6,6 @@
     <string name="mergeSortRadioButton">Сортировка слиянием</string>
     <string name="bubbleSortRadioButton">Сортировка пузырьком</string>
     <string name="clearButton">Кнопка очистки</string>
+    <string name="sortedStringWithTimeStamps">Start sorting: %1$s\n%2$s\nEnd sorting: %3$s\nTime in millis: %4$s</string>
 
 </resources>

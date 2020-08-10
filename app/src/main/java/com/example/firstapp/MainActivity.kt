@@ -9,7 +9,7 @@ import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity(), MainContract.MainView {
 
-    private val presenter: Presenter = Presenter(this)
+    private lateinit var presenter: Presenter
     private val editTextWatcher: TextWatcher = object : TextWatcher {
         override fun afterTextChanged(p0: Editable?) {
         }
@@ -26,6 +26,8 @@ class MainActivity : AppCompatActivity(), MainContract.MainView {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
+        val model = (application as App).model
+        presenter = Presenter(this, model)
         initClickListeners()
     }
 
@@ -63,7 +65,7 @@ class MainActivity : AppCompatActivity(), MainContract.MainView {
     override fun updateSortButtonAndRadioGroup(state: Boolean) {
         sortButton.isEnabled = state
         if (sortButton.isEnabled) {
-            sortButton.setBackgroundColor(getColor(R.color.activeAddButton)) // state -> color ColorStateList
+            sortButton.setBackgroundColor(getColor(R.color.activeAddButton)) //TODO state -> color ColorStateList
         }
         radioGroup.isVisible = state
 
@@ -95,4 +97,8 @@ class MainActivity : AppCompatActivity(), MainContract.MainView {
         editText.setText("")
     }
 
+    override fun showSortedStringWithTimeStamps(startSortingTime: String, sortedString: String, endSortingTime: String, timeDifference: String) {
+        val str: String = getString(R.string.sortedStringWithTimeStamps, startSortingTime, sortedString, endSortingTime, timeDifference)
+        textView.text = str
+    }
 }

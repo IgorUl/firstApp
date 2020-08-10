@@ -1,7 +1,7 @@
 package com.example.firstapp
 
-class Presenter(private val view: MainContract.MainView): MainContract.MainPresenter {
-    private val model: Model = Model()
+class Presenter(private val view: MainContract.MainView, private val model: Model) :
+    MainContract.MainPresenter {
 
 
     override fun add() {
@@ -15,8 +15,13 @@ class Presenter(private val view: MainContract.MainView): MainContract.MainPrese
     }
 
     override fun sort() {
-        val sortedStringWithTime:String = model.getStringSortingBy(view.getSortType())
-        view.showStringToTextView(sortedStringWithTime)
+        model.initTimeStamps(view.getSortType())
+        view.showSortedStringWithTimeStamps(
+            model.parseDateToString(model.startSortingTime),
+            model.sortedString,
+            model.parseDateToString(model.endSortingTime),
+            model.getDateDifference(model.endSortingTime, model.startSortingTime)
+        )
         view.updateSortButtonAndRadioGroup(false)
         view.changeButtonColor()
 
