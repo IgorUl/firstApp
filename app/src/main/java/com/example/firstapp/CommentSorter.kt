@@ -37,7 +37,12 @@ class CommentSorter {
         return newList
     }
 
-    private fun isAlphabetOrder(left: List<String>, right: List<String>, indexLeft: Int, indexRight: Int): Boolean =
+    private fun isAlphabetOrder(
+        left: List<String>,
+        right: List<String>,
+        indexLeft: Int,
+        indexRight: Int
+    ): Boolean =
         left[indexLeft].toLowerCase(Locale.getDefault()) <= right[indexRight].toLowerCase(Locale.getDefault())
 
     private fun addToNewList(list: List<String>, newList: MutableList<String>, index: Int) {
@@ -48,11 +53,10 @@ class CommentSorter {
         }
     }
 
-
-    fun getBubbleSortedList(list: List<String>): List<String> { // fixme immutable done
+    fun getBubbleSortedList(list: List<String>): List<String> {
         var goodPairCounter = 0
         var i = 0
-        val newList:MutableList<String> = mutableListOf()
+        val newList: MutableList<String> = mutableListOf()
         newList.addAll(list)
 
         while (true) {

@@ -3,9 +3,12 @@ package com.example.firstapp
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
+import android.text.method.ScrollingMovementMethod
+import android.widget.Button
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.isVisible
 import kotlinx.android.synthetic.main.activity_main.*
+
 
 class MainActivity : AppCompatActivity(), MainContract.MainView {
 
@@ -48,27 +51,30 @@ class MainActivity : AppCompatActivity(), MainContract.MainView {
     }
 
     override fun changeButtonColor() {
-        sortButton.setBackgroundColor(getColor(R.color.inactiveAddButton))
+        sortButton.setBackgroundColor(getColor(R.color.inactiveButton))
     }
 
     override fun toggleAddButtonAndTextView() {
         addButton.isEnabled = editText.text.isNotEmpty()
-        addButton.setBackgroundColor(
-            getColor(
-                if (addButton.isEnabled) R.color.activeAddButton else R.color.inactiveAddButton
-            )
-        )
+        setActiveButtonColor(addButton)
+        textView.movementMethod = ScrollingMovementMethod()
         textView.isVisible = textView.text.isNotEmpty()
     }
 
 
     override fun updateSortButtonAndRadioGroup(state: Boolean) {
         sortButton.isEnabled = state
-        if (sortButton.isEnabled) {
-            sortButton.setBackgroundColor(getColor(R.color.activeAddButton)) //TODO state -> color ColorStateList
-        }
+        setActiveButtonColor(sortButton)
         radioGroup.isVisible = state
 
+    }
+
+    private fun setActiveButtonColor(button: Button) {
+        button.setBackgroundColor(
+            getColor(
+                if (button.isEnabled) R.color.activeButton else R.color.inactiveButton
+            )
+        )
     }
 
     override fun getStringFromEditText(): String = editText.text.toString()
@@ -97,8 +103,19 @@ class MainActivity : AppCompatActivity(), MainContract.MainView {
         editText.setText("")
     }
 
-    override fun showSortedStringWithTimeStamps(startSortingTime: String, sortedString: String, endSortingTime: String, timeDifference: String) {
-        val str: String = getString(R.string.sortedStringWithTimeStamps, startSortingTime, sortedString, endSortingTime, timeDifference)
-        textView.text = str
+    override fun showSortedStringWithTimeStamps(
+        startSortingTime: String,
+        sortedString: String,
+        endSortingTime: String,
+        timeDifference: String
+    ) {
+        val sortedStringWithTimeStamps: String = getString(
+            R.string.sortedStringWithTimeStamps,
+            startSortingTime,
+            sortedString,
+            endSortingTime,
+            timeDifference
+        )
+        textView.text = sortedStringWithTimeStamps
     }
 }

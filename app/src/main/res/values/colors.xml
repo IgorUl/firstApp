@@ -8,6 +8,6 @@
     <color name="textViewBackground">#D6D6D6</color>
     <color name="radioButton">#FAFAFA</color>
     <color name="clearButton">#FFFFFF</color>
-    <color name="activeAddButton">#FFFFFF</color>
-    <color name="inactiveAddButton">#D6D6D6</color>
+    <color name="activeButton">#FFFFFF</color>
+    <color name="inactiveButton">#D6D6D6</color>
 </resources>

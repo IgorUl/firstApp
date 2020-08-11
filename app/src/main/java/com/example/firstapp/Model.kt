@@ -29,23 +29,11 @@ class Model {
         stringHolder.clearStringList()
     }
 
-//    private fun getSortedStringWithTime(sortType: SortType): String {
-//        startSortingTime = getCurrentTime()
-//        sortedString = getSortedString(sortType)
-//        endSortingTime = getCurrentTime()
-//        return "Start sorting: ${parseDateToString(startSortingTime)}" + /// todo extract in res DONE
-//                "$sortedString\n" +
-//                "End sorting: ${parseDateToString(endSortingTime)}" +
-//                "Time in millis: " + getDateDifference(endSortingTime, startSortingTime)
-//    }
-
     fun initTimeStamps(sortType: SortType) {
         startSortingTime = getCurrentTime()
         sortedString = getSortedString(sortType)
         endSortingTime = getCurrentTime()
-
     }
-
 
     private fun getSortedString(sortType: SortType): String {
         val sortedList: List<String> = when (sortType) {
@@ -60,7 +48,6 @@ class Model {
 
     private fun getCurrentTime(): Date = Date(System.currentTimeMillis())
 
-
     fun parseDateToString(date: Date): String {
         val timeFormat: DateFormat = SimpleDateFormat("HH:mm:ss.SSS", Locale.getDefault())
         return timeFormat.format(date)
@@ -68,5 +55,4 @@ class Model {
 
     fun getDateDifference(endSortingTime: Date, startSortingTime: Date): String =
         (endSortingTime.time - startSortingTime.time).toString()
-
 }
