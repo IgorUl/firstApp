@@ -4,7 +4,6 @@ import android.icu.text.DateFormat
 import android.icu.text.SimpleDateFormat
 import java.util.*
 
-
 class Model {
 
     private val stringHolder = StringHolder("")
@@ -13,23 +12,23 @@ class Model {
     lateinit var sortedString: String
     lateinit var endSortingTime: Date
 
-
-    fun addToList(string: String) {
-        stringHolder.addStringToList(string)
+    companion object {
+        private const val MIN_SORTED_LIST_SIZE = 1
     }
+
+    fun addToList(string: String) =
+        stringHolder.addStringToList(string)
 
     fun isListEmpty(): Boolean =
         stringHolder.getInputStringList.isEmpty()
 
-    fun isListSorted(): Boolean = !stringHolder.isSorted && stringHolder.getInputStringList.size > 1
+    fun isListSorted(): Boolean =
+        !stringHolder.isSorted && stringHolder.getInputStringList.size > MIN_SORTED_LIST_SIZE
 
-    fun getInputString(): String = stringHolder.getInputStringList.joinToString("\n", "", "")
-
-    fun clearStringList() {
+    fun clearStringList() =
         stringHolder.clearStringList()
-    }
 
-    fun initTimeStamps(sortType: SortType) {
+    fun initSortedStringAndTimeStamps(sortType: SortType) {
         startSortingTime = getCurrentTime()
         sortedString = getSortedString(sortType)
         endSortingTime = getCurrentTime()
@@ -46,7 +45,8 @@ class Model {
         return sortedList.joinToString("\n", "", "")
     }
 
-    private fun getCurrentTime(): Date = Date(System.currentTimeMillis())
+    private fun getCurrentTime(): Date =
+        Date(System.currentTimeMillis())
 
     fun parseDateToString(date: Date): String {
         val timeFormat: DateFormat = SimpleDateFormat("HH:mm:ss.SSS", Locale.getDefault())

@@ -1,21 +1,20 @@
 package com.example.firstapp
 
-class Presenter(private val view: MainContract.MainView, private val model: Model) :
+class Presenter(private val view: MainContract.MainView, private val model: Model):
     MainContract.MainPresenter {
-
 
     override fun add() {
         model.addToList(view.getStringFromEditText())
         if (!model.isListEmpty()) {
             view.enableTextViewAndClearButton()
         }
-        view.showStringToTextView(model.getInputString())
+        view.showStringToTextView()
         view.clearEditText()
         view.updateSortButtonAndRadioGroup(model.isListSorted())
     }
 
     override fun sort() {
-        model.initTimeStamps(view.getSortType())
+        model.initSortedStringAndTimeStamps(view.getSortType())
         view.showSortedStringWithTimeStamps(
             model.parseDateToString(model.startSortingTime),
             model.sortedString,
@@ -23,16 +22,19 @@ class Presenter(private val view: MainContract.MainView, private val model: Mode
             model.getDateDifference(model.endSortingTime, model.startSortingTime)
         )
         view.updateSortButtonAndRadioGroup(false)
-        view.changeButtonColor()
-
     }
 
     override fun clear() {
         model.clearStringList()
         view.clearTextView()
         view.updateSortButtonAndRadioGroup(false)
-        view.changeButtonColor()
     }
 
-
+    fun isEditViewEmpty(string: String) {
+        if (string.isEmpty()) {
+            view.toggleAddButton(false)
+        } else {
+            view.toggleAddButton(true)
+        }
+    }
 }

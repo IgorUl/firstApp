@@ -4,7 +4,6 @@ import java.util.*
 
 class CommentSorter {
 
-
     fun getMergeSortedList(list: List<String>): List<String> {
         if (list.size <= 1) {
             return list
@@ -29,7 +28,6 @@ class CommentSorter {
             } else {
                 newList.add(right[indexRight])
                 indexRight++
-
             }
         }
         addToNewList(left, newList, indexLeft)
@@ -78,10 +76,8 @@ class CommentSorter {
     }
 
     private fun swapStrings(list: MutableList<String>, index: Int) {
-
         val tmp: String = list[index]
         list[index] = list[index + 1]
         list[index + 1] = tmp
     }
-
 }

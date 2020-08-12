@@ -3,12 +3,9 @@ package com.example.firstapp
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
-import android.text.method.ScrollingMovementMethod
-import android.widget.Button
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.isVisible
 import kotlinx.android.synthetic.main.activity_main.*
-
 
 class MainActivity : AppCompatActivity(), MainContract.MainView {
 
@@ -21,7 +18,8 @@ class MainActivity : AppCompatActivity(), MainContract.MainView {
         }
 
         override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
-            toggleAddButtonAndTextView()
+//            toggleAddButton()
+            presenter.isEditViewEmpty(editText.text.toString())
         }
     }
 
@@ -33,7 +31,6 @@ class MainActivity : AppCompatActivity(), MainContract.MainView {
         presenter = Presenter(this, model)
         initClickListeners()
     }
-
 
     private fun initClickListeners() {
         addButton.setOnClickListener {
@@ -50,37 +47,23 @@ class MainActivity : AppCompatActivity(), MainContract.MainView {
         editText.addTextChangedListener(editTextWatcher)
     }
 
-    override fun changeButtonColor() {
-        sortButton.setBackgroundColor(getColor(R.color.inactiveButton))
+    override fun toggleAddButton(state: Boolean) {
+//        addButton.isEnabled =
+//            editText.text.isNotEmpty() //TODO pass from presenter states and colors
+        addButton.isEnabled = state
     }
-
-    override fun toggleAddButtonAndTextView() {
-        addButton.isEnabled = editText.text.isNotEmpty()
-        setActiveButtonColor(addButton)
-        textView.movementMethod = ScrollingMovementMethod()
-        textView.isVisible = textView.text.isNotEmpty()
-    }
-
 
     override fun updateSortButtonAndRadioGroup(state: Boolean) {
         sortButton.isEnabled = state
-        setActiveButtonColor(sortButton)
         radioGroup.isVisible = state
-
     }
 
-    private fun setActiveButtonColor(button: Button) {
-        button.setBackgroundColor(
-            getColor(
-                if (button.isEnabled) R.color.activeButton else R.color.inactiveButton
-            )
-        )
-    }
+    override fun getStringFromEditText(): String =
+        editText.text.toString()
 
-    override fun getStringFromEditText(): String = editText.text.toString()
-
-    override fun showStringToTextView(string: String) {
-        textView.text = string
+    override fun showStringToTextView() {
+        val stringToShow: String = getStringFromEditText() + "\n"
+        textView.append(stringToShow)
     }
 
     override fun enableTextViewAndClearButton() {
