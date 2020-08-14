@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/appBackground"
-    tools:context=".MainActivity">
+    tools:context=".activity.MainActivity">
 
     <EditText
         android:id="@+id/editText"
@@ -23,39 +23,47 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-<!--   FIXME add scrollview -->
 
-    <TextView
-        android:id="@+id/textView"
-        android:minHeight="50dp"
-        android:layout_width="match_parent"
+    <ScrollView
+        android:id="@+id/scrollView"
+        android:layout_width="fill_parent"
         android:layout_height="0dp"
-        android:maxHeight="0dp"
         android:layout_marginStart="24dp"
         android:layout_marginTop="16dp"
         android:layout_marginEnd="24dp"
         android:layout_marginBottom="24dp"
-        android:background="@color/textViewBackground"
-        android:visibility="invisible"
+        android:fillViewport="true"
+        android:scrollY="0dp"
         app:layout_constraintBottom_toTopOf="@+id/addButton"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editText"
-        app:layout_constraintVertical_bias="0.019"
-        tools:text="@tools:sample/lorem/random"
-        tools:visibility="visible" />
+        app:layout_constraintTop_toBottomOf="@+id/editText">
+
+        <TextView
+            android:id="@+id/textView"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/textViewBackground"
+            android:isScrollContainer="true"
+            android:minHeight="50dp"
+            android:scrollbars="vertical"
+            android:visibility="invisible"
+            tools:text="@tools:sample/lorem/random"
+            tools:visibility="visible" />
+    </ScrollView>
 
     <ImageButton
         android:id="@+id/clearButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:background="@color/textViewBackground"
+        android:background="@null"
         android:contentDescription="@string/clearButton"
         android:visibility="invisible"
-        tools:visibility="visible"
-        app:layout_constraintEnd_toEndOf="@+id/textView"
-        app:layout_constraintTop_toTopOf="@+id/textView"
-        app:srcCompat="@drawable/ic_clear_edit_view" />
+        app:layout_constraintEnd_toEndOf="@+id/scrollView"
+        app:layout_constraintTop_toTopOf="@+id/scrollView"
+        app:srcCompat="@drawable/ic_clear_edit_view"
+        tools:visibility="visible" />
+
 
     <Button
         android:id="@+id/addButton"
@@ -63,9 +71,10 @@
         android:layout_height="44dp"
         android:layout_marginStart="24dp"
         android:layout_marginEnd="24dp"
-        android:background="@color/textViewBackground"
+        android:background="@drawable/button_selector"
         android:enabled="false"
         android:text="@string/addButton"
+        
         app:layout_constraintBottom_toTopOf="@+id/sortButton"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
@@ -78,7 +87,7 @@
         android:layout_marginStart="24dp"
         android:layout_marginEnd="24dp"
         android:layout_marginBottom="60dp"
-        android:background="@color/textViewBackground"
+        android:background="@drawable/button_selector"
         android:enabled="false"
         android:text="@string/sortButton"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -96,10 +105,10 @@
         android:checkedButton="@id/mergeSortRadioButton"
         android:orientation="horizontal"
         android:visibility="invisible"
-        tools:visibility="visible"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent">
+        app:layout_constraintStart_toStartOf="parent"
+        tools:visibility="visible">
 
         <RadioButton
             android:id="@+id/mergeSortRadioButton"

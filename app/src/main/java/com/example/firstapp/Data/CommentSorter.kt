@@ -1,9 +1,8 @@
-package com.example.firstapp
+package com.example.firstapp.Data
 
 import java.util.*
 
 class CommentSorter {
-
 
     fun getMergeSortedList(list: List<String>): List<String> {
         if (list.size <= 1) {
@@ -29,7 +28,6 @@ class CommentSorter {
             } else {
                 newList.add(right[indexRight])
                 indexRight++
-
             }
         }
         addToNewList(left, newList, indexLeft)
@@ -53,15 +51,14 @@ class CommentSorter {
         }
     }
 
-
-    fun getBubbleSortedList(list: List<String>): List<String> { // fixme immutable
+    fun getBubbleSortedList(list: List<String>): List<String> {
         var goodPairCounter = 0
         var i = 0
-        val newList:MutableList<String> = mutableListOf()
+        val newList: MutableList<String> = mutableListOf()
         newList.addAll(list)
 
         while (true) {
-            if (newList[i] > newList[i + 1]) {
+            if (newList[i].toLowerCase(Locale.getDefault()) > newList[i + 1].toLowerCase(Locale.getDefault())) {
                 swapStrings(newList, i)
                 goodPairCounter = 0
             } else {
@@ -79,10 +76,8 @@ class CommentSorter {
     }
 
     private fun swapStrings(list: MutableList<String>, index: Int) {
-
         val tmp: String = list[index]
         list[index] = list[index + 1]
         list[index + 1] = tmp
     }
-
 }

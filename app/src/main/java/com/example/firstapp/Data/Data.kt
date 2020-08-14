@@ -1,6 +1,5 @@
-package com.example.firstapp
+package com.example.firstapp.Data
 
-import android.widget.TextView
 import java.io.*
 
 
