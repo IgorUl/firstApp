@@ -1,4 +1,4 @@
-package com.example.firstapp
+package com.example.firstapp.common
 
 import java.util.*
 
@@ -58,7 +58,7 @@ class CommentSorter {
         newList.addAll(list)
 
         while (true) {
-            if (newList[i] > newList[i + 1]) {
+            if (newList[i].toLowerCase(Locale.getDefault()) > newList[i + 1].toLowerCase(Locale.getDefault())) {
                 swapStrings(newList, i)
                 goodPairCounter = 0
             } else {

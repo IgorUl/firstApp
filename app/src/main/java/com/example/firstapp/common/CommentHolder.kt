@@ -1,6 +1,6 @@
-package com.example.firstapp
+package com.example.firstapp.common
 
-class StringHolder(val string: String) {
+class CommentHolder {
 
     val getInputStringList: List<String>
         get() = inputStringList
