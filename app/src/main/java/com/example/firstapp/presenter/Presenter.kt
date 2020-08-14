@@ -1,9 +1,9 @@
-package com.example.firstapp.mvp.presenter
+package com.example.firstapp.presenter
 
 import android.content.res.Resources
 import com.example.firstapp.R
-import com.example.firstapp.mvp.model.Model
-import com.example.firstapp.common.SortType
+import com.example.firstapp.model.Model
+import com.example.firstapp.Data.SortType
 import com.example.firstapp.contracts.MainContract
 import java.util.*
 

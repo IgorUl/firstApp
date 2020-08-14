@@ -1,10 +1,10 @@
-package com.example.firstapp.mvp.model
+package com.example.firstapp.model
 
 import android.icu.text.DateFormat
 import android.icu.text.SimpleDateFormat
-import com.example.firstapp.common.CommentHolder
-import com.example.firstapp.common.CommentSorter
-import com.example.firstapp.common.SortType
+import com.example.firstapp.Data.CommentHolder
+import com.example.firstapp.Data.CommentSorter
+import com.example.firstapp.Data.SortType
 import java.util.*
 
 class Model {

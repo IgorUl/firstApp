@@ -1,6 +1,6 @@
 package com.example.firstapp
 
-import com.example.firstapp.common.CommentSorter
+import com.example.firstapp.Data.CommentSorter
 import org.junit.Test
 
 import org.junit.Assert.*

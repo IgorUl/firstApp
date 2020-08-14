@@ -1,6 +1,6 @@
 package com.example.firstapp
 
-import com.example.firstapp.mvp.model.Model
+import com.example.firstapp.model.Model
 import org.junit.Assert.*
 import org.junit.Test
 

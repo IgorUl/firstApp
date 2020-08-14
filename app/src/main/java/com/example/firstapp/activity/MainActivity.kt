@@ -6,10 +6,10 @@ import android.text.Editable
 import android.text.TextWatcher
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.isVisible
-import com.example.firstapp.common.App
+import com.example.firstapp.App
 import com.example.firstapp.R
 import com.example.firstapp.contracts.MainContract
-import com.example.firstapp.mvp.model.Model
+import com.example.firstapp.model.Model
 import com.example.firstapp.mvp.presenter.Presenter
 import kotlinx.android.synthetic.main.activity_main.*
 
@@ -60,7 +60,7 @@ class MainActivity : AppCompatActivity(), MainContract.MainView {
         editText.addTextChangedListener(editTextWatcher)
     }
 
-    override fun onSaveInstanceState(outState: Bundle) {
+    override fun onSaveInstanceState(outState: Bundle) { //TODO move saving screen state to presenter
         super.onSaveInstanceState(outState)
         outState.run {
             putString("textView", textView.text.toString())

@@ -1,4 +1,4 @@
-package com.example.firstapp.common
+package com.example.firstapp.Data
 
 class CommentHolder {
 
