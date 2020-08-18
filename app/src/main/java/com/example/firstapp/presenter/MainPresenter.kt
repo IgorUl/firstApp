@@ -29,7 +29,15 @@ class MainPresenter(
         }
         view.showStringToTextView(model.getComment())
         view.clearEditText()
-//        view.updateSortButtonAndRadioGroup(model.isListSorted())
+    }
+
+    fun onClickGenerateButton() {
+        model.generateComments()
+        if (!model.isListEmpty()) {
+            view.enableTextViewAndClearButton(true)
+        }
+        view.showStringToTextView(model.getComment())
+        enableNextButton(true)
     }
 
     fun onClickNextButton(activity: MainActivity) {

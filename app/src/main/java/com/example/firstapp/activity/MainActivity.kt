@@ -52,6 +52,10 @@ class MainActivity : AppCompatActivity(), MainContract.MainView {
         clearButton.setOnClickListener {
             presenter.onClickClearButton()
         }
+
+        generateButton.setOnClickListener {
+            presenter.onClickGenerateButton()
+        }
         editText.addTextChangedListener(editTextWatcher)
     }
 

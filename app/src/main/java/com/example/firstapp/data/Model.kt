@@ -32,6 +32,10 @@ class Model {
         this.sortType = sortType
     }
 
+    fun generateComments() {
+        commentHolder.addTenRandomCommentToList()
+    }
+
     private fun getSortedString(sortType: SortType): String {
         val sortedList: List<String> = when (sortType) {
             SortType.BUBBLE ->
