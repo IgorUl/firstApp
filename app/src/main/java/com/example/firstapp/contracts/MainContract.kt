@@ -4,17 +4,25 @@ interface MainContract {
 
     interface MainView {
         fun enabledAddButton(state: Boolean)
-        fun updateSortButtonAndRadioGroup(state: Boolean)
-        fun showStringToTextView(stringToShow: String)
         fun enableTextViewAndClearButton(state: Boolean)
+        fun showStringToTextView(stringToShow: String)
         fun clearTextView()
         fun clearEditText()
+        fun enableNextButton(state: Boolean)
 
     }
 
     interface MainPresenter {
         fun onClickAddButton()
-        fun onClickSortButton()
         fun onClickClearButton()
+    }
+
+    interface SortPresenter {
+        fun onClickSortButton()
+    }
+
+    interface SortView {
+        fun updateSortButtonAndRadioGroup(state: Boolean)
+        fun showStringToTextView(stringToShow: String)
     }
 }

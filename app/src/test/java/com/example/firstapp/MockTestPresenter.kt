@@ -4,7 +4,7 @@ import android.content.res.Resources
 import com.example.firstapp.contracts.MainContract
 import com.example.firstapp.data.Model
 import com.example.firstapp.data.SortType
-import com.example.firstapp.presenter.Presenter
+import com.example.firstapp.presenter.MainPresenter
 import com.nhaarman.mockitokotlin2.any
 import com.nhaarman.mockitokotlin2.mock
 import com.nhaarman.mockitokotlin2.verify
@@ -16,7 +16,7 @@ class MockTestPresenter {
     private var model: Model = mock()
     private var view: MainContract.MainView = mock()
     private var resources: Resources = mock()
-    private var presenter: Presenter = Presenter(view, model, resources)
+    private var presenter: MainPresenter = MainPresenter(view, model, resources)
 
 
     @Test

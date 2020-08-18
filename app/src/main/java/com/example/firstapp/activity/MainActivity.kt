@@ -10,12 +10,12 @@ import com.example.firstapp.App
 import com.example.firstapp.R
 import com.example.firstapp.contracts.MainContract
 import com.example.firstapp.data.Model
-import com.example.firstapp.presenter.Presenter
+import com.example.firstapp.presenter.MainPresenter
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity(), MainContract.MainView {
 
-    private lateinit var presenter: Presenter
+    private lateinit var presenter: MainPresenter
     private val editTextWatcher: TextWatcher = object : TextWatcher {
         override fun afterTextChanged(p0: Editable?) {
         }
@@ -26,6 +26,7 @@ class MainActivity : AppCompatActivity(), MainContract.MainView {
         override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
             presenter.getStringFromEditText(editText.text.toString())
             presenter.updateAddButton()
+
         }
     }
 
@@ -35,7 +36,7 @@ class MainActivity : AppCompatActivity(), MainContract.MainView {
 
         val model: Model = (application as App).model
         val resources: Resources = resources
-        presenter = Presenter(this, model, resources)
+        presenter = MainPresenter(this, model, resources)
         initClickListeners()
     }
 
@@ -44,18 +45,12 @@ class MainActivity : AppCompatActivity(), MainContract.MainView {
             presenter.onClickAddButton()
         }
 
-        sortButton.setOnClickListener {
-            presenter.onClickSortButton()
+        nextButton.setOnClickListener {
+            presenter.onClickNextButton(this)
         }
 
         clearButton.setOnClickListener {
             presenter.onClickClearButton()
-        }
-        radioGroup.setOnCheckedChangeListener { _, checkedId ->
-            when (checkedId) {
-                mergeSortRadioButton.id -> presenter.onClickMergeSortRadioButton()
-                bubbleSortRadioButton.id -> presenter.onClickBubbleSortRadioButton()
-            }
         }
         editText.addTextChangedListener(editTextWatcher)
     }
@@ -73,16 +68,15 @@ class MainActivity : AppCompatActivity(), MainContract.MainView {
 
         //костыль, но пока не знаю как запоминать состояние кнопок
         enableTextViewAndClearButton(textView.text.isNotEmpty())
-        updateSortButtonAndRadioGroup(presenter.isListSorted())
+//        updateSortButtonAndRadioGroup(presenter.isListSorted())
+    }
+
+    override fun enableNextButton(state: Boolean) {
+        nextButton.isEnabled = state
     }
 
     override fun enabledAddButton(state: Boolean) {
         addButton.isEnabled = state
-    }
-
-    override fun updateSortButtonAndRadioGroup(state: Boolean) {
-        sortButton.isEnabled = state
-        radioGroup.isVisible = state
     }
 
     override fun showStringToTextView(stringToShow: String) {

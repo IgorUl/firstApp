@@ -1,11 +1,16 @@
 package com.example.firstapp.presenter
 
+import android.content.Intent
 import android.content.res.Resources
+import androidx.core.content.ContextCompat.startActivity
+import com.example.firstapp.activity.MainActivity
+import com.example.firstapp.activity.SortActivity
+import com.example.firstapp.contracts.MainContract
 import com.example.firstapp.data.Model
 import com.example.firstapp.data.SortType
-import com.example.firstapp.contracts.MainContract
 
-class Presenter(
+
+class MainPresenter(
     private val view: MainContract.MainView,
     private val model: Model,
     private val resources: Resources
@@ -19,20 +24,28 @@ class Presenter(
         if (!model.isListEmpty()) {
             view.enableTextViewAndClearButton(true)
         }
+        if (model.isListSorted()) {
+            view.enableNextButton(true)
+        }
         view.showStringToTextView(model.getComment())
         view.clearEditText()
-        view.updateSortButtonAndRadioGroup(model.isListSorted())
+//        view.updateSortButtonAndRadioGroup(model.isListSorted())
     }
 
-    override fun onClickSortButton() {
-        view.showStringToTextView(model.getSortedStringWithTimeStamps(resources))
-        view.updateSortButtonAndRadioGroup(false)
+    fun onClickNextButton(activity: MainActivity) {
+        val intent = Intent(activity, SortActivity::class.java)
+        intent.putExtra("STRING_FROM_TEXT_VIEW", model.getComment())
+        activity.startActivity(intent)
+    }
+
+    fun enableNextButton(state: Boolean) {
+        view.enableNextButton(state)
     }
 
     override fun onClickClearButton() {
         model.clearStringList()
         view.clearTextView()
-        view.updateSortButtonAndRadioGroup(false)
+//        view.updateSortButtonAndRadioGroup(false)
     }
 
     fun getStringFromEditText(inputString: String) {
@@ -43,7 +56,7 @@ class Presenter(
         view.enabledAddButton(hasEnteredText())
     }
 
-    fun isListSorted(): Boolean = model.isListSorted()
+//    fun isListSorted(): Boolean = model.isListSorted()
 
     fun onClickMergeSortRadioButton() =
         model.setSortType(SortType.MERGE)
