@@ -9,8 +9,8 @@ import androidx.core.view.isVisible
 import com.example.firstapp.App
 import com.example.firstapp.R
 import com.example.firstapp.contracts.MainContract
-import com.example.firstapp.model.Model
-import com.example.firstapp.mvp.presenter.Presenter
+import com.example.firstapp.data.Model
+import com.example.firstapp.presenter.Presenter
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity(), MainContract.MainView {
@@ -24,8 +24,8 @@ class MainActivity : AppCompatActivity(), MainContract.MainView {
         }
 
         override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
-            presenter.isEditViewEmpty(editText.text.toString())
             presenter.getStringFromEditText(editText.text.toString())
+            presenter.updateAddButton()
         }
     }
 

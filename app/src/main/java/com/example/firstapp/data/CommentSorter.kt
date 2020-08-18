@@ -1,4 +1,4 @@
-package com.example.firstapp.Data
+package com.example.firstapp.data
 
 import java.util.*
 
@@ -52,6 +52,10 @@ class CommentSorter {
     }
 
     fun getBubbleSortedList(list: List<String>): List<String> {
+
+        if (list.size <= 1){
+            return list
+        }
         var goodPairCounter = 0
         var i = 0
         val newList: MutableList<String> = mutableListOf()

@@ -1,18 +1,20 @@
-package com.example.firstapp.model
+package com.example.firstapp.data
 
+import android.content.res.Resources
 import android.icu.text.DateFormat
 import android.icu.text.SimpleDateFormat
-import com.example.firstapp.Data.CommentHolder
-import com.example.firstapp.Data.CommentSorter
-import com.example.firstapp.Data.SortType
+import com.example.firstapp.R
 import java.util.*
 
 class Model {
 
     private val commentHolder = CommentHolder()
     private val commentSorter = CommentSorter()
+    private var sortType: SortType = SortType.MERGE
 
-    fun getComment(): String = commentHolder.getInputStringList.joinToString("\n")
+
+    fun getComment(): String =
+        commentHolder.getInputStringList.joinToString("\n")
 
     fun addToList(comment: String) =
         commentHolder.addStringToList(comment)
@@ -26,7 +28,11 @@ class Model {
     fun clearStringList() =
         commentHolder.clearStringList()
 
-    fun getSortedString(sortType: SortType): String {
+    fun setSortType(sortType: SortType) {
+        this.sortType = sortType
+    }
+
+    private fun getSortedString(sortType: SortType): String {
         val sortedList: List<String> = when (sortType) {
             SortType.BUBBLE ->
                 commentSorter.getBubbleSortedList(commentHolder.getInputStringList)
@@ -40,13 +46,27 @@ class Model {
     fun getCurrentTime(): Long =
         System.currentTimeMillis()
 
-    fun parseDateToString(date: Date): String {
+    private fun parseDateToString(date: Date): String {
         val timeFormat: DateFormat = SimpleDateFormat(TIME_PATTERN, Locale.getDefault())
         return timeFormat.format(date)
     }
 
     fun getDateDifference(endSortingTime: Long, startSortingTime: Long): Long =
         endSortingTime - startSortingTime
+
+    fun getSortedStringWithTimeStamps(resources: Resources): String {
+
+        val startSortingTime: Long = getCurrentTime()
+        val sortedString: String = getSortedString(sortType)
+        val endSortingTime: Long = getCurrentTime()
+        return resources.getString(
+            R.string.sortedStringWithTimeStamps,
+            parseDateToString(Date(startSortingTime)),
+            sortedString,
+            parseDateToString(Date(endSortingTime)),
+            getDateDifference(endSortingTime, startSortingTime).toString()
+        )
+    }
 
     companion object {
         private const val MIN_SORTED_LIST_SIZE = 1
