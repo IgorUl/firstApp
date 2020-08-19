@@ -8,4 +8,8 @@
         <item name="colorAccent">@color/colorAccent</item>
     </style>
 
+    <style name="RoundedCornerButton" parent="@style/Widget.AppCompat.Button.Colored">
+        <item name="background">@drawable/rounded_button_active</item>
+        <item name="colorButtonNormal">@color/activeButton</item>
+    </style>
 </resources>

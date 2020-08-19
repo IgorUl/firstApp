@@ -36,16 +36,18 @@
     <Button
         android:id="@+id/sortButton"
         android:layout_width="0dp"
-        android:layout_height="44dp"
+        android:layout_height="40dp"
         android:layout_marginStart="24dp"
         android:layout_marginEnd="24dp"
         android:layout_marginBottom="60dp"
         android:background="@drawable/button_selector"
         android:enabled="true"
+        android:gravity="center"
         android:text="@string/sortButton"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        style="@style/RoundedCornerButton"/>
 
 
     <RadioGroup

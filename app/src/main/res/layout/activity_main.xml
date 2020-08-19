@@ -71,10 +71,12 @@
         android:background="@drawable/button_selector"
         android:enabled="false"
         android:text="@string/addButton"
+        android:gravity="center"
         app:layout_constraintBottom_toTopOf="@+id/nextButton"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
+        style="@style/RoundedCornerButton"
         />
 
     <Button
@@ -88,7 +90,8 @@
         android:text="@string/nextButton"
         app:layout_constraintBottom_toTopOf="@+id/generateButton"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        style="@style/RoundedCornerButton"/>
 
     <Button
         android:id="@+id/generateButton"
@@ -102,7 +105,8 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        style="@style/RoundedCornerButton"/>
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
