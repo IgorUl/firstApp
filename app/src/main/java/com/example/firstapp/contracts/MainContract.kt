@@ -1,5 +1,7 @@
 package com.example.firstapp.contracts
 
+import com.example.firstapp.activity.MainActivity
+
 interface MainContract {
 
     interface MainView {
@@ -19,10 +21,10 @@ interface MainContract {
     interface MainPresenter {
         fun onClickAddButton()
         fun onClickClearButton()
+        fun onClickNextButton(activity: MainActivity)
     }
 
     interface SortPresenter {
         fun onClickSortButton()
-
     }
 }

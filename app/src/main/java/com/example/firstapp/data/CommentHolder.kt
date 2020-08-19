@@ -33,4 +33,8 @@ class CommentHolder {
             addStringToList(generateRandomComment())
         }
     }
+
+    fun addFromFileToList() {
+        inputStringList.addAll(SaveData().readFile())
+    }
 }

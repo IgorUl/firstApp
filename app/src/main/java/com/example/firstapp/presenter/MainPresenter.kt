@@ -1,19 +1,14 @@
 package com.example.firstapp.presenter
 
 import android.content.Intent
-import android.content.res.Resources
-import androidx.core.content.ContextCompat.startActivity
 import com.example.firstapp.activity.MainActivity
 import com.example.firstapp.activity.SortActivity
 import com.example.firstapp.contracts.MainContract
 import com.example.firstapp.data.Model
-import com.example.firstapp.data.SortType
-
 
 class MainPresenter(
     private val view: MainContract.MainView,
-    private val model: Model,
-    private val resources: Resources
+    private val model: Model
 ) :
     MainContract.MainPresenter {
 
@@ -40,7 +35,7 @@ class MainPresenter(
         view.enableNextButton(true)
     }
 
-    fun onClickNextButton(activity: MainActivity) {
+    override fun onClickNextButton(activity: MainActivity) {
         val intent = Intent(activity, SortActivity::class.java)
         intent.putExtra("STRING_FROM_TEXT_VIEW", model.getComment())
         activity.startActivity(intent)
@@ -56,13 +51,20 @@ class MainPresenter(
         this.inputString = inputString
     }
 
-    fun updateAddButton() {
+    fun updateAddButton() =
         view.enabledAddButton(hasEnteredText())
+
+    fun isListSorted(): Boolean =
+        model.isListSorted()
+
+    private fun hasEnteredText() =
+        inputString.isNotEmpty()
+
+    fun addCommentFromFile() {
+        model.checkFile()
     }
-
-    fun isListSorted(): Boolean = model.isListSorted()
-
-    private fun hasEnteredText() = inputString.isNotEmpty()
-
+    fun showSavedComments() {
+        view.showStringToTextView(model.getComment())
+    }
 }
 

@@ -1,6 +1,5 @@
 package com.example.firstapp.activity
 
-import android.content.res.Resources
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
@@ -9,6 +8,7 @@ import androidx.core.view.isVisible
 import com.example.firstapp.App
 import com.example.firstapp.R
 import com.example.firstapp.contracts.MainContract
+import com.example.firstapp.data.SaveData
 import com.example.firstapp.data.Model
 import com.example.firstapp.presenter.MainPresenter
 import kotlinx.android.synthetic.main.activity_main.*
@@ -16,6 +16,7 @@ import kotlinx.android.synthetic.main.activity_main.*
 class MainActivity : AppCompatActivity(), MainContract.MainView {
 
     private lateinit var presenter: MainPresenter
+    private val saveData: SaveData = SaveData()
     private val editTextWatcher: TextWatcher = object : TextWatcher {
         override fun afterTextChanged(p0: Editable?) {
         }
@@ -26,7 +27,6 @@ class MainActivity : AppCompatActivity(), MainContract.MainView {
         override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
             presenter.getStringFromEditText(editText.text.toString())
             presenter.updateAddButton()
-
         }
     }
 
@@ -35,8 +35,8 @@ class MainActivity : AppCompatActivity(), MainContract.MainView {
         setContentView(R.layout.activity_main)
 
         val model: Model = (application as App).model
-        val resources: Resources = resources
-        presenter = MainPresenter(this, model, resources)
+        presenter = MainPresenter(this, model)
+        presenter.addCommentFromFile()
         initClickListeners()
     }
 
@@ -59,8 +59,15 @@ class MainActivity : AppCompatActivity(), MainContract.MainView {
         editText.addTextChangedListener(editTextWatcher)
     }
 
+    override fun onStop() {
+        super.onStop()
+        saveData.writeFile(textView.text.toString())
+    }
+
     override fun onResume() {
         super.onResume()
+        presenter.showSavedComments()
+        if (textView.text.isNotEmpty()) enableTextViewAndClearButton(true)
         enableNextButton(presenter.isListSorted())
     }
 
@@ -74,10 +81,7 @@ class MainActivity : AppCompatActivity(), MainContract.MainView {
     override fun onRestoreInstanceState(savedInstanceState: Bundle) {
         super.onRestoreInstanceState(savedInstanceState)
         textView.text = savedInstanceState.getString("textView")
-
-        //костыль, но пока не знаю как запоминать состояние кнопок
         enableTextViewAndClearButton(textView.text.isNotEmpty())
-//        updateSortButtonAndRadioGroup(presenter.isListSorted())
     }
 
     override fun enableNextButton(state: Boolean) {
@@ -103,7 +107,6 @@ class MainActivity : AppCompatActivity(), MainContract.MainView {
         textView.isVisible = false
     }
 
-    override fun clearEditText() {
+    override fun clearEditText() =
         editText.setText("")
-    }
 }

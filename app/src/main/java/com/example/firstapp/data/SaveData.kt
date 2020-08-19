@@ -1,13 +1,13 @@
 package com.example.firstapp.data
 
+
+import android.os.Environment
 import java.io.*
 
 
-class Data {
+class SaveData {
 
-
-    private val fileName: String = "inputString"
-    private val file = File("/sdcard/Download/kek.txt")
+    private val file = File(Environment.getExternalStorageDirectory().path,"/Download/kek.txt")
 
     fun writeFile(string: String) {
         try {
@@ -20,9 +20,9 @@ class Data {
         }
     }
 
-    fun readFile(): String {
+    fun readFile(): List<String> {
         return if (file.exists())
-        File(file.path).readLines().toString()
-        else ""
+        File(file.path).readLines().toList()
+        else emptyList()
     }
 }

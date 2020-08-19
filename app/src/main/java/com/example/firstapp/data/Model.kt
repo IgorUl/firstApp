@@ -35,6 +35,10 @@ class Model {
         commentHolder.addTenRandomCommentToList()
     }
 
+    fun checkFile() {
+        commentHolder.addFromFileToList()
+    }
+
     private fun getSortedString(sortType: SortType): String {
         val sortedList: List<String> = when (sortType) {
             SortType.BUBBLE ->

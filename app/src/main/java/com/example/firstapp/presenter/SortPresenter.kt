@@ -12,18 +12,16 @@ class SortPresenter(
 ) :
     MainContract.SortPresenter {
 
-
-
     override fun onClickSortButton() {
         view.showStringToTextView(model.getSortedStringWithTimeStamps(resources))
         view.updateSortButtonAndRadioGroup(false)
     }
 
-    fun isListSorted() = model.isListSorted()
+    fun isListSorted() =
+        model.isListSorted()
 
     fun onClickMergeSortRadioButton() =
-    model.setSortType(SortType.MERGE)
-
+        model.setSortType(SortType.MERGE)
 
     fun onClickBubbleSortRadioButton() =
         model.setSortType(SortType.BUBBLE)

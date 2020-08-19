@@ -10,7 +10,7 @@ import org.junit.Assert.*
  *
  * See [testing documentation](http://d.android.com/tools/testing).
  */
-class UnitTestForSort {
+class UnitTestCommentSorter {
     private val list: MutableList<String> =
         mutableListOf("1", "two", " ", " 2!0", "check", "solo", "UP", "UpFirst", "$%#!@")
     private val expectedList: MutableList<String> =
@@ -30,7 +30,6 @@ class UnitTestForSort {
 
     @Test
     fun testMergeSortingEmptyString() {
-
         val sortedList: List<String> = CommentSorter().getMergeSortedList(emptyList)
         assertEquals("MergeSort - NOT OK", expectedEmptyList, sortedList)
     }

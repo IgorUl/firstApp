@@ -49,17 +49,14 @@ class SortActivity : AppCompatActivity(), MainContract.SortView {
         super.onRestoreInstanceState(savedInstanceState)
         sortView.text = savedInstanceState.getString("sortView")
         updateSortButtonAndRadioGroup(presenter.isListSorted())
-
     }
 
     override fun showStringToTextView(stringToShow: String) {
         sortView.text = stringToShow
     }
 
-        override fun updateSortButtonAndRadioGroup(state: Boolean) {
+    override fun updateSortButtonAndRadioGroup(state: Boolean) {
         sortButton.isEnabled = state
         radioGroup.isVisible = state
     }
-
-
 }

@@ -44,9 +44,7 @@
             android:isScrollContainer="true"
             android:minHeight="50dp"
             android:scrollbars="vertical"
-            android:visibility="invisible"
-            tools:text="@tools:sample/lorem/random"
-            tools:visibility="visible" />
+            tools:text="@tools:sample/lorem/random" />
     </ScrollView>
 
     <ImageButton

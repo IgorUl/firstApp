@@ -22,5 +22,4 @@ class UnitTestModel {
         val difference: Boolean = Model().getDateDifference(end, start) >= 0
         assertEquals("DateDifference - NOT OK", true, difference)
     }
-
 }
