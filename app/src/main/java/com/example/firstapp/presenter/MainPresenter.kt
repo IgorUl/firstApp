@@ -37,7 +37,7 @@ class MainPresenter(
             view.enableTextViewAndClearButton(true)
         }
         view.showStringToTextView(model.getComment())
-        enableNextButton(true)
+        view.enableNextButton(true)
     }
 
     fun onClickNextButton(activity: MainActivity) {
@@ -46,14 +46,10 @@ class MainPresenter(
         activity.startActivity(intent)
     }
 
-    fun enableNextButton(state: Boolean) {
-        view.enableNextButton(state)
-    }
-
     override fun onClickClearButton() {
         model.clearStringList()
         view.clearTextView()
-//        view.updateSortButtonAndRadioGroup(false)
+        view.enableNextButton(false)
     }
 
     fun getStringFromEditText(inputString: String) {
@@ -64,15 +60,7 @@ class MainPresenter(
         view.enabledAddButton(hasEnteredText())
     }
 
-//    fun isListSorted(): Boolean = model.isListSorted()
-
-    fun onClickMergeSortRadioButton() =
-        model.setSortType(SortType.MERGE)
-
-
-    fun onClickBubbleSortRadioButton() =
-        model.setSortType(SortType.BUBBLE)
-
+    fun isListSorted(): Boolean = model.isListSorted()
 
     private fun hasEnteredText() = inputString.isNotEmpty()
 

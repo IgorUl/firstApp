@@ -38,6 +38,20 @@ class SortActivity : AppCompatActivity(), MainContract.SortView {
         }
     }
 
+    override fun onSaveInstanceState(outState: Bundle) { //TODO move saving screen state to presenter
+        super.onSaveInstanceState(outState)
+        outState.run {
+            putString("sortView", sortView.text.toString())
+        }
+    }
+
+    override fun onRestoreInstanceState(savedInstanceState: Bundle) {
+        super.onRestoreInstanceState(savedInstanceState)
+        sortView.text = savedInstanceState.getString("sortView")
+        updateSortButtonAndRadioGroup(presenter.isListSorted())
+
+    }
+
     override fun showStringToTextView(stringToShow: String) {
         sortView.text = stringToShow
     }

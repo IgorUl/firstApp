@@ -12,7 +12,6 @@ class Model {
     private val commentSorter = CommentSorter()
     private var sortType: SortType = SortType.MERGE
 
-
     fun getComment(): String =
         commentHolder.getInputStringList.joinToString("\n")
 

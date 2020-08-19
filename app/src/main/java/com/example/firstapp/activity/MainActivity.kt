@@ -59,6 +59,11 @@ class MainActivity : AppCompatActivity(), MainContract.MainView {
         editText.addTextChangedListener(editTextWatcher)
     }
 
+    override fun onResume() {
+        super.onResume()
+        enableNextButton(presenter.isListSorted())
+    }
+
     override fun onSaveInstanceState(outState: Bundle) { //TODO move saving screen state to presenter
         super.onSaveInstanceState(outState)
         outState.run {

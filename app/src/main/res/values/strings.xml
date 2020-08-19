@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">MyFirstApp</string>
+    <string name="app_name">SberSort</string>
     <string name="addButton">Добавить</string>
     <string name="sortButton">Отсортировать</string>
     <string name="inputFieldHint">Введите строку</string>

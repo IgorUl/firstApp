@@ -11,7 +11,7 @@ import com.nhaarman.mockitokotlin2.verify
 import org.junit.Test
 import org.mockito.Mockito.`when`
 
-class MockTestPresenter {
+class MockTestMainPresenter {
 
     private var model: Model = mock()
     private var view: MainContract.MainView = mock()
@@ -30,38 +30,13 @@ class MockTestPresenter {
         verify(view).showStringToTextView(model.getComment())
     }
 
-    @Test
-    fun onSortButtonClicked() {
-        `when`(model.getSortedStringWithTimeStamps(any())).thenReturn("test")
 
-        presenter.onClickSortButton()
-
-        verify(model).getSortedStringWithTimeStamps(any())
-        verify(view).showStringToTextView(any())
-        verify(view).updateSortButtonAndRadioGroup(false)
-    }
 
     @Test
     fun onClearButtonClicked() {
-
         presenter.onClickClearButton()
 
         verify(model).clearStringList()
         verify(view).clearTextView()
-        verify(view).updateSortButtonAndRadioGroup(false)
-    }
-
-    @Test
-    fun onMergeSortRadioButtonClicked() {
-        presenter.onClickMergeSortRadioButton()
-
-        verify(model).setSortType(SortType.MERGE)
-    }
-
-    @Test
-    fun onBubbleSortRadioButtonClicked() {
-        presenter.onClickBubbleSortRadioButton()
-
-        verify(model).setSortType(SortType.BUBBLE)
     }
 }

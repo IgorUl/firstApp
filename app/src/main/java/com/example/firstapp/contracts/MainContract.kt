@@ -9,7 +9,11 @@ interface MainContract {
         fun clearTextView()
         fun clearEditText()
         fun enableNextButton(state: Boolean)
+    }
 
+    interface SortView {
+        fun updateSortButtonAndRadioGroup(state: Boolean)
+        fun showStringToTextView(stringToShow: String)
     }
 
     interface MainPresenter {
@@ -19,10 +23,6 @@ interface MainContract {
 
     interface SortPresenter {
         fun onClickSortButton()
-    }
 
-    interface SortView {
-        fun updateSortButtonAndRadioGroup(state: Boolean)
-        fun showStringToTextView(stringToShow: String)
     }
 }
