@@ -8,7 +8,6 @@ import androidx.core.view.isVisible
 import com.example.firstapp.App
 import com.example.firstapp.R
 import com.example.firstapp.contracts.MainContract
-import com.example.firstapp.data.SaveData
 import com.example.firstapp.data.Model
 import com.example.firstapp.presenter.MainPresenter
 import kotlinx.android.synthetic.main.activity_main.*
@@ -16,7 +15,6 @@ import kotlinx.android.synthetic.main.activity_main.*
 class MainActivity : AppCompatActivity(), MainContract.MainView {
 
     private lateinit var presenter: MainPresenter
-    private val saveData: SaveData = SaveData()
     private val editTextWatcher: TextWatcher = object : TextWatcher {
         override fun afterTextChanged(p0: Editable?) {
         }
@@ -35,7 +33,7 @@ class MainActivity : AppCompatActivity(), MainContract.MainView {
         setContentView(R.layout.activity_main)
 
         val model: Model = (application as App).model
-        presenter = MainPresenter(this, model)
+        presenter = MainPresenter(this, model, this)
         presenter.addCommentFromFile()
         initClickListeners()
     }
@@ -61,27 +59,19 @@ class MainActivity : AppCompatActivity(), MainContract.MainView {
 
     override fun onStop() {
         super.onStop()
-        saveData.writeFile(textView.text.toString())
+        presenter.writeFile(textView.text.toString())
     }
 
-    override fun onResume() {
-        super.onResume()
+    override fun onStart() {
+        super.onStart()
         presenter.showSavedComments()
-        if (textView.text.isNotEmpty()) enableTextViewAndClearButton(true)
+        if (textView.text.isNotEmpty()) enableClearButton(true)
         enableNextButton(presenter.isListSorted())
-    }
-
-    override fun onSaveInstanceState(outState: Bundle) { //TODO move saving screen state to presenter
-        super.onSaveInstanceState(outState)
-        outState.run {
-            putString("textView", textView.text.toString())
-        }
     }
 
     override fun onRestoreInstanceState(savedInstanceState: Bundle) {
         super.onRestoreInstanceState(savedInstanceState)
-        textView.text = savedInstanceState.getString("textView")
-        enableTextViewAndClearButton(textView.text.isNotEmpty())
+        enableClearButton(textView.text.isNotEmpty())
     }
 
     override fun enableNextButton(state: Boolean) {
@@ -96,15 +86,13 @@ class MainActivity : AppCompatActivity(), MainContract.MainView {
         textView.text = stringToShow
     }
 
-    override fun enableTextViewAndClearButton(state: Boolean) {
-        textView.isVisible = state
+    override fun enableClearButton(state: Boolean) {
         clearButton.isVisible = state
     }
 
     override fun clearTextView() {
         textView.text = ""
         clearButton.isVisible = false
-        textView.isVisible = false
     }
 
     override fun clearEditText() =

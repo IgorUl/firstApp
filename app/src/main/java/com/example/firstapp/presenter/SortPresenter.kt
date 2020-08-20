@@ -17,7 +17,7 @@ class SortPresenter(
         view.updateSortButtonAndRadioGroup(false)
     }
 
-    fun isListSorted() =
+    fun isListSorted(): Boolean =
         model.isListSorted()
 
     fun onClickMergeSortRadioButton() =

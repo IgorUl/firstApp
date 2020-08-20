@@ -35,10 +35,6 @@ class Model {
         commentHolder.addTenRandomCommentToList()
     }
 
-    fun checkFile() {
-        commentHolder.addFromFileToList()
-    }
-
     private fun getSortedString(sortType: SortType): String {
         val sortedList: List<String> = when (sortType) {
             SortType.BUBBLE ->
@@ -73,6 +69,10 @@ class Model {
             parseDateToString(Date(endSortingTime)),
             getDateDifference(endSortingTime, startSortingTime).toString()
         )
+    }
+
+    fun addListFromFile(list: MutableList<String>) {
+        commentHolder.addFromFileToList(list)
     }
 
     companion object {

@@ -1,18 +1,21 @@
 package com.example.firstapp.data
 
 
-import android.os.Environment
-import java.io.*
+import android.content.Context
+import java.io.BufferedWriter
+import java.io.File
+import java.io.FileNotFoundException
 
 
-class SaveData {
+class SaveData(context: Context) {
 
-    private val file = File(Environment.getExternalStorageDirectory().path,"/Download/kek.txt")
+    private var file: File = File(context.filesDir, "inputString.txt")
 
     fun writeFile(string: String) {
+
         try {
             file.createNewFile()
-            val writer = file.bufferedWriter()
+            val writer: BufferedWriter = file.bufferedWriter()
             writer.write(string)
             writer.close()
         } catch (e: FileNotFoundException) {
@@ -20,9 +23,9 @@ class SaveData {
         }
     }
 
-    fun readFile(): List<String> {
+    fun readFile(): MutableList<String> {
         return if (file.exists())
-        File(file.path).readLines().toList()
-        else emptyList()
+        File(file.path).readLines().toMutableList()
+        else mutableListOf()
     }
 }

@@ -6,7 +6,7 @@ interface MainContract {
 
     interface MainView {
         fun enabledAddButton(state: Boolean)
-        fun enableTextViewAndClearButton(state: Boolean)
+        fun enableClearButton(state: Boolean)
         fun showStringToTextView(stringToShow: String)
         fun clearTextView()
         fun clearEditText()

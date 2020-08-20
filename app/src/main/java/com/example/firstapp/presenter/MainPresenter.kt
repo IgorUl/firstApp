@@ -1,37 +1,41 @@
 package com.example.firstapp.presenter
 
+import android.content.Context
 import android.content.Intent
 import com.example.firstapp.activity.MainActivity
 import com.example.firstapp.activity.SortActivity
 import com.example.firstapp.contracts.MainContract
 import com.example.firstapp.data.Model
+import com.example.firstapp.data.SaveData
 
 class MainPresenter(
     private val view: MainContract.MainView,
-    private val model: Model
+    private val model: Model,
+    context: Context
 ) :
     MainContract.MainPresenter {
 
     private var inputString = ""
+    private val saveData = SaveData(context)
 
     override fun onClickAddButton() {
         model.addToList(inputString)
         if (!model.isListEmpty()) {
-            view.enableTextViewAndClearButton(true)
+            view.enableClearButton(true)
         }
         if (model.isListSorted()) {
             view.enableNextButton(true)
         }
-        view.showStringToTextView(model.getComment())
+        showSavedComments()
         view.clearEditText()
     }
 
     fun onClickGenerateButton() {
         model.generateComments()
         if (!model.isListEmpty()) {
-            view.enableTextViewAndClearButton(true)
+            view.enableClearButton(true)
         }
-        view.showStringToTextView(model.getComment())
+        showSavedComments()
         view.enableNextButton(true)
     }
 
@@ -57,14 +61,19 @@ class MainPresenter(
     fun isListSorted(): Boolean =
         model.isListSorted()
 
-    private fun hasEnteredText() =
+    private fun hasEnteredText(): Boolean =
         inputString.isNotEmpty()
 
-    fun addCommentFromFile() {
-        model.checkFile()
-    }
     fun showSavedComments() {
         view.showStringToTextView(model.getComment())
+    }
+
+    fun addCommentFromFile() {
+        model.addListFromFile(saveData.readFile())
+    }
+
+    fun writeFile(string: String) {
+        saveData.writeFile(string)
     }
 }
 

@@ -7,7 +7,7 @@ class CommentHolder {
     val getInputStringList: List<String>
         get() = inputStringList
 
-    private val inputStringList = mutableListOf<String>()
+    private var inputStringList: MutableList<String> = mutableListOf()
     var isSorted: Boolean = false
 
     fun addStringToList(inputString: String) {
@@ -19,11 +19,16 @@ class CommentHolder {
         inputStringList.clear()
     }
 
+    fun addFromFileToList(list: MutableList<String>) {
+        inputStringList.clear()
+        inputStringList.addAll(list)
+    }
+
     private fun generateRandomComment(): String {
-        val charPool : List<Char> = ('a'..'z') + ('A'..'Z') + ('!'..'/') + ('0'..'9')
+        val charPool: List<Char> = ('a'..'z') + ('A'..'Z') + ('!'..'/') + ('0'..'9')
 
         return (0..Random.nextInt(5, 20))
-            .map { i -> Random.nextInt(0, charPool.size) }
+            .map { Random.nextInt(0, charPool.size) }
             .map(charPool::get)
             .joinToString("")
     }
@@ -32,9 +37,5 @@ class CommentHolder {
         for (i: Int in 1..10) {
             addStringToList(generateRandomComment())
         }
-    }
-
-    fun addFromFileToList() {
-        inputStringList.addAll(SaveData().readFile())
     }
 }

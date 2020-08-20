@@ -1,5 +1,6 @@
 package com.example.firstapp
 
+import android.content.Context
 import com.example.firstapp.contracts.MainContract
 import com.example.firstapp.data.Model
 import com.example.firstapp.presenter.MainPresenter
@@ -13,7 +14,8 @@ class MockTestMainPresenter {
 
     private var model: Model = mock()
     private var view: MainContract.MainView = mock()
-    private var presenter: MainPresenter = MainPresenter(view, model)
+    private var context: Context = mock()
+    private var presenter: MainPresenter = MainPresenter(view, model, context)
 
 
     @Test
@@ -26,7 +28,7 @@ class MockTestMainPresenter {
 
         verify(model).addToList(any())
         verify(model).isListEmpty()
-        verify(view).enableTextViewAndClearButton(true)
+        verify(view).enableClearButton(true)
         verify(model).isListSorted()
         verify(view).enableNextButton(true)
         verify(view).showStringToTextView(model.getComment())

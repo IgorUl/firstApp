@@ -38,7 +38,7 @@ class SortActivity : AppCompatActivity(), MainContract.SortView {
         }
     }
 
-    override fun onSaveInstanceState(outState: Bundle) { //TODO move saving screen state to presenter
+    override fun onSaveInstanceState(outState: Bundle) {
         super.onSaveInstanceState(outState)
         outState.run {
             putString("sortView", sortView.text.toString())
