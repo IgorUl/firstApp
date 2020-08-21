@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">MyFirstApp</string>
+    <string name="app_name">SberSort</string>
     <string name="addButton">Добавить</string>
     <string name="sortButton">Отсортировать</string>
     <string name="inputFieldHint">Введите строку</string>
@@ -7,4 +7,6 @@
     <string name="bubbleSortRadioButton">Сортировка пузырьком</string>
     <string name="clearButton">Кнопка очистки</string>
     <string name="sortedStringWithTimeStamps">Start sorting: %1$s\n%2$s\nEnd sorting: %3$s\nTime in millis: %4$s</string>
+    <string name="nextButton">Далее</string>
+    <string name="generateButton">Сгенерировать 10 комментов</string>
 </resources>
