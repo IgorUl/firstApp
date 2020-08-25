@@ -1,9 +1,5 @@
 package com.example.firstapp.data
 
-import android.icu.text.DateFormat
-import android.icu.text.SimpleDateFormat
-import java.util.*
-
 class Model(
     private val commentHolder: CommentHolder,
     private val commentSorter: CommentSorter,
@@ -49,14 +45,6 @@ class Model(
     private fun getCurrentTime(): Long =
         timeProvider.getTime()
 
-    fun parseDateToString(date: Date): String {
-        val timeFormat: DateFormat = SimpleDateFormat(TIME_PATTERN, Locale.getDefault())
-        return timeFormat.format(date)
-    }
-
-    fun getDateDifference(endSortingTime: Long, startSortingTime: Long): Long =
-        endSortingTime - startSortingTime
-
     fun initSortData(): SortedStringWithTimeStamps =
         SortedStringWithTimeStamps(getCurrentTime(), getSortedString(sortType), getCurrentTime())
 
@@ -72,6 +60,5 @@ class Model(
 
     companion object {
         private const val MIN_SORTED_LIST_SIZE = 1
-        private const val TIME_PATTERN = "HH:mm:ss.SSS"
     }
 }

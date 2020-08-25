@@ -8,6 +8,7 @@ import com.example.firstapp.App
 import com.example.firstapp.R
 import com.example.firstapp.contracts.MainContract
 import com.example.firstapp.data.Model
+import com.example.firstapp.data.TimeProvider
 import com.example.firstapp.presenter.SortPresenter
 import kotlinx.android.synthetic.main.activity_sort.*
 
@@ -21,7 +22,8 @@ class SortActivity : AppCompatActivity(), MainContract.SortView {
 
         val model: Model = (application as App).model
         val resources: Resources = resources
-        presenter = SortPresenter(this, model, resources)
+        val timeProvider = TimeProvider()
+        presenter = SortPresenter(this, model, resources, timeProvider)
         sortView.movementMethod = ScrollingMovementMethod()
         initClickListeners()
         if (savedInstanceState == null) {
@@ -33,7 +35,7 @@ class SortActivity : AppCompatActivity(), MainContract.SortView {
         sortButton.setOnClickListener {
             presenter.onClickSortButton()
         }
-        radioGroup.setOnCheckedChangeListener { _, checkedId ->
+        sortRadioGroup.setOnCheckedChangeListener { _, checkedId ->
             when (checkedId) {
                 mergeSortRadioButton.id -> presenter.onClickMergeSortRadioButton()
                 bubbleSortRadioButton.id -> presenter.onClickBubbleSortRadioButton()

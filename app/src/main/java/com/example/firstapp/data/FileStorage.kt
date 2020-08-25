@@ -12,8 +12,6 @@ class FileStorage(context: Context) {
 
     private var file: File = File(context.filesDir, FILE_NAME)
 
-
-
     fun writeFile(string: String): Boolean {
         try {
             file.createNewFile()

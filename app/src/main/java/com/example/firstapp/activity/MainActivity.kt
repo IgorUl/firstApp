@@ -64,9 +64,9 @@ class MainActivity : AppCompatActivity(), MainContract.MainView, MainContract.Ma
         inputText.addTextChangedListener(editTextWatcher)
     }
 
-    override fun onStop() {
-        super.onStop()
-        presenter.onStop()
+    override fun onPause() {
+        super.onPause()
+        presenter.onPause()
     }
 
     override fun onStart() {

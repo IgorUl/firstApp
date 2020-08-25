@@ -8,6 +8,7 @@ import com.nhaarman.mockitokotlin2.times
 import com.nhaarman.mockitokotlin2.verify
 import org.junit.Test
 import org.mockito.Mockito.`when`
+import org.mockito.Mockito.anyInt
 
 
 class MainPresenterTest {
@@ -81,7 +82,7 @@ class MainPresenterTest {
     fun onGenerateButtonClicked() {
         presenter.onClickGenerateButton()
 
-        verify(model).generateComments(10)
+        verify(model).generateComments(anyInt())
         verify(view).updateClearButtonVisibility(true)
         verify(view).updateNextButton(true)
     }
@@ -94,4 +95,5 @@ class MainPresenterTest {
         verify(view).clearTextView()
         verify(view).updateNextButton(false)
     }
+
 }

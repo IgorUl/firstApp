@@ -6,12 +6,15 @@ import com.example.firstapp.contracts.MainContract
 import com.example.firstapp.data.Model
 import com.example.firstapp.data.SortType
 import com.example.firstapp.data.SortedStringWithTimeStamps
-import java.util.*
+import com.example.firstapp.data.TimeProvider
+import org.jetbrains.annotations.TestOnly
 
 class SortPresenter(
     private val view: MainContract.SortView,
     private val model: Model,
-    private val resources: Resources
+    private val resources: Resources,
+    private val timeProvider: TimeProvider
+
 ) :
     MainContract.SortPresenter {
 
@@ -29,16 +32,14 @@ class SortPresenter(
     fun onClickBubbleSortRadioButton() =
         model.setSortType(SortType.BUBBLE)
 
-    private fun getSortedStringWithTimeStamps(sortedStringWithTimeStamps: SortedStringWithTimeStamps): String {
+    @TestOnly
+    internal fun getSortedStringWithTimeStamps(sortedStringWithTimeStamps: SortedStringWithTimeStamps): String {
         return resources.getString(
             R.string.sortedStringWithTimeStamps,
-            model.parseDateToString(Date(sortedStringWithTimeStamps.startTime)),
+            timeProvider.parseDateToString(sortedStringWithTimeStamps.startTime),
             sortedStringWithTimeStamps.sortedString,
-            model.parseDateToString(Date(sortedStringWithTimeStamps.endTime)),
-            model.getDateDifference(
-                sortedStringWithTimeStamps.endTime,
-                sortedStringWithTimeStamps.startTime
-            ).toString()
+            timeProvider.parseDateToString(sortedStringWithTimeStamps.endTime),
+            sortedStringWithTimeStamps.timeDifference.toString()
         )
     }
 }

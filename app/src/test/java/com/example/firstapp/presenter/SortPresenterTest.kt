@@ -6,15 +6,11 @@ import com.example.firstapp.contracts.MainContract
 import com.example.firstapp.data.Model
 import com.example.firstapp.data.SortType
 import com.example.firstapp.data.SortedStringWithTimeStamps
+import com.example.firstapp.data.TimeProvider
 import com.nhaarman.mockitokotlin2.*
-import net.bytebuddy.TypeCache
 import org.junit.Test
 import org.mockito.ArgumentMatchers.*
-import org.mockito.Mockito
 import org.mockito.Mockito.`when`
-import org.mockito.Mockito.spy
-import java.lang.IllegalStateException
-import java.util.*
 
 class SortPresenterTest {
 
@@ -23,12 +19,26 @@ class SortPresenterTest {
     private var model: Model = mock()
     private var view: MainContract.SortView = mock()
     private var resources: Resources = mock()
-    private var presenter: SortPresenter = SortPresenter(view, model, resources)
+    private var timeProvider: TimeProvider= mock()
+    private var presenter: SortPresenter = SortPresenter(view, model, resources, timeProvider)
 
     @Test
-    fun onSortButtonClicked_() {
-        //выписать все функции
-        
+    fun onSortButtonClicked_returnValue() {
+        val expected = "expected"
+        `when`(
+            resources.getString(
+                eq(R.string.sortedStringWithTimeStamps),
+                anyString(),
+                anyString(),
+                anyString(),
+                anyString()
+            )
+        ).thenReturn(expected)
+        `when`(timeProvider.parseDateToString(anyLong())).thenReturn(anyString())
+
+        val result: String = presenter.getSortedStringWithTimeStamps(sortObj)
+
+        assert(result == expected)
     }
 
     @Test
@@ -41,14 +51,14 @@ class SortPresenterTest {
     }
 
     @Test
-    fun onMergeSortRadioButtonClicked_() {
+    fun onMergeSortRadioButtonClicked_changeSortType() {
         presenter.onClickMergeSortRadioButton()
 
         verify(model).setSortType(SortType.MERGE)
     }
 
     @Test
-    fun onBubbleSortRadioButtonClicked_() {
+    fun onBubbleSortRadioButtonClicked_changeSortType() {
         presenter.onClickBubbleSortRadioButton()
 
         verify(model).setSortType(SortType.BUBBLE)

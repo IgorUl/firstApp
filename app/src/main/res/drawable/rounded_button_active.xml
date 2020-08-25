@@ -9,8 +9,6 @@
             <shape android:shape="rectangle"
                 android:tint="@color/green">
                 <corners android:radius="10dp"/>
-<!--                 res -->
-                <solid android:color="#1a237e"/>
                 <padding android:top="6dp"/>
             </shape>
         </item>

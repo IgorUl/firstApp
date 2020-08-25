@@ -50,7 +50,7 @@ class MainPresenter(
         inputString.isNotEmpty()
 
     private fun showSavedComments() {
-        if(!model.isListEmpty()) {
+        if (!model.isListEmpty()) {
             view.showStringToTextView(model.getAllComment())
             view.updateClearButtonVisibility(true)
         } else {
@@ -61,12 +61,12 @@ class MainPresenter(
 
     fun onCreated() {
         model.readFile()
-        if(model.getAllComment().isEmpty()) {
+        if (model.getAllComment().isEmpty()) {
             showErrorMessage(R.string.commentNotFound)
         }
     }
 
-    fun onStop() {
+    fun onPause() {
         if (!model.writeFile()) {
             showErrorMessage(R.string.fileNotFoundMessage)
         }

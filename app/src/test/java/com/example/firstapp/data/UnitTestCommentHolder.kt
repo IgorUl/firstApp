@@ -1,7 +1,6 @@
-package com.example.firstapp
+package com.example.firstapp.data
 
-import com.example.firstapp.data.CommentHolder
-import junit.framework.Assert.assertEquals
+import org.junit.Assert.assertEquals
 import org.junit.Test
 
 class UnitTestCommentHolder {
@@ -11,14 +10,14 @@ class UnitTestCommentHolder {
     private val commentHolder = CommentHolder()
 
     @Test
-    fun testAddStringToList() {
+    fun addStringToList() {
         commentHolder.addStringToList("test")
 
         assertEquals(expectedList, commentHolder.getInputStringList)
     }
 
     @Test
-    fun testClearStringList() {
+    fun clearStringList() {
         commentHolder.clearStringList()
         expectedList.clear()
 
@@ -26,10 +25,12 @@ class UnitTestCommentHolder {
     }
 
     @Test
-    fun testAddRandomCommentToList() {
+    fun addRandomCommentToList() {
         val expectedListSize = 10
 
         commentHolder.addRandomCommentToList(10)
         assertEquals(expectedListSize, commentHolder.getInputStringList.size)
     }
+
+
 }

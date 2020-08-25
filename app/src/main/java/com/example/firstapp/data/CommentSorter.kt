@@ -53,7 +53,7 @@ class CommentSorter {
 
     fun getBubbleSortedList(list: List<String>): List<String> {
 
-        if (list.size <= 1){
+        if (list.size <= 1) {
             return list
         }
         var goodPairCounter = 0
