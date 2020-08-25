@@ -6,7 +6,9 @@
     <string name="mergeSortRadioButton">Сортировка слиянием</string>
     <string name="bubbleSortRadioButton">Сортировка пузырьком</string>
     <string name="clearButton">Кнопка очистки</string>
-    <string name="sortedStringWithTimeStamps">Start sorting: %1$s\n%2$s\nEnd sorting: %3$s\nTime in millis: %4$s</string>
+    <string name="sortedStringWithTimeStamps">Начало сортировки: %1$s\n%2$s\nКонец сортировки: %3$s\nВремя сортировки в миллисекундах: %4$s</string>
     <string name="nextButton">Далее</string>
     <string name="generateButton">Сгенерировать 10 комментов</string>
+    <string name="fileNotFoundMessage">Файл с комментами не найден</string>
+    <string name="commentNotFound">Сохраненные комменты не найдены</string>
 </resources>

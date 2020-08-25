@@ -3,7 +3,7 @@ package com.example.firstapp.activity
 import android.content.res.Resources
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import androidx.core.view.isVisible
+import android.text.method.ScrollingMovementMethod
 import com.example.firstapp.App
 import com.example.firstapp.R
 import com.example.firstapp.contracts.MainContract
@@ -22,8 +22,11 @@ class SortActivity : AppCompatActivity(), MainContract.SortView {
         val model: Model = (application as App).model
         val resources: Resources = resources
         presenter = SortPresenter(this, model, resources)
+        sortView.movementMethod = ScrollingMovementMethod()
         initClickListeners()
-        sortView.text = intent.getStringExtra("STRING_FROM_TEXT_VIEW")
+        if (savedInstanceState == null) {
+            presenter.onCreated()
+        }
     }
 
     private fun initClickListeners() {
@@ -41,22 +44,20 @@ class SortActivity : AppCompatActivity(), MainContract.SortView {
     override fun onSaveInstanceState(outState: Bundle) {
         super.onSaveInstanceState(outState)
         outState.run {
-            putString("sortView", sortView.text.toString())
+            putString(SORT_VIEW_KEY, sortView.text.toString())
         }
     }
 
     override fun onRestoreInstanceState(savedInstanceState: Bundle) {
         super.onRestoreInstanceState(savedInstanceState)
-        sortView.text = savedInstanceState.getString("sortView")
-        updateSortButtonAndRadioGroup(presenter.isListSorted())
+        sortView.text = savedInstanceState.getString(SORT_VIEW_KEY)
     }
 
-    override fun showStringToTextView(stringToShow: String) {
+    override fun setOutputText(stringToShow: String) {
         sortView.text = stringToShow
     }
 
-    override fun updateSortButtonAndRadioGroup(state: Boolean) {
-        sortButton.isEnabled = state
-        radioGroup.isVisible = state
+    companion object {
+        private const val SORT_VIEW_KEY = "sortView"
     }
 }

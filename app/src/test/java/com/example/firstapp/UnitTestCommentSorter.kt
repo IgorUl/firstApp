@@ -23,7 +23,8 @@ class UnitTestCommentSorter {
 
 
     @Test
-    fun testMergeSorting() {
+//    fun getMergeSortedList_nonEmptyList_matchesExpected() {
+    fun `getMergeSortedList_nonEmptyList_matchesExpected непустоя `() {
         val sortedList: List<String> = CommentSorter().getMergeSortedList(list)
         assertEquals("MergeSort - NOT OK", expectedList, sortedList)
     }

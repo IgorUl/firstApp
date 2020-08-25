@@ -2,50 +2,53 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/constLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".activity.MainActivity">
 
-    <EditText
-        android:id="@+id/editText"
-        android:layout_width="0dp"
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/textField"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="24dp"
-        android:layout_marginTop="24dp"
+        android:layout_marginTop="16dp"
         android:layout_marginEnd="24dp"
+        android:layout_marginBottom="16dp"
         android:hint="@string/inputFieldHint"
-        android:importantForAutofill="no"
-        android:inputType="textPersonName"
-        android:visibility="visible"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/savedCommentsView"
+        app:endIconMode="clear_text">
 
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/inputText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:importantForAutofill="no"
+            android:inputType="textPersonName"
+            android:visibility="visible"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
-    <ScrollView
-        android:id="@+id/scrollView"
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <TextView
+        android:id="@+id/savedCommentsView"
         android:layout_width="fill_parent"
         android:layout_height="0dp"
         android:layout_marginStart="24dp"
         android:layout_marginTop="16dp"
         android:layout_marginEnd="24dp"
-        android:layout_marginBottom="24dp"
-        android:fillViewport="true"
-        android:scrollY="0dp"
+        android:layout_marginBottom="16dp"
+        android:isScrollContainer="true"
+        android:minHeight="50dp"
+        android:scrollbars="vertical"
         app:layout_constraintBottom_toTopOf="@+id/addButton"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editText">
-
-        <TextView
-            android:id="@+id/textView"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:isScrollContainer="true"
-            android:minHeight="50dp"
-            android:scrollbars="vertical"
-            tools:text="@tools:sample/lorem/random" />
-    </ScrollView>
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textField"
+        tools:text="@tools:sample/lorem/random" />
 
     <ImageButton
         android:id="@+id/clearButton"
@@ -54,32 +57,29 @@
         android:background="@null"
         android:contentDescription="@string/clearButton"
         android:visibility="invisible"
-        app:layout_constraintEnd_toEndOf="@+id/scrollView"
-        app:layout_constraintTop_toTopOf="@+id/scrollView"
+        app:layout_constraintEnd_toEndOf="@+id/savedCommentsView"
+        app:layout_constraintTop_toTopOf="@+id/savedCommentsView"
         app:srcCompat="@drawable/ic_clear_edit_view"
         tools:visibility="visible" />
 
 
     <Button
         android:id="@+id/addButton"
-        android:layout_width="0dp"
+        style="@style/RoundedCornerButton"
+        android:layout_width="match_parent"
         android:layout_height="44dp"
         android:layout_marginStart="24dp"
         android:layout_marginEnd="24dp"
         android:background="@drawable/button_selector"
         android:enabled="false"
         android:text="@string/addButton"
-        android:gravity="center"
-        app:layout_constraintBottom_toTopOf="@+id/nextButton"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        style="@style/RoundedCornerButton"
-        />
+        app:layout_constraintTop_toBottomOf="@+id/savedCommentsView"
+        app:layout_constraintBottom_toTopOf="@+id/nextButton"/>
 
     <Button
         android:id="@+id/nextButton"
-        android:layout_width="0dp"
+        style="@style/RoundedCornerButton"
+        android:layout_width="match_parent"
         android:layout_height="44dp"
         android:layout_marginStart="24dp"
         android:layout_marginEnd="24dp"
@@ -87,24 +87,20 @@
         android:enabled="false"
         android:text="@string/nextButton"
         app:layout_constraintBottom_toTopOf="@+id/generateButton"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        style="@style/RoundedCornerButton"/>
+        app:layout_constraintTop_toBottomOf="@+id/addButton"
+        />
 
     <Button
         android:id="@+id/generateButton"
-        android:layout_width="0dp"
+        style="@style/RoundedCornerButton"
+        android:layout_width="match_parent"
         android:layout_height="44dp"
         android:layout_marginStart="24dp"
         android:layout_marginEnd="24dp"
         android:layout_marginBottom="24dp"
         android:background="@drawable/button_selector"
         android:text="@string/generateButton"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        style="@style/RoundedCornerButton"/>
-
+        app:layout_constraintTop_toBottomOf="@+id/nextButton"
+        app:layout_constraintBottom_toBottomOf="parent"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

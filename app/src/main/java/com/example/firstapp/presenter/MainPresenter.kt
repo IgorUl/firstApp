@@ -1,79 +1,84 @@
 package com.example.firstapp.presenter
 
-import android.content.Context
-import android.content.Intent
-import com.example.firstapp.activity.MainActivity
-import com.example.firstapp.activity.SortActivity
+import com.example.firstapp.R
 import com.example.firstapp.contracts.MainContract
 import com.example.firstapp.data.Model
-import com.example.firstapp.data.SaveData
 
 class MainPresenter(
     private val view: MainContract.MainView,
-    private val model: Model,
-    context: Context
+    private val navigator: MainContract.MainScreenNavigator,
+    private val model: Model
 ) :
     MainContract.MainPresenter {
 
     private var inputString = ""
-    private val saveData = SaveData(context)
 
     override fun onClickAddButton() {
         model.addToList(inputString)
-        if (!model.isListEmpty()) {
-            view.enableClearButton(true)
-        }
-        if (model.isListSorted()) {
-            view.enableNextButton(true)
+        if (model.isListCanSort()) {
+            view.updateNextButton(true)
         }
         showSavedComments()
         view.clearEditText()
     }
 
     fun onClickGenerateButton() {
-        model.generateComments()
-        if (!model.isListEmpty()) {
-            view.enableClearButton(true)
-        }
+        model.generateComments(10) //todo пока так, позже добавлю поле для выбора кол-ва комментов
         showSavedComments()
-        view.enableNextButton(true)
+        view.updateNextButton(true)
     }
 
-    override fun onClickNextButton(activity: MainActivity) {
-        val intent = Intent(activity, SortActivity::class.java)
-        intent.putExtra("STRING_FROM_TEXT_VIEW", model.getComment())
-        activity.startActivity(intent)
-    }
+    override fun onClickNextButton() =
+        navigator.navigateToSortScreen(model.getAllComment())
 
     override fun onClickClearButton() {
         model.clearStringList()
         view.clearTextView()
-        view.enableNextButton(false)
+        view.updateNextButton(false)
+        view.updateClearButtonVisibility(false)
     }
 
-    fun getStringFromEditText(inputString: String) {
+    fun setStringFromEditText(inputString: String) {
         this.inputString = inputString
+        updateAddButton()
     }
 
-    fun updateAddButton() =
-        view.enabledAddButton(hasEnteredText())
-
-    fun isListSorted(): Boolean =
-        model.isListSorted()
+    private fun updateAddButton() =
+        view.updateAddButton(hasEnteredText())
 
     private fun hasEnteredText(): Boolean =
         inputString.isNotEmpty()
 
-    fun showSavedComments() {
-        view.showStringToTextView(model.getComment())
+    private fun showSavedComments() {
+        if(!model.isListEmpty()) {
+            view.showStringToTextView(model.getAllComment())
+            view.updateClearButtonVisibility(true)
+        } else {
+            view.updateClearButtonVisibility(false)
+            view.updateNextButton(false)
+        }
     }
 
-    fun addCommentFromFile() {
-        model.addListFromFile(saveData.readFile())
+    fun onCreated() {
+        model.readFile()
+        if(model.getAllComment().isEmpty()) {
+            showErrorMessage(R.string.commentNotFound)
+        }
     }
 
-    fun writeFile(string: String) {
-        saveData.writeFile(string)
+    fun onStop() {
+        if (!model.writeFile()) {
+            showErrorMessage(R.string.fileNotFoundMessage)
+        }
+    }
+
+    fun onStart() {
+        showSavedComments()
+        view.updateNextButton(model.isListCanSort())
+    }
+
+    private fun showErrorMessage(messageId: Int) {
+        view.showErrorMessage(messageId)
     }
 }
 

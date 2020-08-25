@@ -1,27 +1,30 @@
 package com.example.firstapp.contracts
 
-import com.example.firstapp.activity.MainActivity
 
 interface MainContract {
 
     interface MainView {
-        fun enabledAddButton(state: Boolean)
-        fun enableClearButton(state: Boolean)
+        fun updateAddButton(isEnable: Boolean)
+        fun updateClearButtonVisibility(isVisible: Boolean)
         fun showStringToTextView(stringToShow: String)
         fun clearTextView()
         fun clearEditText()
-        fun enableNextButton(state: Boolean)
+        fun updateNextButton(isEnable: Boolean)
+        fun showErrorMessage(messageId: Int)
+    }
+
+    interface MainScreenNavigator {
+        fun navigateToSortScreen(comments: String)
     }
 
     interface SortView {
-        fun updateSortButtonAndRadioGroup(state: Boolean)
-        fun showStringToTextView(stringToShow: String)
+        fun setOutputText(stringToShow: String)
     }
 
     interface MainPresenter {
         fun onClickAddButton()
         fun onClickClearButton()
-        fun onClickNextButton(activity: MainActivity)
+        fun onClickNextButton()
     }
 
     interface SortPresenter {

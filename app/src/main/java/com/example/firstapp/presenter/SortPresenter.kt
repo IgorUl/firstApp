@@ -1,9 +1,12 @@
 package com.example.firstapp.presenter
 
 import android.content.res.Resources
+import com.example.firstapp.R
 import com.example.firstapp.contracts.MainContract
 import com.example.firstapp.data.Model
 import com.example.firstapp.data.SortType
+import com.example.firstapp.data.SortedStringWithTimeStamps
+import java.util.*
 
 class SortPresenter(
     private val view: MainContract.SortView,
@@ -12,17 +15,30 @@ class SortPresenter(
 ) :
     MainContract.SortPresenter {
 
-    override fun onClickSortButton() {
-        view.showStringToTextView(model.getSortedStringWithTimeStamps(resources))
-        view.updateSortButtonAndRadioGroup(false)
+    fun onCreated() {
+        view.setOutputText(model.getAllComment())
     }
 
-    fun isListSorted(): Boolean =
-        model.isListSorted()
+    override fun onClickSortButton() {
+        view.setOutputText(getSortedStringWithTimeStamps(model.initSortData()))
+    }
 
     fun onClickMergeSortRadioButton() =
         model.setSortType(SortType.MERGE)
 
     fun onClickBubbleSortRadioButton() =
         model.setSortType(SortType.BUBBLE)
+
+    private fun getSortedStringWithTimeStamps(sortedStringWithTimeStamps: SortedStringWithTimeStamps): String {
+        return resources.getString(
+            R.string.sortedStringWithTimeStamps,
+            model.parseDateToString(Date(sortedStringWithTimeStamps.startTime)),
+            sortedStringWithTimeStamps.sortedString,
+            model.parseDateToString(Date(sortedStringWithTimeStamps.endTime)),
+            model.getDateDifference(
+                sortedStringWithTimeStamps.endTime,
+                sortedStringWithTimeStamps.startTime
+            ).toString()
+        )
+    }
 }

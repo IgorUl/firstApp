@@ -29,7 +29,7 @@ class UnitTestCommentHolder {
     fun testAddRandomCommentToList() {
         val expectedListSize = 10
 
-        commentHolder.addTenRandomCommentToList()
+        commentHolder.addRandomCommentToList(10)
         assertEquals(expectedListSize, commentHolder.getInputStringList.size)
     }
 }
