@@ -23,9 +23,14 @@ class MainPresenter(
     }
 
     fun onClickGenerateButton() {
-        model.generateComments(10) //todo пока так, позже добавлю поле для выбора кол-ва комментов
-        showSavedComments()
-        view.updateNextButton(true)
+        val commentCount = 10 //todo удалю как добавлю поле
+        if (commentCount <= 0) {
+            model.generateComments(commentCount)
+            showSavedComments()
+            view.updateNextButton(true)
+        } else {
+            view.showWrongCommentCountToast()
+        }
     }
 
     override fun onClickNextButton() =

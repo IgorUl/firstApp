@@ -23,7 +23,7 @@ class SortPresenterTest {
     private var presenter: SortPresenter = SortPresenter(view, model, resources, timeProvider)
 
     @Test
-    fun onSortButtonClicked_returnValue() {
+    fun onSortButtonClicked_returnSortedList() {
         val expected = "expected"
         `when`(
             resources.getString(
@@ -42,7 +42,7 @@ class SortPresenterTest {
     }
 
     @Test
-    fun onCreated() {
+    fun onCreated() { // todo
         `when`(model.getAllComment()).thenReturn("test")
 
         presenter.onCreated()

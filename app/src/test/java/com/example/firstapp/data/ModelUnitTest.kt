@@ -5,26 +5,28 @@ import com.nhaarman.mockitokotlin2.verify
 import org.junit.Test
 import org.mockito.Mockito.`when`
 
-class UnitTestModel {
+class ModelUnitTest {
 
     private val commentHolder: CommentHolder = mock()
     private val commentSorter: CommentSorter = mock()
     private val fileStorage: FileStorage = mock()
     private val timeProvider: TimeProvider = mock()
 
-    private val model: Model = Model(commentHolder,commentSorter, fileStorage, timeProvider)
+    private val model: Model = Model(commentHolder, commentSorter, fileStorage, timeProvider)
 
-    private val expectedList: MutableList<String> = mutableListOf()
+    private val expectedList: MutableList<String> = mutableListOf() // todo
 
+    // naming
     @Test
     fun getAllComment() {
-        `when`(commentHolder.getInputStringList).thenReturn(emptyList())
+        `when`(commentHolder.getInputStringList).thenReturn(emptyList()) // nonempty
 
-        model.getAllComment()
+        val allComment = model.getAllComment()
 
-        val result: List<String> = commentHolder.getInputStringList
+//        val result: List<String> = commentHolder.getInputStringList
+        // todo
 
-        assert(expectedList == result)
+//        assert(expectedList == result)
     }
 
     @Test
@@ -39,7 +41,7 @@ class UnitTestModel {
         `when`(commentHolder.getInputStringList).thenReturn(emptyList())
 
         val expected = false
-        val result:Boolean = model.isListCanSort()
+        val result: Boolean = model.isListCanSort()
 
         assert(expected == result)
     }
@@ -49,7 +51,7 @@ class UnitTestModel {
         `when`(commentHolder.getInputStringList).thenReturn(listOf("test"))
 
         val expected = false
-        val result:Boolean = model.isListCanSort()
+        val result: Boolean = model.isListCanSort()
 
         assert(expected == result)
     }
@@ -59,7 +61,7 @@ class UnitTestModel {
         `when`(commentHolder.getInputStringList).thenReturn(listOf("0", "1"))
 
         val expected = true
-        val result:Boolean = model.isListCanSort()
+        val result: Boolean = model.isListCanSort()
 
         assert(expected == result)
     }

@@ -11,4 +11,5 @@
     <string name="generateButton">Сгенерировать 10 комментов</string>
     <string name="fileNotFoundMessage">Файл с комментами не найден</string>
     <string name="commentNotFound">Сохраненные комменты не найдены</string>
+    <string name="wrongNumberComments">Число комментов должно быть больше 0</string>
 </resources>

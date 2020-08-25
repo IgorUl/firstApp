@@ -20,6 +20,7 @@ class MainPresenterTest {
 
     @Test
     fun onAddButtonClicked_hasCanSortList_isNextButtonEnabled() {
+        // additional checks
         mockSortedList(isEmpty = false, isCanSort = true)
 
         presenter.onClickAddButton()
@@ -82,7 +83,7 @@ class MainPresenterTest {
     fun onGenerateButtonClicked() {
         presenter.onClickGenerateButton()
 
-        verify(model).generateComments(anyInt())
+        verify(model).generateComments(anyInt()) // todo
         verify(view).updateClearButtonVisibility(true)
         verify(view).updateNextButton(true)
     }

@@ -11,6 +11,7 @@ interface MainContract {
         fun clearEditText()
         fun updateNextButton(isEnable: Boolean)
         fun showErrorMessage(messageId: Int)
+        fun showWrongCommentCountToast()
     }
 
     interface MainScreenNavigator {

@@ -31,7 +31,7 @@ class Model(
     }
 
     fun generateComments(commentCount: Int) {
-        commentHolder.addRandomCommentToList(commentCount)
+        commentHolder.addRandomCommentsToList(commentCount)
     }
 
     @TestOnly

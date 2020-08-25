@@ -11,4 +11,5 @@
     <string name="generateButton">Generate comments</string>
     <string name="fileNotFoundMessage">Comment file not found</string>
     <string name="commentNotFound">Save comments not found</string>
+    <string name="wrongNumberComments">The number of comments must be greater than 0</string>
 </resources>

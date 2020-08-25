@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
 import android.text.method.ScrollingMovementMethod
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.isVisible
 import com.example.firstapp.App
@@ -14,6 +15,7 @@ import com.example.firstapp.data.Model
 import com.example.firstapp.presenter.MainPresenter
 import com.google.android.material.snackbar.Snackbar
 import kotlinx.android.synthetic.main.activity_main.*
+import java.security.AccessController.getContext
 
 class MainActivity : AppCompatActivity(), MainContract.MainView, MainContract.MainScreenNavigator {
 
@@ -104,5 +106,9 @@ class MainActivity : AppCompatActivity(), MainContract.MainView, MainContract.Ma
 
     override fun showErrorMessage(messageId: Int) {
         Snackbar.make(constLayout, messageId, Snackbar.LENGTH_LONG).show()
+    }
+
+    override fun showWrongCommentCountToast() {
+        Toast.makeText(this, R.string.wrongNumberComments, Toast.LENGTH_SHORT).show()
     }
 }

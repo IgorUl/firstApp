@@ -32,7 +32,7 @@ class CommentHolder {
             .joinToString("")
     }
 
-    fun addRandomCommentToList(commentCount: Int) {
+    fun addRandomCommentsToList(commentCount: Int) {
         for (i: Int in 1..commentCount) {
             addStringToList(generateRandomComment())
         }
