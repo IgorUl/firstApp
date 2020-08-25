@@ -35,7 +35,7 @@
 
     <TextView
         android:id="@+id/savedCommentsView"
-        android:layout_width="fill_parent"
+        android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_marginStart="24dp"
         android:layout_marginTop="16dp"

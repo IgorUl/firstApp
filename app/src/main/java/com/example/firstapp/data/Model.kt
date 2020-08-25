@@ -1,5 +1,7 @@
 package com.example.firstapp.data
 
+import org.jetbrains.annotations.TestOnly
+
 class Model(
     private val commentHolder: CommentHolder,
     private val commentSorter: CommentSorter,
@@ -32,7 +34,8 @@ class Model(
         commentHolder.addRandomCommentToList(commentCount)
     }
 
-    private fun getSortedString(sortType: SortType): String {
+    @TestOnly
+    fun getSortedString(sortType: SortType): String {
         val sortedList: List<String> = when (sortType) {
             SortType.BUBBLE ->
                 commentSorter.getBubbleSortedList(commentHolder.getInputStringList)
@@ -45,8 +48,12 @@ class Model(
     private fun getCurrentTime(): Long =
         timeProvider.getTime()
 
-    fun initSortData(): SortedStringWithTimeStamps =
-        SortedStringWithTimeStamps(getCurrentTime(), getSortedString(sortType), getCurrentTime())
+    fun initSortData(): SortedStringWithTimeStamps {
+        val startTime: Long = getCurrentTime()
+        val sortedResult: String = getSortedString(sortType)
+        val endTime: Long = getCurrentTime()
+        return SortedStringWithTimeStamps(startTime, sortedResult, endTime)
+    }
 
     fun readFile() =
         addListFromFile(fileStorage.readFile())

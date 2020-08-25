@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+<!--   material design style  -->
     <color name="colorPrimary">#009900</color>
     <color name="colorPrimaryDark">#006600</color>
     <color name="colorAccent">#009900</color>
