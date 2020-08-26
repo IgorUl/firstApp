@@ -2,40 +2,31 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/root"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".activity.SortActivity">
 
-    <ScrollView
-        android:id="@+id/scrollView"
-        android:layout_width="fill_parent"
+    <TextView
+        android:id="@+id/sortView"
+        android:layout_width="match_parent"
         android:layout_height="0dp"
+        android:layout_marginStart="24dp"
         android:layout_marginTop="16dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginEnd="16dp"
-        android:layout_marginBottom="24dp"
-        android:fillViewport="true"
-        android:scrollY="0dp"
+        android:layout_marginEnd="24dp"
+        android:layout_marginBottom="16dp"
+        android:isScrollContainer="true"
+        android:scrollbars="vertical"
+        android:visibility="visible"
+        app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toTopOf="@+id/sortButton"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
-
-        <TextView
-            android:id="@+id/sortView"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:isScrollContainer="true"
-            android:minHeight="50dp"
-            android:scrollbars="vertical"
-            android:visibility="visible"
-            tools:text="@tools:sample/lorem/random"
-            tools:visibility="visible" />
-    </ScrollView>
+        tools:text="@tools:sample/lorem/random"
+        tools:visibility="visible" />
 
     <Button
         android:id="@+id/sortButton"
-        android:layout_width="0dp"
+        style="@style/RoundedCornerButton"
+        android:layout_width="match_parent"
         android:layout_height="40dp"
         android:layout_marginStart="24dp"
         android:layout_marginEnd="24dp"
@@ -44,37 +35,36 @@
         android:enabled="true"
         android:gravity="center"
         android:text="@string/sortButton"
+        app:layout_constraintTop_toBottomOf="@+id/sortView"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        style="@style/RoundedCornerButton"/>
-
+        />
 
     <RadioGroup
-        android:id="@+id/radioGroup"
-        android:layout_width="372dp"
+        android:id="@+id/sortRadioGroup"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="24dp"
         android:layout_marginEnd="24dp"
         android:layout_marginBottom="24dp"
         android:checkedButton="@id/mergeSortRadioButton"
         android:orientation="horizontal"
+        app:layout_constraintTop_toBottomOf="@+id/sortButton"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
         tools:visibility="visible">
 
         <RadioButton
             android:id="@+id/mergeSortRadioButton"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
             android:checked="true"
             android:text="@string/mergeSortRadioButton" />
 
         <RadioButton
             android:id="@+id/bubbleSortRadioButton"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
             android:text="@string/bubbleSortRadioButton" />
     </RadioGroup>
 

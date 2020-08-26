@@ -1,12 +1,15 @@
 <resources>
     <string name="app_name">SberSort</string>
-    <string name="addButton">Добавить</string>
-    <string name="sortButton">Отсортировать</string>
-    <string name="inputFieldHint">Введите строку</string>
-    <string name="mergeSortRadioButton">Сортировка слиянием</string>
-    <string name="bubbleSortRadioButton">Сортировка пузырьком</string>
-    <string name="clearButton">Кнопка очистки</string>
-    <string name="sortedStringWithTimeStamps">Start sorting: %1$s\n%2$s\nEnd sorting: %3$s\nTime in millis: %4$s</string>
-    <string name="nextButton">Далее</string>
-    <string name="generateButton">Сгенерировать 10 комментов</string>
+    <string name="addButton">Add</string>
+    <string name="sortButton">Sort</string>
+    <string name="inputFieldHint">Enter comment…</string>
+    <string name="mergeSortRadioButton">Merge sort</string>
+    <string name="bubbleSortRadioButton">Bubble sort</string>
+    <string name="clearButton">Clear button</string>
+    <string name="sortedStringWithTimeStamps">Start sort: %1$s\n%2$s\nEnd sort: %3$s\nTime in millis: %4$s</string>
+    <string name="nextButton">Next</string>
+    <string name="generateButton">Generate comments</string>
+    <string name="fileNotFoundMessage">Comment file not found</string>
+    <string name="commentNotFound">Save comments not found</string>
+    <string name="wrongNumberComments">The number of comments must be greater than 0</string>
 </resources>

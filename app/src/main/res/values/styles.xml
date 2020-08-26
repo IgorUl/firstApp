@@ -10,6 +10,6 @@
 
     <style name="RoundedCornerButton" parent="@style/Widget.AppCompat.Button.Colored">
         <item name="background">@drawable/rounded_button_active</item>
-        <item name="colorButtonNormal">@color/activeButton</item>
+        <item name="colorButtonNormal">@color/green</item>
     </style>
 </resources>

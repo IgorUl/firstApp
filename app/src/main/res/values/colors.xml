@@ -1,14 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+<!--   material design style  -->
     <color name="colorPrimary">#009900</color>
     <color name="colorPrimaryDark">#006600</color>
-
     <color name="colorAccent">#009900</color>
-    <color name="appBackground">#03AAFD</color>
-    <color name="screenBackground">#FFFFFF</color>
-    <color name="textViewBackground">#D6D6D6</color>
-    <color name="radioButton">#FAFAFA</color>
-    <color name="clearButton">#FFFFFF</color>
-    <color name="activeButton">#009900</color>
-    <color name="inactiveButton">#D6D6D6</color>
+
+    <color name="white">#FFFFFF</color>
+    <color name="green">#009900</color>
+    <color name="gray">#D6D6D6</color>
 </resources>

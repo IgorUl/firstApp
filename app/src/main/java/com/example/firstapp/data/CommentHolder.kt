@@ -8,19 +8,17 @@ class CommentHolder {
         get() = inputStringList
 
     private var inputStringList: MutableList<String> = mutableListOf()
-    var isSorted: Boolean = false
 
     fun addStringToList(inputString: String) {
         inputStringList.add(inputString)
-        isSorted = false
+
     }
 
     fun clearStringList() {
         inputStringList.clear()
     }
 
-    fun addFromFileToList(list: MutableList<String>) {
-        inputStringList.clear()
+    fun addFromFileToList(list: List<String>) {
         inputStringList.addAll(list)
     }
 
@@ -33,8 +31,8 @@ class CommentHolder {
             .joinToString("")
     }
 
-    fun addTenRandomCommentToList() {
-        for (i: Int in 1..10) {
+    fun addRandomCommentsToList(commentCount: Int) {
+        for (i: Int in 1..commentCount) {
             addStringToList(generateRandomComment())
         }
     }

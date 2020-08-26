@@ -1,8 +1,11 @@
 package com.example.firstapp.activity
 
+import android.content.Intent
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
+import android.text.method.ScrollingMovementMethod
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.isVisible
 import com.example.firstapp.App
@@ -10,11 +13,13 @@ import com.example.firstapp.R
 import com.example.firstapp.contracts.MainContract
 import com.example.firstapp.data.Model
 import com.example.firstapp.presenter.MainPresenter
+import com.google.android.material.snackbar.Snackbar
 import kotlinx.android.synthetic.main.activity_main.*
 
-class MainActivity : AppCompatActivity(), MainContract.MainView {
+class MainActivity : AppCompatActivity(), MainContract.MainView, MainContract.MainScreenNavigator {
 
     private lateinit var presenter: MainPresenter
+
     private val editTextWatcher: TextWatcher = object : TextWatcher {
         override fun afterTextChanged(p0: Editable?) {
         }
@@ -23,8 +28,7 @@ class MainActivity : AppCompatActivity(), MainContract.MainView {
         }
 
         override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
-            presenter.getStringFromEditText(editText.text.toString())
-            presenter.updateAddButton()
+            presenter.setStringFromEditText(inputText.text.toString())
         }
     }
 
@@ -33,9 +37,13 @@ class MainActivity : AppCompatActivity(), MainContract.MainView {
         setContentView(R.layout.activity_main)
 
         val model: Model = (application as App).model
-        presenter = MainPresenter(this, model, this)
-        presenter.addCommentFromFile()
+        presenter = MainPresenter(this, this, model)
+
+        savedCommentsView.movementMethod = ScrollingMovementMethod()
         initClickListeners()
+        if (savedInstanceState == null) {
+            presenter.onCreated()
+        }
     }
 
     private fun initClickListeners() {
@@ -44,7 +52,7 @@ class MainActivity : AppCompatActivity(), MainContract.MainView {
         }
 
         nextButton.setOnClickListener {
-            presenter.onClickNextButton(this)
+            presenter.onClickNextButton()
         }
 
         clearButton.setOnClickListener {
@@ -54,47 +62,52 @@ class MainActivity : AppCompatActivity(), MainContract.MainView {
         generateButton.setOnClickListener {
             presenter.onClickGenerateButton()
         }
-        editText.addTextChangedListener(editTextWatcher)
+        inputText.addTextChangedListener(editTextWatcher)
     }
 
-    override fun onStop() {
-        super.onStop()
-        presenter.writeFile(textView.text.toString())
+    override fun onPause() {
+        super.onPause()
+        presenter.onPaused()
     }
 
     override fun onStart() {
         super.onStart()
-        presenter.showSavedComments()
-        if (textView.text.isNotEmpty()) enableClearButton(true)
-        enableNextButton(presenter.isListSorted())
+        presenter.onStarted()
     }
 
-    override fun onRestoreInstanceState(savedInstanceState: Bundle) {
-        super.onRestoreInstanceState(savedInstanceState)
-        enableClearButton(textView.text.isNotEmpty())
+    override fun updateNextButton(isEnable: Boolean) {
+        nextButton.isEnabled = isEnable
     }
 
-    override fun enableNextButton(state: Boolean) {
-        nextButton.isEnabled = state
-    }
-
-    override fun enabledAddButton(state: Boolean) {
-        addButton.isEnabled = state
+    override fun updateAddButton(isEnable: Boolean) {
+        addButton.isEnabled = isEnable
     }
 
     override fun showStringToTextView(stringToShow: String) {
-        textView.text = stringToShow
+        savedCommentsView.text = stringToShow
     }
 
-    override fun enableClearButton(state: Boolean) {
-        clearButton.isVisible = state
+    override fun updateClearButtonVisibility(isVisible: Boolean) {
+        clearButton.isVisible = isVisible
     }
 
     override fun clearTextView() {
-        textView.text = ""
-        clearButton.isVisible = false
+        savedCommentsView.text = ""
     }
 
     override fun clearEditText() =
-        editText.setText("")
+        inputText.setText("")
+
+    override fun navigateToSortScreen(comments: String) {
+        val intent = Intent(this, SortActivity::class.java)
+        startActivity(intent)
+    }
+
+    override fun showErrorMessage(messageId: Int) {
+        Snackbar.make(constLayout, messageId, Snackbar.LENGTH_LONG).show()
+    }
+
+    override fun showWrongCommentCountToast() {
+        Toast.makeText(this, R.string.wrongNumberComments, Toast.LENGTH_SHORT).show()
+    }
 }
