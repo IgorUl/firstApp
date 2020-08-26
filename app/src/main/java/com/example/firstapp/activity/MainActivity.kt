@@ -15,7 +15,6 @@ import com.example.firstapp.data.Model
 import com.example.firstapp.presenter.MainPresenter
 import com.google.android.material.snackbar.Snackbar
 import kotlinx.android.synthetic.main.activity_main.*
-import java.security.AccessController.getContext
 
 class MainActivity : AppCompatActivity(), MainContract.MainView, MainContract.MainScreenNavigator {
 
@@ -68,12 +67,12 @@ class MainActivity : AppCompatActivity(), MainContract.MainView, MainContract.Ma
 
     override fun onPause() {
         super.onPause()
-        presenter.onPause()
+        presenter.onPaused()
     }
 
     override fun onStart() {
         super.onStart()
-        presenter.onStart()
+        presenter.onStarted()
     }
 
     override fun updateNextButton(isEnable: Boolean) {

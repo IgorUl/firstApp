@@ -45,7 +45,8 @@ class Model(
         return sortedList.joinToString("\n")
     }
 
-    private fun getCurrentTime(): Long =
+    @TestOnly
+    fun getCurrentTime(): Long =
         timeProvider.getTime()
 
     fun initSortData(): SortedStringWithTimeStamps {
@@ -61,7 +62,8 @@ class Model(
     fun writeFile(): Boolean =
         fileStorage.writeFile(getAllComment())
 
-    private fun addListFromFile(list: List<String>) {
+    @TestOnly
+    fun addListFromFile(list: List<String>) {
         commentHolder.addFromFileToList(list)
     }
 

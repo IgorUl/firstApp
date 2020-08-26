@@ -3,6 +3,7 @@ package com.example.firstapp.presenter
 import com.example.firstapp.R
 import com.example.firstapp.contracts.MainContract
 import com.example.firstapp.data.Model
+import org.jetbrains.annotations.TestOnly
 
 class MainPresenter(
     private val view: MainContract.MainView,
@@ -11,7 +12,8 @@ class MainPresenter(
 ) :
     MainContract.MainPresenter {
 
-    private var inputString = ""
+    var inputString = ""
+    var commentCount = 10 //todo удалю как добавлю поле
 
     override fun onClickAddButton() {
         model.addToList(inputString)
@@ -23,7 +25,6 @@ class MainPresenter(
     }
 
     fun onClickGenerateButton() {
-        val commentCount = 10 //todo удалю как добавлю поле
         if (commentCount > 0) {
             model.generateComments(commentCount)
             showSavedComments()
@@ -48,13 +49,16 @@ class MainPresenter(
         updateAddButton()
     }
 
-    private fun updateAddButton() =
+    @TestOnly
+    fun updateAddButton() =
         view.updateAddButton(hasEnteredText())
 
-    private fun hasEnteredText(): Boolean =
+    @TestOnly
+    fun hasEnteredText(): Boolean =
         inputString.isNotEmpty()
 
-    private fun showSavedComments() {
+    @TestOnly
+    fun showSavedComments() {
         if (!model.isListEmpty()) {
             view.showStringToTextView(model.getAllComment())
             view.updateClearButtonVisibility(true)
@@ -71,18 +75,19 @@ class MainPresenter(
         }
     }
 
-    fun onPause() {
+    fun onPaused() {
         if (!model.writeFile()) {
             showErrorMessage(R.string.fileNotFoundMessage)
         }
     }
 
-    fun onStart() {
+    fun onStarted() {
         showSavedComments()
         view.updateNextButton(model.isListCanSort())
     }
 
-    private fun showErrorMessage(messageId: Int) {
+    @TestOnly
+    fun showErrorMessage(messageId: Int) {
         view.showErrorMessage(messageId)
     }
 }

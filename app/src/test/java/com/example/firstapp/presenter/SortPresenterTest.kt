@@ -19,7 +19,7 @@ class SortPresenterTest {
     private var model: Model = mock()
     private var view: MainContract.SortView = mock()
     private var resources: Resources = mock()
-    private var timeProvider: TimeProvider= mock()
+    private var timeProvider: TimeProvider = mock()
     private var presenter: SortPresenter = SortPresenter(view, model, resources, timeProvider)
 
     @Test
@@ -42,8 +42,17 @@ class SortPresenterTest {
     }
 
     @Test
-    fun onCreated() { // todo
+    fun onCreated_notEmptyString_invokeSetOutputTextFun() {
         `when`(model.getAllComment()).thenReturn("test")
+
+        presenter.onCreated()
+
+        verify(view).setOutputText(model.getAllComment())
+    }
+
+    @Test
+    fun onCreated_emptyString_invokeSetOutputTextFun() {
+        `when`(model.getAllComment()).thenReturn("")
 
         presenter.onCreated()
 
