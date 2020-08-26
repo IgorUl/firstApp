@@ -24,7 +24,7 @@ class MainPresenter(
 
     fun onClickGenerateButton() {
         val commentCount = 10 //todo удалю как добавлю поле
-        if (commentCount <= 0) {
+        if (commentCount > 0) {
             model.generateComments(commentCount)
             showSavedComments()
             view.updateNextButton(true)

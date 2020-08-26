@@ -19,7 +19,6 @@ class CommentHolder {
     }
 
     fun addFromFileToList(list: List<String>) {
-        inputStringList.clear()
         inputStringList.addAll(list)
     }
 
