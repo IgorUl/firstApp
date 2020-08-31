@@ -14,10 +14,6 @@ interface MainContract {
         fun showWrongCommentCountToast()
     }
 
-    interface MainScreenNavigator {
-        fun navigateToSortScreen(comments: String)
-    }
-
     interface SortView {
         fun setOutputText(stringToShow: String)
     }
@@ -30,5 +26,10 @@ interface MainContract {
 
     interface SortPresenter {
         fun onClickSortButton()
+    }
+
+    interface FragmentNavigator {
+        fun navigateToMainView()
+        fun navigateToSortView()
     }
 }

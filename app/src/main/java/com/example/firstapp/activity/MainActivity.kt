@@ -1,113 +1,37 @@
 package com.example.firstapp.activity
 
-import android.content.Intent
+import android.content.res.Configuration
 import android.os.Bundle
-import android.text.Editable
-import android.text.TextWatcher
-import android.text.method.ScrollingMovementMethod
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.isVisible
-import com.example.firstapp.App
 import com.example.firstapp.R
-import com.example.firstapp.contracts.MainContract
-import com.example.firstapp.data.Model
-import com.example.firstapp.presenter.MainPresenter
-import com.google.android.material.snackbar.Snackbar
-import kotlinx.android.synthetic.main.activity_main.*
+import com.example.firstapp.fragments.MainFragment
+import com.example.firstapp.fragments.SortFragment
 
-class MainActivity : AppCompatActivity(), MainContract.MainView, MainContract.MainScreenNavigator {
 
-    private lateinit var presenter: MainPresenter
-
-    private val editTextWatcher: TextWatcher = object : TextWatcher {
-        override fun afterTextChanged(p0: Editable?) {
-        }
-
-        override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
-        }
-
-        override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
-            presenter.setStringFromEditText(inputText.text.toString())
-        }
-    }
+class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
+        setContentView(R.layout.activity_master_main)
 
-        val model: Model = (application as App).model
-        presenter = MainPresenter(this, this, model)
-
-        savedCommentsView.movementMethod = ScrollingMovementMethod()
-        initClickListeners()
         if (savedInstanceState == null) {
-            presenter.onCreated()
+            if (isTablet()) initTabletScreen() else initPhoneScreen()
         }
     }
 
-    private fun initClickListeners() {
-        addButton.setOnClickListener {
-            presenter.onClickAddButton()
-        }
-
-        nextButton.setOnClickListener {
-            presenter.onClickNextButton()
-        }
-
-        clearButton.setOnClickListener {
-            presenter.onClickClearButton()
-        }
-
-        generateButton.setOnClickListener {
-            presenter.onClickGenerateButton()
-        }
-        inputText.addTextChangedListener(editTextWatcher)
+    private fun initPhoneScreen() {
+        supportFragmentManager.beginTransaction()
+            .add(R.id.main_container, MainFragment())
+            .commit()
     }
 
-    override fun onPause() {
-        super.onPause()
-        presenter.onPaused()
+    private fun initTabletScreen() {
+        supportFragmentManager.beginTransaction()
+            .add(R.id.main_container, MainFragment())
+            .add(R.id.sort_container, SortFragment())
+            .commit()
     }
 
-    override fun onStart() {
-        super.onStart()
-        presenter.onStarted()
-    }
-
-    override fun updateNextButton(isEnable: Boolean) {
-        nextButton.isEnabled = isEnable
-    }
-
-    override fun updateAddButton(isEnable: Boolean) {
-        addButton.isEnabled = isEnable
-    }
-
-    override fun showStringToTextView(stringToShow: String) {
-        savedCommentsView.text = stringToShow
-    }
-
-    override fun updateClearButtonVisibility(isVisible: Boolean) {
-        clearButton.isVisible = isVisible
-    }
-
-    override fun clearTextView() {
-        savedCommentsView.text = ""
-    }
-
-    override fun clearEditText() =
-        inputText.setText("")
-
-    override fun navigateToSortScreen(comments: String) {
-        val intent = Intent(this, SortActivity::class.java)
-        startActivity(intent)
-    }
-
-    override fun showErrorMessage(messageId: Int) {
-        Snackbar.make(constLayout, messageId, Snackbar.LENGTH_LONG).show()
-    }
-
-    override fun showWrongCommentCountToast() {
-        Toast.makeText(this, R.string.wrongNumberComments, Toast.LENGTH_SHORT).show()
-    }
+    private fun isTablet(): Boolean =
+        (resources.configuration.screenLayout and Configuration.SCREENLAYOUT_SIZE_MASK) >= Configuration.SCREENLAYOUT_SIZE_LARGE
 }

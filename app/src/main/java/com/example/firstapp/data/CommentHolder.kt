@@ -18,7 +18,9 @@ class CommentHolder {
         inputStringList.clear()
     }
 
+    // todo unit tests
     fun addFromFileToList(list: List<String>) {
+        // clear
         inputStringList.addAll(list)
     }
 

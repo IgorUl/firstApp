@@ -2,6 +2,7 @@ package com.example.firstapp.presenter
 
 import com.example.firstapp.contracts.MainContract
 import com.example.firstapp.data.Model
+import com.example.firstapp.navigator.FragmentNavigator
 import com.nhaarman.mockitokotlin2.*
 import org.junit.Assert.assertEquals
 import org.junit.Test
@@ -15,7 +16,7 @@ class MainPresenterTest {
 
     private var model: Model = mock()
     private var view: MainContract.MainView = mock()
-    private var navigator: MainContract.MainScreenNavigator = mock()
+    private var navigator: FragmentNavigator = mock()
     private var presenter: MainPresenter = MainPresenter(view, navigator, model)
 
     @Test
@@ -51,7 +52,7 @@ class MainPresenterTest {
 
         presenter.onClickAddButton()
 
-        verify(view, times(0)).updateNextButton(any())
+        verify(view, never()).updateNextButton(any())
     }
 
     @Test
@@ -84,6 +85,8 @@ class MainPresenterTest {
 
         presenter.onClickAddButton()
 
+        // todo updateNextButton never
+        // split
         inOrder(model, view) {
             verify(model).addToList(anyString())
             verify(model).isListCanSort()
@@ -113,7 +116,7 @@ class MainPresenterTest {
         presenter.onClickGenerateButton()
 
         inOrder(model, view) {
-            verify(model).generateComments(anyInt())
+            verify(model).generateComments()
             verify(view).updateNextButton(true)
         }
     }
@@ -125,6 +128,7 @@ class MainPresenterTest {
         presenter.onClickGenerateButton()
 
         verify(view).showWrongCommentCountToast()
+        // never generateComments
     }
 
     @Test
@@ -136,20 +140,20 @@ class MainPresenterTest {
         verify(view).showWrongCommentCountToast()
     }
 
-    @Test
-    fun onGenerateButtonClicked_invokeWithSameArgs() {
-        presenter.commentCount = 3
-        presenter.onClickGenerateButton()
-
-        verify(model).generateComments(3)
-    }
+//    @Test
+//    fun onGenerateButtonClicked_invokeWithSameArgs() {
+//        presenter.commentCount = 3
+//        presenter.onClickGenerateButton()
+//
+//        verify(model).generateComments() // todo
+//    }
 
     @Test
     fun onClickNextButton_invokeNavigatorFun() {
         `when`(model.getAllComment()).thenReturn("test")
         presenter.onClickNextButton()
 
-        verify(navigator).navigateToSortScreen(model.getAllComment())
+        verify(navigator).navigateToSortView()
     }
 
     @Test
@@ -164,48 +168,48 @@ class MainPresenterTest {
         }
     }
 
-    @Test
-    fun setStringFromEditText_setArg() {
-        val expected = "test"
+//    @Test
+//    fun setStringFromEditText_setArg() {
+//        val expected = "test"
+//
+//        presenter.setStringFromEditText("test")
+//
+//        assertEquals(expected, presenter.inputString)
+//    }
 
-        presenter.setStringFromEditText("test")
+//    @Test
+//    fun setStringFromEditText_invokeUpdateAddButtonFun() {
+//        presenter.setStringFromEditText(anyString())
+//
+//        verify(view).updateAddButton(anyBoolean())
+//    }
 
-        assertEquals(expected, presenter.inputString)
-    }
+//    @Test
+//    fun updateAddButton_invokeViewFun() {
+//        presenter.updateAddButton()
+//
+//        verify(view).updateAddButton(anyBoolean())
+//    }
 
-    @Test
-    fun setStringFromEditText_invokeUpdateAddButtonFun() {
-        presenter.setStringFromEditText(anyString())
-
-        verify(view).updateAddButton(anyBoolean())
-    }
-
-    @Test
-    fun updateAddButton_invokeViewFun() {
-        presenter.updateAddButton()
-
-        verify(view).updateAddButton(anyBoolean())
-    }
-
-    @Test
-    fun hasEnteredText_EmptyString() {
-        presenter.inputString = ""
-        val expected = false
-
-        val result = presenter.hasEnteredText()
-
-        assertEquals(expected, result)
-    }
-
-    @Test
-    fun hasEnteredText_NotEmptyString() {
-        presenter.inputString = "test"
-        val expected = true
-
-        val result = presenter.hasEnteredText()
-
-        assertEquals(expected, result)
-    }
+//    @Test
+//    fun hasEnteredText_EmptyString() {
+//        presenter.inputString = ""
+//        val expected = false
+//
+//        val result = presenter.hasEnteredText()
+//
+//        assertEquals(expected, result)
+//    }
+//
+//    @Test
+//    fun hasEnteredText_NotEmptyString() {
+//        presenter.inputString = "test"
+//        val expected = true
+//
+//        val result = presenter.hasEnteredText()
+//
+//        assertEquals(expected, result)
+//    }
 
     @Test
     fun showSavedComments_invokeOrderEmptyList() {
@@ -240,7 +244,7 @@ class MainPresenterTest {
 
         presenter.onCreated()
 
-        verify(model).readFile()
+        verify(model).readFile() // split
         verify(view).showErrorMessage(anyInt())
     }
 

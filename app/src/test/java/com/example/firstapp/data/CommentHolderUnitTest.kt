@@ -28,7 +28,7 @@ class CommentHolderUnitTest {
 
     @Test
     fun addStringToList_NotEmptyList_addOneElem() {
-        expectedList = listOf("test", "2")
+        val expectedList: List<String> = listOf("test", "2")
         commentHolder.addStringToList("test")
 
         commentHolder.addStringToList("2")
@@ -37,22 +37,24 @@ class CommentHolderUnitTest {
     }
 
     @Test
-    fun clearStringList_NotEmptyList() {
+    fun clearStringList_NotEmptyList_empty() {
         commentHolder.addStringToList("test")
         commentHolder.addStringToList("2")
 
+        // notempty
         commentHolder.clearStringList()
 
         assertEquals(emptyList<String>(), commentHolder.getInputStringList)
     }
 
     @Test
-    fun clearStringList_EmptyList() {
+    fun clearStringList_EmptyList_empty() {
         commentHolder.clearStringList()
 
         assertEquals(emptyList<String>(), commentHolder.getInputStringList)
     }
 
+    // unit test java
     @Test
     fun addRandomCommentsToList_EmptyListAddTenComments_listSize() {
         val expectedListSize = 10

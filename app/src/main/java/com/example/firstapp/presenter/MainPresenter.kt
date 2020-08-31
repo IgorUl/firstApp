@@ -2,18 +2,19 @@ package com.example.firstapp.presenter
 
 import com.example.firstapp.R
 import com.example.firstapp.contracts.MainContract
+import com.example.firstapp.navigator.FragmentNavigator
 import com.example.firstapp.data.Model
 import org.jetbrains.annotations.TestOnly
 
 class MainPresenter(
     private val view: MainContract.MainView,
-    private val navigator: MainContract.MainScreenNavigator,
+    private val navigator: FragmentNavigator,
     private val model: Model
 ) :
     MainContract.MainPresenter {
 
-    var inputString = ""
-    var commentCount = 10 //todo удалю как добавлю поле
+    private var inputString = ""
+    private var commentCount = 0
 
     override fun onClickAddButton() {
         model.addToList(inputString)
@@ -35,7 +36,7 @@ class MainPresenter(
     }
 
     override fun onClickNextButton() =
-        navigator.navigateToSortScreen(model.getAllComment())
+        navigator.navigateToSortView()
 
     override fun onClickClearButton() {
         model.clearStringList()
@@ -49,8 +50,14 @@ class MainPresenter(
         updateAddButton()
     }
 
-    @TestOnly
-    fun updateAddButton() =
+    fun setNumberFromEditText(inputString: String) {
+        if (inputString.isNotEmpty()) {
+            this.commentCount = inputString.toInt()
+        }
+    }
+
+//    @TestOnly
+    private fun updateAddButton() =
         view.updateAddButton(hasEnteredText())
 
     @TestOnly
@@ -68,10 +75,12 @@ class MainPresenter(
         }
     }
 
-    fun onCreated() {
-        model.readFile()
+    fun onCreated() {           //todo костыль, без него при повороте дублируются комменты
         if (model.getAllComment().isEmpty()) {
-            showErrorMessage(R.string.commentNotFound)
+            model.readFile()
+            if(model.getAllComment().isEmpty()) {
+                showErrorMessage(R.string.commentNotFound)
+            }
         }
     }
 

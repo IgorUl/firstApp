@@ -30,8 +30,8 @@ class Model(
         this.sortType = sortType
     }
 
-    fun generateComments(commentCount: Int) {
-        commentHolder.addRandomCommentsToList(commentCount)
+    fun generateComments(inputNumber: Int) {
+        commentHolder.addRandomCommentsToList(inputNumber)
     }
 
     @TestOnly
