@@ -6,6 +6,7 @@ import android.text.method.ScrollingMovementMethod
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import com.example.firstapp.App
 import com.example.firstapp.R
@@ -41,7 +42,6 @@ class SortFragment : Fragment(), MainContract.SortView {
         sortTextView.movementMethod = ScrollingMovementMethod()
         initClickListeners()
         presenter.onCreated()
-
     }
 
     private fun initClickListeners() {
@@ -58,5 +58,9 @@ class SortFragment : Fragment(), MainContract.SortView {
 
     override fun setOutputText(stringToShow: String) {
         sortTextView.text = stringToShow
+    }
+
+    override fun showErrorSortMessage() {
+        Toast.makeText(context, R.string.nothing_to_sort, Toast.LENGTH_SHORT).show()
     }
 }

@@ -20,7 +20,7 @@ class CommentHolder {
 
     // todo unit tests
     fun addFromFileToList(list: List<String>) {
-        // clear
+        clearStringList()
         inputStringList.addAll(list)
     }
 

@@ -14,7 +14,6 @@ class MainPresenter(
     MainContract.MainPresenter {
 
     private var inputString = ""
-    private var commentCount = 0
 
     override fun onClickAddButton() {
         model.addToList(inputString)
@@ -25,11 +24,13 @@ class MainPresenter(
         view.clearEditText()
     }
 
-    fun onClickGenerateButton() {
+    fun onClickGenerateButton(commentCountString: String) {
+        val commentCount: Int = commentCountString.toInt()
         if (commentCount > 0) {
             model.generateComments(commentCount)
             showSavedComments()
-            view.updateNextButton(true)
+            if (model.isListCanSort())
+                view.updateNextButton(true)
         } else {
             view.showWrongCommentCountToast()
         }
@@ -50,13 +51,6 @@ class MainPresenter(
         updateAddButton()
     }
 
-    fun setNumberFromEditText(inputString: String) {
-        if (inputString.isNotEmpty()) {
-            this.commentCount = inputString.toInt()
-        }
-    }
-
-//    @TestOnly
     private fun updateAddButton() =
         view.updateAddButton(hasEnteredText())
 
@@ -75,12 +69,10 @@ class MainPresenter(
         }
     }
 
-    fun onCreated() {           //todo костыль, без него при повороте дублируются комменты
+    fun onCreated() {
+        model.readFile()
         if (model.getAllComment().isEmpty()) {
-            model.readFile()
-            if(model.getAllComment().isEmpty()) {
-                showErrorMessage(R.string.commentNotFound)
-            }
+            showErrorMessage(R.string.commentNotFound)
         }
     }
 

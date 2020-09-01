@@ -2,12 +2,11 @@ package com.example.firstapp.navigator
 
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
-import androidx.fragment.app.FragmentTransaction
 import com.example.firstapp.R
 import com.example.firstapp.fragments.SortFragment
 import com.example.firstapp.contracts.MainContract
 
-class FragmentNavigator(private val fragment: Fragment): MainContract.FragmentNavigator {
+class FragmentNavigator(private val fragment: Fragment) : MainContract.FragmentNavigator {
 
     private val sortScreen = SortFragment()
 
@@ -19,7 +18,7 @@ class FragmentNavigator(private val fragment: Fragment): MainContract.FragmentNa
     override fun navigateToSortView() {
         val fragmentManager: FragmentManager? = fragment.activity?.supportFragmentManager
         fragmentManager?.beginTransaction()
-            ?.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
+            ?.setCustomAnimations(R.animator.slide_in_left, R.animator.slide_in_right)
             ?.replace(R.id.main_container, sortScreen)
             ?.addToBackStack(null)
             ?.commit()

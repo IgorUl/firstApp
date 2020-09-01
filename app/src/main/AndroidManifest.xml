@@ -6,9 +6,9 @@
     <application
         android:name=".App"
         android:allowBackup="false"
-        android:icon="@mipmap/ic_sort_launcher"
+        android:icon="@mipmap/ic_adaptive_sort"
         android:label="@string/app_name"
-        android:roundIcon="@mipmap/ic_sort_launcher_round"
+        android:roundIcon="@mipmap/ic_adaptive_sort_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning">

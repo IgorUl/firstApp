@@ -16,6 +16,7 @@ interface MainContract {
 
     interface SortView {
         fun setOutputText(stringToShow: String)
+        fun showErrorSortMessage()
     }
 
     interface MainPresenter {
@@ -31,5 +32,9 @@ interface MainContract {
     interface FragmentNavigator {
         fun navigateToMainView()
         fun navigateToSortView()
+    }
+
+    interface OnScreenChangeListener {
+        fun onScreenChange()
     }
 }

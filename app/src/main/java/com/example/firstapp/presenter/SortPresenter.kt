@@ -23,7 +23,11 @@ class SortPresenter(
     }
 
     override fun onClickSortButton() {
-        view.setOutputText(getSortedStringWithTimeStamps(model.initSortData()))
+        if (model.getAllComment().isEmpty()) {
+            view.showErrorSortMessage()
+        } else {
+            view.setOutputText(getSortedStringWithTimeStamps(model.initSortData()))
+        }
     }
 
     fun onClickMergeSortRadioButton() =

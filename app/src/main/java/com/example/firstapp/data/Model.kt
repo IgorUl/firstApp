@@ -30,9 +30,9 @@ class Model(
         this.sortType = sortType
     }
 
-    fun generateComments(inputNumber: Int) {
+    fun generateComments(inputNumber: Int) =
         commentHolder.addRandomCommentsToList(inputNumber)
-    }
+
 
     @TestOnly
     fun getSortedString(sortType: SortType): String {
@@ -63,9 +63,9 @@ class Model(
         fileStorage.writeFile(getAllComment())
 
     @TestOnly
-    fun addListFromFile(list: List<String>) {
+    fun addListFromFile(list: List<String>) =
         commentHolder.addFromFileToList(list)
-    }
+
 
     companion object {
         private const val MIN_SORTED_LIST_SIZE = 1
