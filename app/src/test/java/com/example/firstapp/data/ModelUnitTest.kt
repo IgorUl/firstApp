@@ -37,9 +37,7 @@ class ModelUnitTest {
     @Test
     fun getAllComments_returnNotEmptyList() {
         `when`(commentHolder.getInputStringList).thenReturn(listOf("test", "2"))
-        val expList = listOf("tt", "2")
-        expectedList.add("test")
-        expectedList.add("2")
+        val expectedList: List<String> = listOf("test", "2")
 
         val result: List<String> = commentHolder.getInputStringList
 
@@ -52,7 +50,7 @@ class ModelUnitTest {
 
         val result: String = model.getAllComment()
 
-        val expected: String = ""
+        val expected = ""
         assertEquals(
             "getAllComments_ReturnEmptyString_WithSeparator - NOT OK",
             expected,
@@ -75,13 +73,6 @@ class ModelUnitTest {
         )
     }
 
-//    @Test //todo name
-//    fun addToList_invokeCommentHolderFun() {
-//        model.addToList(anyString())
-//
-//        verify(commentHolder).addStringToList(anyString())
-//    }
-
     @Test
     fun addToList_checkSameArgs() {
         model.addToList("test")
@@ -101,13 +92,6 @@ class ModelUnitTest {
         `when`(commentHolder.getInputStringList).thenReturn(listOf("test", "2"))
 
         assert(!model.isListEmpty())
-    }
-
-    @Test
-    fun clearStringList_invokeCommentHolderFun() {
-        model.clearStringList()
-
-        verify(commentHolder).clearStringList()
     }
 
     @Test
@@ -141,6 +125,13 @@ class ModelUnitTest {
     }
 
     @Test
+    fun clearStringList_invokeCommentHolderClearStringList() {
+        model.clearStringList()
+
+        verify(commentHolder).clearStringList()
+    }
+
+    @Test
     fun getSortedString_MergeSortTypeEmptyList_invokeMergeSort() {
         `when`(commentHolder.getInputStringList).thenReturn(emptyList())
 
@@ -157,7 +148,7 @@ class ModelUnitTest {
         model.getSortedString(SortType.MERGE)
 
         verify(commentSorter, times(1)).getMergeSortedList(commentHolder.getInputStringList)
-        verify(commentSorter, times(0)).getBubbleSortedList(commentHolder.getInputStringList)
+        verify(commentSorter, never()).getBubbleSortedList(commentHolder.getInputStringList)
     }
 
     @Test
@@ -166,7 +157,7 @@ class ModelUnitTest {
 
         model.getSortedString(SortType.BUBBLE)
 
-        verify(commentSorter, times(0)).getMergeSortedList(commentHolder.getInputStringList)
+        verify(commentSorter, never()).getMergeSortedList(commentHolder.getInputStringList)
         verify(commentSorter, times(1)).getBubbleSortedList(commentHolder.getInputStringList)
     }
 
@@ -176,12 +167,12 @@ class ModelUnitTest {
 
         model.getSortedString(SortType.BUBBLE)
 
-        verify(commentSorter, times(0)).getMergeSortedList(commentHolder.getInputStringList)
+        verify(commentSorter, never()).getMergeSortedList(commentHolder.getInputStringList)
         verify(commentSorter, times(1)).getBubbleSortedList(commentHolder.getInputStringList)
     }
 
     @Test
-    fun getSortedString_EmptyListMergeSort_returnStringWithSeparator() {
+    fun getSortedString_EmptyListMergeSort_returnEmptyString() {
         `when`(commentHolder.getInputStringList).thenReturn(emptyList())
 
         val result: String = model.getSortedString(SortType.MERGE)
@@ -192,52 +183,49 @@ class ModelUnitTest {
 
     @Test
     fun getSortedString_NotEmptyListMergeSort_returnStringWithSeparator() {
-        val expected = listOf(
-            "test",
-            "2"
-        )
         `when`(commentSorter.getMergeSortedList(anyList())).thenReturn(
-            expected
+            listOf(
+                "test",
+                "2"
+            )
         )
-        //expectedList.add("test")
-        //expectedList.add("2")
 
         val result: String = model.getSortedString(SortType.MERGE)
 
-        val expectedResult = expected.joinToString("\n")
+        val expectedResult = "test\n2"
         assertEquals(expectedResult, result)
     }
 
     @Test
-    fun getSortedString_EmptyListBubbleSort_returnStringWithSeparator() {
+    fun getSortedString_EmptyListBubbleSort_returnEmptyString() {
         `when`(commentHolder.getInputStringList).thenReturn(emptyList())
 
         val result: String = model.getSortedString(SortType.BUBBLE)
+        val expected = ""
 
-        assertEquals(emptyList<String>().joinToString("\n"), result)
+        assertEquals(expected, result)
     }
 
-//    @Test
-//    fun getSortedString_NotEmptyListBubbleSort_returnStringWithSeparator() {
-//        `when`(commentSorter.getBubbleSortedList(anyList())).thenReturn(
-//            listOf(
-//                "test",
-//                "2"
-//            )
-//        )
-//        expectedList.add("test")
-//        expectedList.add("2")
-//
-//        val result: String = model.getSortedString(SortType.BUBBLE)
-//
-//        assertEquals(expectedList.joinToString("\n"), result)
-//    }
+    @Test
+    fun getSortedString_NotEmptyListBubbleSort_returnStringWithSeparator() {
+        `when`(commentSorter.getBubbleSortedList(anyList())).thenReturn(
+            listOf(
+                "test",
+                "2"
+            )
+        )
+        val expected = "test\n2"
+
+        val result: String = model.getSortedString(SortType.BUBBLE)
+
+        assertEquals(expected, result)
+    }
 
     @Test
     fun initSortData_MergeSort_returnObjectWithArgs() {
         val startTime: Long = 1
-        val endTime: Long = 2
-        `when`(model.getCurrentTime()).thenReturn(startTime) // todo -> 2
+        val endTime: Long = 1
+        `when`(model.getCurrentTime()).thenReturn(startTime)
         `when`(commentSorter.getMergeSortedList(anyList())).thenReturn(listOf("test"))
 
         val testObj = SortedStringWithTimeStamps(startTime, "test", endTime)
@@ -248,37 +236,66 @@ class ModelUnitTest {
     }
 
     @Test
-    fun readFile_invokeFileStorageFun() {
-        model.readFile() // todo when fileStorage.readFile
+    fun initSortData_MergeSort_returnObjectWithDiffArgs() {
+        val startTime: Long = 2
+        val endTime: Long = 2
+        `when`(model.getCurrentTime()).thenReturn(startTime)
+        `when`(commentSorter.getMergeSortedList(anyList())).thenReturn(listOf("test"))
+
+        val testObj = SortedStringWithTimeStamps(startTime, "test", endTime)
+
+        val resultObj: SortedStringWithTimeStamps = model.initSortData()
+
+        assert(testObj == resultObj)
+    }
+
+    @Test
+    fun initSortData_MergeSort_invokeGetTime2times() {
+        model.initSortData()
+
+        verify(timeProvider, times(2)).getTime()
+    }
+
+    @Test
+    fun readFile_invokeReadFile() {
+        model.readFile()
 
         verify(fileStorage).readFile()
+    }
+
+    @Test
+    fun readFile_emptyFile_addEmptyList() {
+        val expected = ""
+        `when`(fileStorage.readFile()).thenReturn(emptyList())
+
+        model.readFile()
+
+        val result:String = model.getAllComment()
+
+        assertEquals(expected, result)
     }
 
     @Test
     fun writeFile_EmptyString_returnFalse() {
         `when`(commentHolder.getInputStringList).thenReturn(emptyList())
 
-        val result: Boolean = model.writeFile() // todo
+        val result: Boolean = model.writeFile()
 
-        verify(fileStorage).writeFile(model.getAllComment())
+        assert(!result)
     }
 
     @Test
-    fun writeFile_NotEmptyString_returnTrue() {
-        val input = listOf("test")
-        val formattedInput = "..."
-        `when`(commentHolder.getInputStringList).thenReturn(input)
-
-        model.writeFile()
-        // check result
-
-        verify(fileStorage).writeFile(formattedInput)
-    }
-
-    @Test
-    fun addListFromFile_invokeCommentHolderFun() {
+    fun addListFromFile_invokeAddFromFileToList() {
         model.addListFromFile(anyList())
 
         verify(commentHolder).addFromFileToList(anyList())
+    }
+
+    @Test
+    fun addListFromFile_invokeAddFromFileToListWithSameArgs() {
+        val expected:List<String> = listOf("test", "2")
+        model.addListFromFile(expected)
+
+        verify(commentHolder).addFromFileToList(expected)
     }
 }

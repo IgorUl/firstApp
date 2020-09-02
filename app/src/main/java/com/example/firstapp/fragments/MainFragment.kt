@@ -1,6 +1,5 @@
 package com.example.firstapp.fragments
 
-import android.content.Context
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
@@ -23,7 +22,6 @@ import kotlinx.android.synthetic.main.main_fragment.*
 class MainFragment : Fragment(), MainContract.MainView {
 
     private lateinit var presenter: MainPresenter
-    private var onScreenChangeListener: MainContract.OnScreenChangeListener? = null
 
     private val editTextWatcher: TextWatcher = object : TextWatcher {
         override fun afterTextChanged(p0: Editable?) {
@@ -68,7 +66,6 @@ class MainFragment : Fragment(), MainContract.MainView {
     private fun initClickListeners() {
         addButton.setOnClickListener {
             presenter.onClickAddButton()
-            onScreenChangeListener?.onScreenChange()
         }
 
         nextButton.setOnClickListener {
@@ -77,18 +74,16 @@ class MainFragment : Fragment(), MainContract.MainView {
 
         clearButton.setOnClickListener {
             presenter.onClickClearButton()
-            onScreenChangeListener?.onScreenChange()
         }
 
         generateButton.setOnClickListener {
             presenter.onClickGenerateButton(how_much_comments.text.toString())
-            onScreenChangeListener?.onScreenChange()
         }
         inputText.addTextChangedListener(editTextWatcher)
     }
 
-    override fun onPause() {
-        super.onPause()
+    override fun onStop() {
+        super.onStop()
         presenter.onPaused()
     }
 
@@ -126,15 +121,5 @@ class MainFragment : Fragment(), MainContract.MainView {
 
     override fun showWrongCommentCountToast() {
         Toast.makeText(context, R.string.wrongNumberComments, Toast.LENGTH_SHORT).show()
-    }
-
-    override fun onAttach(context: Context) {
-        super.onAttach(context)
-        onScreenChangeListener = context as MainContract.OnScreenChangeListener
-    }
-
-    override fun onDetach() {
-        super.onDetach()
-        onScreenChangeListener = null
     }
 }

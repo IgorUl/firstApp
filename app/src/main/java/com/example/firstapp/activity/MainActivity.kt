@@ -4,11 +4,10 @@ import android.content.res.Configuration
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import com.example.firstapp.R
-import com.example.firstapp.contracts.MainContract
 import com.example.firstapp.fragments.MainFragment
 import com.example.firstapp.fragments.SortFragment
 
-class MainActivity : AppCompatActivity(), MainContract.OnScreenChangeListener {
+class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -30,14 +29,6 @@ class MainActivity : AppCompatActivity(), MainContract.OnScreenChangeListener {
             .add(R.id.main_container, MainFragment())
             .add(R.id.sort_container, SortFragment())
             .commit()
-    }
-
-    override fun onScreenChange() {
-        if (isTablet()) {
-            supportFragmentManager.beginTransaction()
-                .replace(R.id.sort_container, SortFragment())
-                .commit()
-        }
     }
 
     private fun isTablet(): Boolean =

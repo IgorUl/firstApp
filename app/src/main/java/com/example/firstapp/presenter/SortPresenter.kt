@@ -18,7 +18,14 @@ class SortPresenter(
 ) :
     MainContract.SortPresenter {
 
+    private val sortListener: MainContract.OnScreenChangeListener = object : MainContract.OnScreenChangeListener {
+        override fun onScreenChange() {
+            view.setOutputText(model.getAllComment())
+        }
+    }
+
     fun onCreated() {
+        model.initScreenListener(sortListener)
         view.setOutputText(model.getAllComment())
     }
 

@@ -11,14 +11,12 @@ class CommentHolder {
 
     fun addStringToList(inputString: String) {
         inputStringList.add(inputString)
-
     }
 
     fun clearStringList() {
         inputStringList.clear()
     }
 
-    // todo unit tests
     fun addFromFileToList(list: List<String>) {
         clearStringList()
         inputStringList.addAll(list)

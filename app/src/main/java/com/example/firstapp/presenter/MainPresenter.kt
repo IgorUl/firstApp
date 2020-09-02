@@ -22,6 +22,7 @@ class MainPresenter(
         }
         showSavedComments()
         view.clearEditText()
+        model.updateSortView()
     }
 
     fun onClickGenerateButton(commentCountString: String) {
@@ -31,6 +32,7 @@ class MainPresenter(
             showSavedComments()
             if (model.isListCanSort())
                 view.updateNextButton(true)
+            model.updateSortView()
         } else {
             view.showWrongCommentCountToast()
         }
@@ -42,6 +44,7 @@ class MainPresenter(
     override fun onClickClearButton() {
         model.clearStringList()
         view.clearTextView()
+        model.updateSortView()
         view.updateNextButton(false)
         view.updateClearButtonVisibility(false)
     }
@@ -54,8 +57,8 @@ class MainPresenter(
     private fun updateAddButton() =
         view.updateAddButton(hasEnteredText())
 
-    @TestOnly
-    fun hasEnteredText(): Boolean =
+
+    private fun hasEnteredText(): Boolean =
         inputString.isNotEmpty()
 
     @TestOnly

@@ -1,5 +1,6 @@
 package com.example.firstapp.data
 
+import com.example.firstapp.contracts.MainContract
 import org.jetbrains.annotations.TestOnly
 
 class Model(
@@ -10,6 +11,15 @@ class Model(
 ) {
 
     private var sortType: SortType = SortType.MERGE
+    private var onScreenChangeListener: MainContract.OnScreenChangeListener? = null
+
+    fun initScreenListener(callback: MainContract.OnScreenChangeListener) {
+        onScreenChangeListener = callback
+    }
+
+    fun updateSortView() {
+        onScreenChangeListener?.onScreenChange()
+    }
 
     fun getAllComment(): String =
         commentHolder.getInputStringList.joinToString("\n")

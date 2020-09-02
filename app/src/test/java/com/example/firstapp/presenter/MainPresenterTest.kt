@@ -4,7 +4,6 @@ import com.example.firstapp.contracts.MainContract
 import com.example.firstapp.data.Model
 import com.example.firstapp.navigator.FragmentNavigator
 import com.nhaarman.mockitokotlin2.*
-import org.junit.Assert.assertEquals
 import org.junit.Test
 import org.mockito.ArgumentMatchers.anyBoolean
 import org.mockito.ArgumentMatchers.anyString
@@ -80,12 +79,17 @@ class MainPresenterTest {
     }
 
     @Test
-    fun onClickAddButton_invokeOrder_isListCanSortTrue() {
+    fun onClickAddButton_nextButtonNeverUpdate() {
+        `when`(model.isListCanSort()).thenReturn(false)
+
+        verify(view, never()).updateNextButton(anyBoolean())
+    }
+
+    @Test
+    fun onClickAddButton_isListCanSortTrue_invokeOrder() {
         `when`(model.isListCanSort()).thenReturn(true)
 
         presenter.onClickAddButton()
-
-        // todo updateNextButton never
         // split
         inOrder(model, view) {
             verify(model).addToList(anyString())
@@ -96,7 +100,7 @@ class MainPresenterTest {
     }
 
     @Test
-    fun onClickAddButton_invokeOrderWithOutNextButtonUpdate_isListCanSortFalse() {
+    fun onClickAddButton_isListCanSortFalse_invokeOrderWithOutNextButtonUpdate() {
         `when`(model.isListCanSort()).thenReturn(false)
 
         presenter.onClickAddButton()
@@ -104,49 +108,78 @@ class MainPresenterTest {
         inOrder(model, view) {
             verify(model).addToList(anyString())
             verify(model).isListCanSort()
-            verify(view, times(0)).updateNextButton(anyBoolean())
+            verify(view, never()).updateNextButton(anyBoolean())
             verify(view).clearEditText()
         }
     }
 
     @Test
-    fun onGenerateButtonClicked_invokeOrder_commentCountMoreZero() {
-        presenter.commentCount = 1
+    fun onClickGenerationButton_isListCanSortFalse_updateNextButtonNeverInvoke() {
+        val commentCount = "2"
+        `when`(model.isListCanSort()).thenReturn(false)
 
-        presenter.onClickGenerateButton()
+        presenter.onClickGenerateButton(commentCount)
+
+        verify(view, never()).updateNextButton(anyBoolean())
+    }
+
+    @Test
+    fun onClickGenerateButton_IsListCanSortTrue_invokeUpdateNextButtonTrue() {
+        val commentCount = "2"
+        `when`(model.isListCanSort()).thenReturn(true)
+
+        presenter.onClickGenerateButton(commentCount)
+
+        verify(view, times(1)).updateNextButton(true)
+    }
+
+
+    @Test
+    fun onGenerateButtonClicked_commentCountMoreZero_invokeOrder() {
+        val numberOfComment = "2"
+        `when`(model.isListCanSort()).thenReturn(true)
+
+        presenter.onClickGenerateButton(numberOfComment)
 
         inOrder(model, view) {
-            verify(model).generateComments()
+            verify(model).generateComments(numberOfComment.toInt())
             verify(view).updateNextButton(true)
         }
     }
 
     @Test
-    fun onGenerateButtonClicked_invokeOrder_commentCountLessZero() {
-        presenter.commentCount = -1
+    fun onGenerateButtonClicked_commentCountLessZero_invokeOrder() {
+        val commentCount = "-1"
 
-        presenter.onClickGenerateButton()
+        presenter.onClickGenerateButton(commentCount)
 
         verify(view).showWrongCommentCountToast()
-        // never generateComments
+    }
+    @Test
+    fun onGenerateButtonClicked_commentCountNotMoreZero_NotInvokeGenerateComments() {
+        val commentCount = "0"
+
+        presenter.onClickGenerateButton(commentCount)
+
+        verify(model, never()).generateComments(commentCount.toInt())
     }
 
     @Test
     fun onGenerateButtonClicked_invokeOrder_commentCountZero() {
-        presenter.commentCount = 0
+        val commentCount = "0"
 
-        presenter.onClickGenerateButton()
+        presenter.onClickGenerateButton(commentCount)
 
         verify(view).showWrongCommentCountToast()
     }
 
-//    @Test
-//    fun onGenerateButtonClicked_invokeWithSameArgs() {
-//        presenter.commentCount = 3
-//        presenter.onClickGenerateButton()
-//
-//        verify(model).generateComments() // todo
-//    }
+    @Test
+    fun onGenerateButtonClicked_invokeWithSameArgs() {
+        val commentCount = "3"
+        presenter.onClickGenerateButton(commentCount)
+
+        verify(model).generateComments(3)
+    }
 
     @Test
     fun onClickNextButton_invokeNavigatorFun() {
@@ -168,48 +201,12 @@ class MainPresenterTest {
         }
     }
 
-//    @Test
-//    fun setStringFromEditText_setArg() {
-//        val expected = "test"
-//
-//        presenter.setStringFromEditText("test")
-//
-//        assertEquals(expected, presenter.inputString)
-//    }
+    @Test
+    fun setStringFromEditText_invokeUpdateAddButtonFun() {
+        presenter.setStringFromEditText(anyString())
 
-//    @Test
-//    fun setStringFromEditText_invokeUpdateAddButtonFun() {
-//        presenter.setStringFromEditText(anyString())
-//
-//        verify(view).updateAddButton(anyBoolean())
-//    }
-
-//    @Test
-//    fun updateAddButton_invokeViewFun() {
-//        presenter.updateAddButton()
-//
-//        verify(view).updateAddButton(anyBoolean())
-//    }
-
-//    @Test
-//    fun hasEnteredText_EmptyString() {
-//        presenter.inputString = ""
-//        val expected = false
-//
-//        val result = presenter.hasEnteredText()
-//
-//        assertEquals(expected, result)
-//    }
-//
-//    @Test
-//    fun hasEnteredText_NotEmptyString() {
-//        presenter.inputString = "test"
-//        val expected = true
-//
-//        val result = presenter.hasEnteredText()
-//
-//        assertEquals(expected, result)
-//    }
+        verify(view).updateAddButton(anyBoolean())
+    }
 
     @Test
     fun showSavedComments_invokeOrderEmptyList() {
@@ -244,7 +241,7 @@ class MainPresenterTest {
 
         presenter.onCreated()
 
-        verify(model).readFile() // split
+        verify(model).readFile()
         verify(view).showErrorMessage(anyInt())
     }
 
