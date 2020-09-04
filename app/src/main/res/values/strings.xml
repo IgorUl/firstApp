@@ -1,17 +1,21 @@
 <resources>
     <string name="app_name">SberSort</string>
-    <string name="addButton">Add</string>
-    <string name="sortButton">Sort</string>
-    <string name="inputFieldHint">Enter comment…</string>
-    <string name="mergeSortRadioButton">Merge sort</string>
-    <string name="bubbleSortRadioButton">Bubble sort</string>
-    <string name="clearButton">Clear button</string>
-    <string name="sortedStringWithTimeStamps">Start sort: %1$s\n%2$s\nEnd sort: %3$s\nTime in millis: %4$s</string>
-    <string name="nextButton">Next</string>
-    <string name="generateButton">Generate comments</string>
-    <string name="fileNotFoundMessage">Comment file not found</string>
-    <string name="commentNotFound">Save comments not found</string>
-    <string name="wrongNumberComments">The number of comments must be greater than 0</string>
+    <string name="add_button">Add</string>
+    <string name="sort_button">Sort</string>
+    <string name="input_field_hint">Enter comment…</string>
+    <string name="merge_sort_radio_button">Merge sort</string>
+    <string name="bubble_sort_radio_button">Bubble sort</string>
+    <string name="clear_button">Clear button</string>
+    <string name="sorted_string_with_time_stamps">Start sort: %1$s\n%2$s\nEnd sort: %3$s\nTime in millis: %4$s</string>
+    <string name="next_button">Next</string>
+    <string name="generate_button">Generate comments</string>
+    <string name="file_not_found_message">Comment file not found</string>
+    <string name="comment_not_found">Save comments not found</string>
+    <string name="wrong_number_comments">The number of comments must be greater than 0</string>
     <string name="count_dialog_title">How much?</string>
     <string name="nothing_to_sort">Nothing to sort</string>
+    <plurals name="comments_count">
+        <item quantity="one">%1$d comment</item>
+        <item quantity="other">%1$d comments</item>
+    </plurals>
 </resources>

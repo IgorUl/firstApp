@@ -12,6 +12,7 @@ interface MainContract {
         fun updateNextButton(isEnable: Boolean)
         fun showErrorMessage(messageId: Int)
         fun showWrongCommentCountToast()
+        fun setCommentCount(commentCount: Int)
     }
 
     interface SortView {

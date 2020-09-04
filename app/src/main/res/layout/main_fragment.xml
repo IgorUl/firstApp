@@ -15,7 +15,7 @@
         android:layout_marginTop="16dp"
         android:layout_marginEnd="24dp"
         android:layout_marginBottom="16dp"
-        android:hint="@string/inputFieldHint"
+        android:hint="@string/input_field_hint"
         app:endIconMode="clear_text"
         app:layout_constraintBottom_toTopOf="@+id/savedCommentsView"
         app:layout_constraintTop_toTopOf="parent">
@@ -32,6 +32,21 @@
             app:layout_constraintTop_toTopOf="parent" />
 
     </com.google.android.material.textfield.TextInputLayout>
+
+    <TextView
+        android:id="@+id/comment_list_size"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="24dp"
+        android:layout_marginBottom="8dp"
+        android:textSize="12sp"
+        app:autoSizeTextType="uniform"
+        app:layout_constraintBottom_toTopOf="@id/savedCommentsView"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textField" />
 
     <TextView
         android:id="@+id/savedCommentsView"
@@ -55,7 +70,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:background="@null"
-        android:contentDescription="@string/clearButton"
+        android:contentDescription="@string/clear_button"
         android:visibility="invisible"
         app:layout_constraintEnd_toEndOf="@+id/savedCommentsView"
         app:layout_constraintTop_toTopOf="@+id/savedCommentsView"
@@ -79,7 +94,7 @@
             android:layout_marginEnd="24dp"
             android:background="@drawable/button_selector"
             android:enabled="false"
-            android:text="@string/addButton"
+            android:text="@string/add_button"
             app:layout_constraintBottom_toTopOf="@+id/nextButton"
             app:layout_constraintTop_toBottomOf="@+id/savedCommentsView" />
 
@@ -92,10 +107,11 @@
             android:layout_marginEnd="24dp"
             android:background="@drawable/button_selector"
             android:enabled="false"
-            android:text="@string/nextButton"
+            android:text="@string/next_button"
             app:layout_constraintBottom_toTopOf="@+id/generateButton"
             app:layout_constraintTop_toBottomOf="@+id/addButton" />
 
+<!-- TODO -->
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="44dp"
@@ -111,7 +127,7 @@
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:background="@drawable/button_selector"
-                android:text="@string/generateButton"
+                android:text="@string/generate_button"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/nextButton" />
 

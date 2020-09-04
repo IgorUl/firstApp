@@ -15,7 +15,7 @@
         android:layout_marginTop="16dp"
         android:layout_marginEnd="24dp"
         android:layout_marginBottom="16dp"
-        android:hint="@string/inputFieldHint"
+        android:hint="@string/input_field_hint"
         app:endIconMode="clear_text"
         app:layout_constraintBottom_toTopOf="@+id/savedCommentsView"
         app:layout_constraintTop_toTopOf="parent">
@@ -32,6 +32,21 @@
             app:layout_constraintTop_toTopOf="parent" />
 
     </com.google.android.material.textfield.TextInputLayout>
+
+    <TextView
+        android:id="@+id/comment_list_size"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="24dp"
+        android:layout_marginBottom="8dp"
+        android:textSize="12sp"
+        app:autoSizeTextType="uniform"
+        app:layout_constraintBottom_toTopOf="@id/savedCommentsView"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textField" />
 
     <TextView
         android:id="@+id/savedCommentsView"
@@ -55,7 +70,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:background="@null"
-        android:contentDescription="@string/clearButton"
+        android:contentDescription="@string/clear_button"
         android:visibility="invisible"
         app:layout_constraintEnd_toEndOf="@+id/savedCommentsView"
         app:layout_constraintTop_toTopOf="@+id/savedCommentsView"
@@ -66,43 +81,46 @@
         android:id="@+id/linear_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
+        android:orientation="horizontal"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintTop_toBottomOf="@id/savedCommentsView">
 
         <Button
             android:id="@+id/addButton"
             style="@style/RoundedCornerButton"
-            android:layout_width="match_parent"
+            android:layout_width="0dp"
             android:layout_height="44dp"
-            android:layout_marginStart="24dp"
-            android:layout_marginEnd="24dp"
+            android:layout_marginStart="4dp"
+            android:layout_marginEnd="4dp"
             android:background="@drawable/button_selector"
             android:enabled="false"
-            android:text="@string/addButton"
+            android:text="@string/add_button"
+            android:layout_weight="1"
             app:layout_constraintBottom_toTopOf="@+id/nextButton"
             app:layout_constraintTop_toBottomOf="@+id/savedCommentsView" />
 
         <Button
             android:id="@+id/nextButton"
             style="@style/RoundedCornerButton"
-            android:layout_width="match_parent"
+            android:layout_width="0dp"
             android:layout_height="44dp"
-            android:layout_marginStart="24dp"
-            android:layout_marginEnd="24dp"
+            android:layout_marginStart="4dp"
+            android:layout_marginEnd="4dp"
             android:background="@drawable/button_selector"
             android:enabled="false"
-            android:visibility="gone"
-            android:text="@string/nextButton"
+            android:text="@string/next_button"
+            android:layout_weight="1"
             app:layout_constraintBottom_toTopOf="@+id/generateButton"
             app:layout_constraintTop_toBottomOf="@+id/addButton" />
 
+        <!-- TODO -->
         <LinearLayout
-            android:layout_width="match_parent"
+            android:layout_width="0dp"
             android:layout_height="44dp"
-            android:layout_marginStart="24dp"
-            android:layout_marginEnd="24dp"
+            android:layout_marginStart="4dp"
+            android:layout_marginEnd="4dp"
             android:layout_marginBottom="24dp"
+            android:layout_weight="1"
             android:orientation="horizontal">
 
             <Button
@@ -111,10 +129,12 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
+
                 android:background="@drawable/button_selector"
-                android:text="@string/generateButton"
+                android:text="@string/generate_button"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/nextButton" />
+                app:layout_constraintTop_toBottomOf="@+id/nextButton"
+                tools:ignore="NestedWeights" />
 
 
             <EditText

@@ -14,12 +14,19 @@ class Model(
     private var onScreenChangeListener: MainContract.OnScreenChangeListener? = null
 
     fun initScreenListener(callback: MainContract.OnScreenChangeListener) {
-        onScreenChangeListener = callback
+        onScreenChangeListener = callback // fixme
     }
 
     fun updateSortView() {
         onScreenChangeListener?.onScreenChange()
     }
+
+    fun clearScreenListener() {
+        onScreenChangeListener = null
+    }
+
+    fun getCommentListSize(): Int =
+        commentHolder.getInputStringList.size
 
     fun getAllComment(): String =
         commentHolder.getInputStringList.joinToString("\n")

@@ -33,7 +33,7 @@
         android:background="@drawable/button_selector"
         android:enabled="true"
         android:gravity="center"
-        android:text="@string/sortButton"
+        android:text="@string/sort_button"
         app:layout_constraintTop_toBottomOf="@+id/sortTextView"
         app:layout_constraintBottom_toBottomOf="parent"
         />
@@ -57,14 +57,14 @@
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:checked="true"
-            android:text="@string/mergeSortRadioButton" />
+            android:text="@string/merge_sort_radio_button" />
 
         <RadioButton
             android:id="@+id/bubbleSortRadioButton"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:text="@string/bubbleSortRadioButton" />
+            android:text="@string/bubble_sort_radio_button" />
     </RadioGroup>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

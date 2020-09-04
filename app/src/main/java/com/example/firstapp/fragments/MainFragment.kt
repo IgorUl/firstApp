@@ -1,5 +1,6 @@
 package com.example.firstapp.fragments
 
+import android.content.res.Configuration
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
@@ -58,6 +59,9 @@ class MainFragment : Fragment(), MainContract.MainView {
         if (savedInstanceState == null) {
             presenter.onCreated()
         }
+        if ((resources.configuration.screenLayout and Configuration.SCREENLAYOUT_SIZE_MASK) >= Configuration.SCREENLAYOUT_SIZE_LARGE) {
+            nextButton.visibility = View.GONE
+        }
 
         savedCommentsView.movementMethod = ScrollingMovementMethod()
         initClickListeners()
@@ -104,6 +108,10 @@ class MainFragment : Fragment(), MainContract.MainView {
         savedCommentsView.text = stringToShow
     }
 
+    override fun setCommentCount(commentCount: Int) {
+        comment_list_size.text = resources.getQuantityString(R.plurals.comments_count, commentCount, commentCount)
+    }
+
     override fun updateClearButtonVisibility(isVisible: Boolean) {
         clearButton.isVisible = isVisible
     }
@@ -120,6 +128,6 @@ class MainFragment : Fragment(), MainContract.MainView {
     }
 
     override fun showWrongCommentCountToast() {
-        Toast.makeText(context, R.string.wrongNumberComments, Toast.LENGTH_SHORT).show()
+        Toast.makeText(context, R.string.wrong_number_comments, Toast.LENGTH_SHORT).show()
     }
 }

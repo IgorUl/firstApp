@@ -2,10 +2,12 @@ package com.example.firstapp.activity
 
 import android.content.res.Configuration
 import android.os.Bundle
+import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import com.example.firstapp.R
 import com.example.firstapp.fragments.MainFragment
 import com.example.firstapp.fragments.SortFragment
+import kotlinx.android.synthetic.main.main_fragment.*
 
 class MainActivity : AppCompatActivity() {
 
@@ -14,13 +16,17 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_master_main)
 
         if (savedInstanceState == null) {
-            if (isTablet()) initTabletScreen() else initPhoneScreen()
+            if (isTablet()) {
+                initTabletScreen()
+            } else {
+                initPhoneScreen()
+            }
         }
     }
 
     private fun initPhoneScreen() {
         supportFragmentManager.beginTransaction()
-            .add(R.id.main_container, MainFragment())
+            .replace(R.id.main_container, MainFragment()) // fixme
             .commit()
     }
 

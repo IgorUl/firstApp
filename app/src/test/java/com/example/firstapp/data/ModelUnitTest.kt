@@ -238,8 +238,8 @@ class ModelUnitTest {
     @Test
     fun initSortData_MergeSort_returnObjectWithDiffArgs() {
         val startTime: Long = 2
-        val endTime: Long = 2
-        `when`(model.getCurrentTime()).thenReturn(startTime)
+        val endTime: Long = 4
+        `when`(model.getCurrentTime()).thenReturn(startTime).thenReturn(1)
         `when`(commentSorter.getMergeSortedList(anyList())).thenReturn(listOf("test"))
 
         val testObj = SortedStringWithTimeStamps(startTime, "test", endTime)

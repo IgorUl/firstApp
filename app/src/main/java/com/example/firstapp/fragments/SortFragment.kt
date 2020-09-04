@@ -57,7 +57,20 @@ class SortFragment : Fragment(), MainContract.SortView {
     }
 
     override fun setOutputText(stringToShow: String) {
-        sortTextView.text = stringToShow
+//
+            sortTextView.text = stringToShow // fixme
+//        Process: com.example.firstapp, PID: 3152
+//        java.lang.IllegalStateException: sortTextView must not be null
+//        at com.example.firstapp.fragments.SortFragment.setOutputText(SortFragment.kt:60)
+//        at com.example.firstapp.presenter.SortPresenter$sortListener$1.onScreenChange(SortPresenter.kt:23)
+//        at com.example.firstapp.data.Model.updateSortView(Model.kt:21)
+//        at com.example.firstapp.presenter.MainPresenter.onClickGenerateButton(MainPresenter.kt:35)
+//        at com.example.firstapp.fragments.MainFragment$initClickListeners$4.onClick(MainFragment.kt:80)
+    }
+
+    override fun onDetach() {
+        super.onDetach()
+        presenter.clearPresenterScreenListner()
     }
 
     override fun showErrorSortMessage() {

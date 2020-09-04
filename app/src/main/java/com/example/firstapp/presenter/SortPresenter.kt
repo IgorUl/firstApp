@@ -18,24 +18,28 @@ class SortPresenter(
 ) :
     MainContract.SortPresenter {
 
-    private val sortListener: MainContract.OnScreenChangeListener = object : MainContract.OnScreenChangeListener {
-        override fun onScreenChange() {
-            view.setOutputText(model.getAllComment())
+    private val sortListener: MainContract.OnScreenChangeListener =
+        object : MainContract.OnScreenChangeListener {
+            override fun onScreenChange() {
+                view.setOutputText(model.getAllComment())
+            }
         }
-    }
 
     fun onCreated() {
         model.initScreenListener(sortListener)
         view.setOutputText(model.getAllComment())
     }
 
-    override fun onClickSortButton() {
+    fun clearPresenterScreenListner() {
+        model.clearScreenListener()
+    }
+
+    override fun onClickSortButton() =
         if (model.getAllComment().isEmpty()) {
             view.showErrorSortMessage()
         } else {
             view.setOutputText(getSortedStringWithTimeStamps(model.initSortData()))
         }
-    }
 
     fun onClickMergeSortRadioButton() =
         model.setSortType(SortType.MERGE)
@@ -44,13 +48,12 @@ class SortPresenter(
         model.setSortType(SortType.BUBBLE)
 
     @TestOnly
-    internal fun getSortedStringWithTimeStamps(sortedStringWithTimeStamps: SortedStringWithTimeStamps): String {
-        return resources.getString(
-            R.string.sortedStringWithTimeStamps,
+    internal fun getSortedStringWithTimeStamps(sortedStringWithTimeStamps: SortedStringWithTimeStamps): String =
+        resources.getString(
+            R.string.sorted_string_with_time_stamps,
             timeProvider.parseDateToString(sortedStringWithTimeStamps.startTime),
             sortedStringWithTimeStamps.sortedString,
             timeProvider.parseDateToString(sortedStringWithTimeStamps.endTime),
             sortedStringWithTimeStamps.timeDifference.toString()
         )
-    }
 }
