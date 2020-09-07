@@ -2,12 +2,10 @@ package com.example.firstapp.activity
 
 import android.content.res.Configuration
 import android.os.Bundle
-import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import com.example.firstapp.R
 import com.example.firstapp.fragments.MainFragment
 import com.example.firstapp.fragments.SortFragment
-import kotlinx.android.synthetic.main.main_fragment.*
 
 class MainActivity : AppCompatActivity() {
 
@@ -26,7 +24,7 @@ class MainActivity : AppCompatActivity() {
 
     private fun initPhoneScreen() {
         supportFragmentManager.beginTransaction()
-            .replace(R.id.main_container, MainFragment()) // fixme
+            .replace(R.id.main_container, MainFragment())
             .commit()
     }
 

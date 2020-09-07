@@ -6,6 +6,8 @@
     <string name="merge_sort_radio_button">Merge sort</string>
     <string name="bubble_sort_radio_button">Bubble sort</string>
     <string name="clear_button">Clear button</string>
+    <string name="scroll_arrow_up">Scroll arrow up</string>
+    <string name="scroll_arrow_down">Scroll arrow down</string>
     <string name="sorted_string_with_time_stamps">Start sort: %1$s\n%2$s\nEnd sort: %3$s\nTime in millis: %4$s</string>
     <string name="next_button">Next</string>
     <string name="generate_button">Generate comments</string>

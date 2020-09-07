@@ -54,23 +54,32 @@ class SortFragment : Fragment(), MainContract.SortView {
                 bubbleSortRadioButton.id -> presenter.onClickBubbleSortRadioButton()
             }
         }
+        scroll_arrow_up_sort.setOnClickListener {
+            presenter.onClickScrollUp()
+        }
+        scroll_arrow_down_sort.setOnClickListener {
+            presenter.onClinkScrollDown()
+        }
     }
 
     override fun setOutputText(stringToShow: String) {
-//
-            sortTextView.text = stringToShow // fixme
-//        Process: com.example.firstapp, PID: 3152
-//        java.lang.IllegalStateException: sortTextView must not be null
-//        at com.example.firstapp.fragments.SortFragment.setOutputText(SortFragment.kt:60)
-//        at com.example.firstapp.presenter.SortPresenter$sortListener$1.onScreenChange(SortPresenter.kt:23)
-//        at com.example.firstapp.data.Model.updateSortView(Model.kt:21)
-//        at com.example.firstapp.presenter.MainPresenter.onClickGenerateButton(MainPresenter.kt:35)
-//        at com.example.firstapp.fragments.MainFragment$initClickListeners$4.onClick(MainFragment.kt:80)
+        sortTextView.text = stringToShow
     }
+
+    override fun scrollDown() {
+        sortTextView.scrollTo(0, getScrollAmount())
+    }
+
+    override fun scrollUp() {
+        sortTextView.scrollTo(0, 0)
+    }
+
+    private fun getScrollAmount(): Int =
+        sortTextView.layout.getLineTop(sortTextView.lineCount) - sortTextView.height
 
     override fun onDetach() {
         super.onDetach()
-        presenter.clearPresenterScreenListner()
+        presenter.clearPresenterScreenListener()
     }
 
     override fun showErrorSortMessage() {

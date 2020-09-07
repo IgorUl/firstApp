@@ -14,7 +14,7 @@ class Model(
     private var onScreenChangeListener: MainContract.OnScreenChangeListener? = null
 
     fun initScreenListener(callback: MainContract.OnScreenChangeListener) {
-        onScreenChangeListener = callback // fixme
+        onScreenChangeListener = callback
     }
 
     fun updateSortView() {
@@ -49,7 +49,6 @@ class Model(
 
     fun generateComments(inputNumber: Int) =
         commentHolder.addRandomCommentsToList(inputNumber)
-
 
     @TestOnly
     fun getSortedString(sortType: SortType): String {

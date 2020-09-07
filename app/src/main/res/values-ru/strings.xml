@@ -6,6 +6,8 @@
     <string name="merge_sort_radio_button">Сортировка слиянием</string>
     <string name="bubble_sort_radio_button">Сортировка пузырьком</string>
     <string name="clear_button">Кнопка очистки</string>
+    <string name="scroll_arrow_up">Прокрутка вверх</string>
+    <string name="scroll_arrow_down">Прокрутка вниз</string>
     <string name="sorted_string_with_time_stamps">Начало сортировки: %1$s\n%2$s\nКонец сортировки: %3$s\nВремя сортировки в миллисекундах: %4$s</string>
     <string name="next_button">Далее</string>
     <string name="generate_button">Сгенерировать комменты</string>

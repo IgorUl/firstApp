@@ -22,6 +22,27 @@
         tools:text="@tools:sample/lorem/random"
         tools:visibility="visible" />
 
+    <ImageButton
+        android:id="@+id/scroll_arrow_up_sort"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@null"
+        android:layout_marginBottom="25dp"
+        app:srcCompat="@android:drawable/arrow_up_float"
+        android:contentDescription="@string/scroll_arrow_up"
+        app:layout_constraintEnd_toEndOf="@id/sortTextView"
+        app:layout_constraintBottom_toTopOf="@+id/scroll_arrow_down_sort" />
+
+    <ImageButton
+        android:id="@+id/scroll_arrow_down_sort"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@null"
+        app:srcCompat="@android:drawable/arrow_down_float"
+        android:contentDescription="@string/scroll_arrow_down"
+        app:layout_constraintEnd_toEndOf="@+id/sortTextView"
+        app:layout_constraintBottom_toBottomOf="@+id/sortTextView" />
+
     <Button
         android:id="@+id/sortButton"
         style="@style/RoundedCornerButton"

@@ -5,7 +5,6 @@ import androidx.fragment.app.FragmentManager
 import com.example.firstapp.R
 import com.example.firstapp.fragments.SortFragment
 import com.example.firstapp.contracts.MainContract
-import com.example.firstapp.fragments.MainFragment
 
 class FragmentNavigator(private val fragment: Fragment) : MainContract.FragmentNavigator {
 

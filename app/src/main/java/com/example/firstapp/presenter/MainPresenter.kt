@@ -36,7 +36,7 @@ class MainPresenter(
             if (model.isListCanSort())
                 view.updateNextButton(true)
             model.updateSortView()
-
+            view.clearCommentCount()
         } else {
             view.showWrongCommentCountToast()
         }
@@ -52,6 +52,14 @@ class MainPresenter(
         model.updateSortView()
         view.updateNextButton(false)
         view.updateClearButtonVisibility(false)
+    }
+
+    override fun onClickScrollUp() {
+        view.scrollUp()
+    }
+
+    override fun onClinkScrollDown() {
+        view.scrollDown()
     }
 
     fun setStringFromEditText(inputString: String) {

@@ -30,8 +30,16 @@ class SortPresenter(
         view.setOutputText(model.getAllComment())
     }
 
-    fun clearPresenterScreenListner() {
+    fun clearPresenterScreenListener() {
         model.clearScreenListener()
+    }
+
+    override fun onClickScrollUp() {
+        view.scrollUp()
+    }
+
+    override fun onClinkScrollDown() {
+        view.scrollDown()
     }
 
     override fun onClickSortButton() =
