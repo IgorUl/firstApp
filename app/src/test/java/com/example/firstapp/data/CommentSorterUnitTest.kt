@@ -25,7 +25,7 @@ class CommentSorterUnitTest {
     }
 
     @Test
-    fun getMergeSorting_SingleItemList_matchesExpected() {
+    fun getMergeSorting_singleItemList_matchesExpected() {
         val sortedList: List<String> = commentSorter.getMergeSortedList(singleItemList)
 
         assertEquals("MergeSort with single item list - NOT OK", expectedSingleItemList, sortedList)

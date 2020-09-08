@@ -5,7 +5,8 @@
     <color name="colorPrimaryDark">#006600</color>
     <color name="colorAccent">#009900</color>
 
-    <color name="white">#FFFFFF</color>
     <color name="green">#009900</color>
     <color name="gray">#D6D6D6</color>
+
+    <color name="ic_adaptive_sort_background">#009900</color>
 </resources>

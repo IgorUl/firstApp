@@ -1,0 +1,179 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main_fragment"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".activity.MainActivity">
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/textField"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="24dp"
+        android:layout_marginBottom="16dp"
+        android:hint="@string/input_field_hint"
+        app:endIconMode="clear_text"
+        app:layout_constraintBottom_toTopOf="@+id/savedCommentsView"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/inputText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:importantForAutofill="no"
+            android:inputType="textPersonName"
+            android:visibility="visible"
+            android:imeOptions="actionDone"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <TextView
+        android:id="@+id/comment_list_size"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="24dp"
+        android:layout_marginBottom="8dp"
+        android:textSize="12sp"
+        app:autoSizeTextType="uniform"
+        app:layout_constraintBottom_toTopOf="@id/savedCommentsView"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textField" />
+
+    <TextView
+        android:id="@+id/savedCommentsView"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginBottom="16dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
+        android:isScrollContainer="true"
+        android:minHeight="50dp"
+        android:scrollbars="vertical"
+        app:layout_constraintBottom_toTopOf="@+id/linear_layout"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textField"
+        tools:text="@tools:sample/lorem/random" />
+
+    <ImageButton
+        android:id="@+id/clearButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@null"
+        android:contentDescription="@string/clear_button"
+        android:visibility="invisible"
+        app:layout_constraintEnd_toEndOf="@+id/savedCommentsView"
+        app:layout_constraintTop_toTopOf="@+id/savedCommentsView"
+        app:srcCompat="@drawable/ic_clear_edit_view"
+        tools:visibility="visible" />
+
+    <ImageButton
+        android:id="@+id/scroll_arrow_up"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@null"
+        android:contentDescription="@string/scroll_arrow_up"
+        app:layout_constraintBottom_toTopOf="@+id/scroll_arrow_down"
+        app:layout_constraintEnd_toEndOf="@id/savedCommentsView"
+        app:srcCompat="@android:drawable/arrow_up_float" />
+
+    <ImageButton
+        android:id="@+id/scroll_arrow_down"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@null"
+        android:contentDescription="@string/scroll_arrow_down"
+        app:layout_constraintBottom_toBottomOf="@+id/savedCommentsView"
+        app:layout_constraintEnd_toEndOf="@+id/savedCommentsView"
+        app:srcCompat="@android:drawable/arrow_down_float" />
+
+    <LinearLayout
+        android:id="@+id/linear_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="bottom"
+        android:layout_marginBottom="24dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/savedCommentsView">
+
+        <Button
+            android:id="@+id/addButton"
+            style="@style/RoundedCornerButton"
+            android:layout_width="0dp"
+            android:layout_height="44dp"
+            android:layout_marginStart="4dp"
+            android:layout_marginEnd="4dp"
+            android:layout_weight="1"
+            android:background="@drawable/button_selector"
+            android:enabled="false"
+            android:text="@string/add_button"
+            app:layout_constraintBottom_toTopOf="@+id/nextButton"/>
+
+        <Button
+            android:id="@+id/nextButton"
+            style="@style/RoundedCornerButton"
+            android:layout_width="0dp"
+            android:layout_height="44dp"
+            android:layout_marginStart="4dp"
+            android:layout_marginEnd="4dp"
+            android:layout_weight="1"
+            android:background="@drawable/button_selector"
+            android:enabled="false"
+            android:text="@string/next_button"
+            app:layout_constraintBottom_toTopOf="@+id/generate_layout"
+            app:layout_constraintTop_toBottomOf="@+id/addButton" />
+
+        <!-- TODO -->
+        <LinearLayout
+            android:id="@+id/generate_layout"
+            android:layout_width="0dp"
+            android:layout_height="44dp"
+            android:layout_marginStart="4dp"
+            android:layout_marginEnd="4dp"
+            android:layout_weight="1"
+            android:orientation="horizontal">
+
+            <Button
+                android:id="@+id/generateButton"
+                style="@style/RoundedCornerButton"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+
+                android:background="@drawable/button_selector"
+                android:text="@string/generate_button"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:ignore="NestedWeights" />
+
+
+            <EditText
+                android:id="@+id/how_much_comments"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="3"
+                android:gravity="center"
+                android:hint="@string/count_dialog_title"
+                android:importantForAutofill="no"
+                android:inputType="number"
+                android:imeOptions="actionDone"
+                android:maxLength="3"
+                android:textSize="12sp" />
+        </LinearLayout>
+
+    </LinearLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

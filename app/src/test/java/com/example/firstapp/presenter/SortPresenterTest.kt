@@ -27,7 +27,7 @@ class SortPresenterTest {
         val expected = "expected"
         `when`(
             resources.getString(
-                eq(R.string.sortedStringWithTimeStamps),
+                eq(R.string.sorted_string_with_time_stamps),
                 anyString(),
                 anyString(),
                 anyString(),

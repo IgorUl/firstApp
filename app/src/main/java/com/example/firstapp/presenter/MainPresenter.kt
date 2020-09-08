@@ -1,19 +1,20 @@
 package com.example.firstapp.presenter
 
+import androidx.core.text.isDigitsOnly
 import com.example.firstapp.R
 import com.example.firstapp.contracts.MainContract
+import com.example.firstapp.navigator.FragmentNavigator
 import com.example.firstapp.data.Model
 import org.jetbrains.annotations.TestOnly
 
 class MainPresenter(
     private val view: MainContract.MainView,
-    private val navigator: MainContract.MainScreenNavigator,
+    private val navigator: FragmentNavigator,
     private val model: Model
 ) :
     MainContract.MainPresenter {
 
-    var inputString = ""
-    var commentCount = 10 //todo удалю как добавлю поле
+    private var inputString = ""
 
     override fun onClickAddButton() {
         model.addToList(inputString)
@@ -22,26 +23,43 @@ class MainPresenter(
         }
         showSavedComments()
         view.clearEditText()
+        model.updateSortView()
+        view.setCommentCount(model.getCommentListSize())
     }
 
-    fun onClickGenerateButton() {
-        if (commentCount > 0) {
+    fun onClickGenerateButton(commentCountString: String) {
+        if (commentCountString.isNotEmpty() && commentCountString.isDigitsOnly()) {
+            val commentCount: Int = commentCountString.toInt()
             model.generateComments(commentCount)
+            view.setCommentCount(model.getCommentListSize())
             showSavedComments()
-            view.updateNextButton(true)
+            if (model.isListCanSort())
+                view.updateNextButton(true)
+            model.updateSortView()
+            view.clearCommentCount()
         } else {
             view.showWrongCommentCountToast()
         }
     }
 
     override fun onClickNextButton() =
-        navigator.navigateToSortScreen(model.getAllComment())
+        navigator.navigateToSortView()
 
     override fun onClickClearButton() {
         model.clearStringList()
         view.clearTextView()
+        view.setCommentCount(model.getCommentListSize())
+        model.updateSortView()
         view.updateNextButton(false)
         view.updateClearButtonVisibility(false)
+    }
+
+    override fun onClickScrollUp() {
+        view.scrollUp()
+    }
+
+    override fun onClinkScrollDown() {
+        view.scrollDown()
     }
 
     fun setStringFromEditText(inputString: String) {
@@ -49,12 +67,11 @@ class MainPresenter(
         updateAddButton()
     }
 
-    @TestOnly
-    fun updateAddButton() =
+    private fun updateAddButton() =
         view.updateAddButton(hasEnteredText())
 
-    @TestOnly
-    fun hasEnteredText(): Boolean =
+
+    private fun hasEnteredText(): Boolean =
         inputString.isNotEmpty()
 
     @TestOnly
@@ -71,18 +88,19 @@ class MainPresenter(
     fun onCreated() {
         model.readFile()
         if (model.getAllComment().isEmpty()) {
-            showErrorMessage(R.string.commentNotFound)
+            showErrorMessage(R.string.comment_not_found)
         }
     }
 
     fun onPaused() {
         if (!model.writeFile()) {
-            showErrorMessage(R.string.fileNotFoundMessage)
+            showErrorMessage(R.string.file_not_found_message)
         }
     }
 
     fun onStarted() {
         showSavedComments()
+        view.setCommentCount(model.getCommentListSize())
         view.updateNextButton(model.isListCanSort())
     }
 

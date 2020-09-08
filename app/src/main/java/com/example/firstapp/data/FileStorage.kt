@@ -1,12 +1,10 @@
 package com.example.firstapp.data
 
-
 import android.content.Context
 import java.io.BufferedWriter
 import java.io.File
 import java.io.FileNotFoundException
 import java.io.IOException
-
 
 class FileStorage(context: Context) {
 

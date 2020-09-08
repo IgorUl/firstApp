@@ -15,7 +15,7 @@ class TimeProvider {
         return timeFormat.format(date)
     }
 
-    companion object{
+    companion object {
         private const val TIME_PATTERN = "HH:mm:ss.SSS"
     }
 }

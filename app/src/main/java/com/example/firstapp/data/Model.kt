@@ -1,5 +1,6 @@
 package com.example.firstapp.data
 
+import com.example.firstapp.contracts.MainContract
 import org.jetbrains.annotations.TestOnly
 
 class Model(
@@ -10,6 +11,22 @@ class Model(
 ) {
 
     private var sortType: SortType = SortType.MERGE
+    private var onScreenChangeListener: MainContract.OnScreenChangeListener? = null
+
+    fun initScreenListener(callback: MainContract.OnScreenChangeListener) {
+        onScreenChangeListener = callback
+    }
+
+    fun updateSortView() {
+        onScreenChangeListener?.onScreenChange()
+    }
+
+    fun clearScreenListener() {
+        onScreenChangeListener = null
+    }
+
+    fun getCommentListSize(): Int =
+        commentHolder.getInputStringList.size
 
     fun getAllComment(): String =
         commentHolder.getInputStringList.joinToString("\n")
@@ -30,9 +47,8 @@ class Model(
         this.sortType = sortType
     }
 
-    fun generateComments(commentCount: Int) {
-        commentHolder.addRandomCommentsToList(commentCount)
-    }
+    fun generateComments(inputNumber: Int) =
+        commentHolder.addRandomCommentsToList(inputNumber)
 
     @TestOnly
     fun getSortedString(sortType: SortType): String {
@@ -63,9 +79,9 @@ class Model(
         fileStorage.writeFile(getAllComment())
 
     @TestOnly
-    fun addListFromFile(list: List<String>) {
+    fun addListFromFile(list: List<String>) =
         commentHolder.addFromFileToList(list)
-    }
+
 
     companion object {
         private const val MIN_SORTED_LIST_SIZE = 1

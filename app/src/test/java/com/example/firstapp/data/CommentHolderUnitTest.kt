@@ -28,7 +28,7 @@ class CommentHolderUnitTest {
 
     @Test
     fun addStringToList_NotEmptyList_addOneElem() {
-        expectedList = listOf("test", "2")
+        val expectedList: List<String> = listOf("test", "2")
         commentHolder.addStringToList("test")
 
         commentHolder.addStringToList("2")
@@ -37,24 +37,45 @@ class CommentHolderUnitTest {
     }
 
     @Test
-    fun clearStringList_NotEmptyList() {
+    fun clearStringList_NotEmptyList_clearList() {
         commentHolder.addStringToList("test")
         commentHolder.addStringToList("2")
 
+        if (commentHolder.getInputStringList.size == 2) {
+            commentHolder.clearStringList()
+            assertEquals(emptyList<String>(), commentHolder.getInputStringList)
+        } else {
+            assert(false)
+        }
+    }
+
+    @Test
+    fun clearStringList_EmptyList_ClearList() {
         commentHolder.clearStringList()
 
         assertEquals(emptyList<String>(), commentHolder.getInputStringList)
     }
 
     @Test
-    fun clearStringList_EmptyList() {
-        commentHolder.clearStringList()
+    fun addFromFileToList_addEmptyList_emptyList() {
+        commentHolder.addFromFileToList(emptyList())
 
-        assertEquals(emptyList<String>(), commentHolder.getInputStringList)
+        val result:List<String> = commentHolder.getInputStringList
+
+        assertEquals(emptyList<String>(), result)
     }
 
     @Test
-    fun addRandomCommentsToList_EmptyListAddTenComments_listSize() {
+    fun addFromFileToList_addNotEmptyList_addAllElem() {
+        commentHolder.addFromFileToList(expectedList)
+
+        val result:List<String> = commentHolder.getInputStringList
+
+        assertEquals(expectedList, result)
+    }
+
+    @Test
+    fun addRandomCommentsToList_EmptyListAddTenComments_addTenElem() {
         val expectedListSize = 10
 
         commentHolder.addRandomCommentsToList(10)
@@ -62,7 +83,7 @@ class CommentHolderUnitTest {
     }
 
     @Test
-    fun addRandomCommentsToList_NotEmptyListAddTenComments_listSize() {
+    fun addRandomCommentsToList_NotEmptyListAddTenComments_addTenElem() {
         commentHolder.addStringToList("test")
         val expectedListSize = 11
 
@@ -71,7 +92,7 @@ class CommentHolderUnitTest {
     }
 
     @Test
-    fun addRandomCommentsToList_EmptyListAddZeroComments_nothing() {
+    fun addRandomCommentsToList_EmptyListAddZeroComments_nothingAddToList() {
         val expectedListSize = 0
         commentHolder.addRandomCommentsToList(0)
 
@@ -80,7 +101,7 @@ class CommentHolderUnitTest {
     }
 
     @Test
-    fun addRandomCommentsToList_NotEmptyListAddZeroComments_nothing() {
+    fun addRandomCommentsToList_NotEmptyListAddZeroComments_nothingAddToList() {
         val expectedListSize = 1
         commentHolder.addStringToList("test")
 
@@ -90,14 +111,14 @@ class CommentHolderUnitTest {
     }
 
     @Test
-    fun addRandomCommentsToList_EmptyListAddNegative_nothing() {
+    fun addRandomCommentsToList_EmptyListAddNegative_nothingAddToList() {
         commentHolder.addRandomCommentsToList(-4)
 
         assertEquals(expectedEmptyListSize, commentHolder.getInputStringList.size)
     }
 
     @Test
-    fun addRandomCommentsToList_NotEmptyListAddNegative_nothing() {
+    fun addRandomCommentsToList_NotEmptyListAddNegative_nothingAddToList() {
         commentHolder.addStringToList("test")
 
         commentHolder.addRandomCommentsToList(-4)

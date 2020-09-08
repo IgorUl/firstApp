@@ -11,7 +11,6 @@ class CommentHolder {
 
     fun addStringToList(inputString: String) {
         inputStringList.add(inputString)
-
     }
 
     fun clearStringList() {
@@ -19,6 +18,7 @@ class CommentHolder {
     }
 
     fun addFromFileToList(list: List<String>) {
+        clearStringList()
         inputStringList.addAll(list)
     }
 
