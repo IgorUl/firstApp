@@ -20,10 +20,10 @@ class FragmentNavigator(private val fragment: Fragment) : MainContract.FragmentN
         val fragmentManager: FragmentManager? = fragment.activity?.supportFragmentManager
         fragmentManager?.beginTransaction()
             ?.setCustomAnimations(
-                R.animator.reverse_slide_in_right,
-                R.animator.reverse_slide_in_left,
-                R.animator.slide_in_left,
-                R.animator.slide_in_right
+                R.anim.reverse_slide_in_right,
+                R.anim.reverse_slide_in_left,
+                R.anim.slide_in_left,
+                R.anim.slide_in_right
             )
             ?.replace(R.id.main_container, sortScreen)
             ?.addToBackStack(null)

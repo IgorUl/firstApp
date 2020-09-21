@@ -11,10 +11,10 @@
         android:id="@+id/textField"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="24dp"
-        android:layout_marginTop="16dp"
-        android:layout_marginEnd="24dp"
-        android:layout_marginBottom="16dp"
+        android:layout_marginStart="@dimen/margin_horizontal"
+        android:layout_marginTop="@dimen/margin_vertical"
+        android:layout_marginEnd="@dimen/margin_horizontal"
+        android:layout_marginBottom="@dimen/margin_vertical"
         android:hint="@string/input_field_hint"
         app:endIconMode="clear_text"
         app:layout_constraintBottom_toTopOf="@+id/savedCommentsView"
@@ -38,11 +38,11 @@
         android:id="@+id/comment_list_size"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="24dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="24dp"
-        android:layout_marginBottom="8dp"
-        android:textSize="12sp"
+        android:layout_marginStart="@dimen/margin_horizontal"
+        android:layout_marginTop="@dimen/comment_list_size_margin_vertical"
+        android:layout_marginEnd="@dimen/margin_horizontal"
+        android:layout_marginBottom="@dimen/comment_list_size_margin_vertical"
+        android:textSize="@dimen/comment_list_size_text_size"
         app:autoSizeTextType="uniform"
         app:layout_constraintBottom_toTopOf="@id/savedCommentsView"
         app:layout_constraintEnd_toEndOf="parent"
@@ -53,15 +53,14 @@
         android:id="@+id/savedCommentsView"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:layout_marginTop="16dp"
-        android:layout_marginBottom="16dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginEnd="16dp"
+        android:layout_marginTop="@dimen/margin_vertical"
+        android:layout_marginBottom="@dimen/margin_vertical"
+        android:layout_marginStart="@dimen/margin_horizontal"
+        android:layout_marginEnd="@dimen/margin_horizontal"
         android:isScrollContainer="true"
-        android:minHeight="50dp"
+        android:minHeight="@dimen/saved_comments_view_min_height"
         android:scrollbars="vertical"
         app:layout_constraintBottom_toTopOf="@+id/linear_layout"
-        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textField"
@@ -85,6 +84,7 @@
         android:layout_height="wrap_content"
         android:background="@null"
         android:contentDescription="@string/scroll_arrow_up"
+        android:layout_marginBottom="@dimen/scroll_button_margin"
         app:layout_constraintBottom_toTopOf="@+id/scroll_arrow_down"
         app:layout_constraintEnd_toEndOf="@id/savedCommentsView"
         app:srcCompat="@android:drawable/arrow_up_float" />
@@ -113,9 +113,9 @@
             android:id="@+id/addButton"
             style="@style/RoundedCornerButton"
             android:layout_width="0dp"
-            android:layout_height="44dp"
-            android:layout_marginStart="4dp"
-            android:layout_marginEnd="4dp"
+            android:layout_height="@dimen/height_button"
+            android:layout_marginStart="@dimen/button_margin"
+            android:layout_marginEnd="@dimen/button_margin"
             android:layout_weight="1"
             android:background="@drawable/button_selector"
             android:enabled="false"
@@ -126,9 +126,9 @@
             android:id="@+id/nextButton"
             style="@style/RoundedCornerButton"
             android:layout_width="0dp"
-            android:layout_height="44dp"
-            android:layout_marginStart="4dp"
-            android:layout_marginEnd="4dp"
+            android:layout_height="@dimen/height_button"
+            android:layout_marginStart="@dimen/button_margin"
+            android:layout_marginEnd="@dimen/button_margin"
             android:layout_weight="1"
             android:background="@drawable/button_selector"
             android:enabled="false"
@@ -136,13 +136,12 @@
             app:layout_constraintBottom_toTopOf="@+id/generate_layout"
             app:layout_constraintTop_toBottomOf="@+id/addButton" />
 
-        <!-- TODO -->
         <LinearLayout
             android:id="@+id/generate_layout"
             android:layout_width="0dp"
-            android:layout_height="44dp"
-            android:layout_marginStart="4dp"
-            android:layout_marginEnd="4dp"
+            android:layout_height="@dimen/height_button"
+            android:layout_marginStart="@dimen/button_margin"
+            android:layout_marginEnd="@dimen/button_margin"
             android:layout_weight="1"
             android:orientation="horizontal">
 
@@ -159,7 +158,6 @@
                 app:layout_constraintTop_toTopOf="parent"
                 tools:ignore="NestedWeights" />
 
-
             <EditText
                 android:id="@+id/how_much_comments"
                 android:layout_width="match_parent"
@@ -171,7 +169,7 @@
                 android:inputType="number"
                 android:imeOptions="actionDone"
                 android:maxLength="3"
-                android:textSize="12sp" />
+                android:textSize="@dimen/comment_list_size_text_size" />
         </LinearLayout>
 
     </LinearLayout>
